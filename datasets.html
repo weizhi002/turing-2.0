@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据集库 | 图灵2.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: Inter, system-ui, sans-serif; }
+        .font-display { font-family: 'Space Grotesk', Inter, sans-serif; }
+        .dataset-card { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .dataset-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+        .nav-active { color: white; border-bottom: 2px solid #7c3aed; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- Navbar -->
+    <nav class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-screen-xl mx-auto px-6 flex items-center justify-between h-16">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 bg-violet-600 rounded-2xl flex items-center justify-center">
+                    <i class="fa-solid fa-brain text-white"></i>
+                </div>
+                <span class="font-display text-2xl font-semibold tracking-tighter">图灵<span class="text-violet-400">2.0</span></span>
+            </div>
+            <div class="flex items-center gap-x-8 text-sm">
+                <a href="index.html" class="hover:text-white transition">首页</a>
+                <a href="datasets.html" class="nav-active">数据集</a>
+                <a href="methodology.html" class="hover:text-white transition">测评框架</a>
+                <a href="leaderboard.html" class="hover:text-white transition">榜单</a>
+                <a href="interaction.html" class="hover:text-white transition">情感交互</a>
+                <a href="https://github.com/weizhi002/turing-2.0" target="_blank" 
+                   class="px-4 py-2 border border-zinc-700 rounded-xl hover:bg-zinc-900 transition">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-screen-xl mx-auto px-6 pt-12 pb-8">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-y-4 mb-10">
+            <div>
+                <div class="text-violet-400 text-sm font-medium tracking-[2px] mb-2">DATASETS</div>
+                <h1 class="text-5xl font-display font-semibold tracking-tighter">多模态情感数据集库</h1>
+                <p class="text-xl text-zinc-400 mt-3">开源数据集 + 自采数据集 · 持续更新中</p>
+            </div>
+            <div class="flex items-center gap-x-3">
+                <div class="px-4 py-2 bg-zinc-900 border border-zinc-700 rounded-2xl text-sm flex items-center gap-x-2">
+                    <i class="fa-solid fa-database text-violet-400"></i>
+                    <span>已收录 <span class="font-semibold text-white">28</span> 个数据集</span>
+                </div>
+                <button onclick="window.location.href='https://github.com/weizhi002/turing-2.0/issues/new?labels=dataset&title=%5B%E6%95%B0%E6%8D%AE%E9%9B%86%E6%8F%90%E4%BA%A4%5D'"
+                        class="px-5 py-2.5 bg-violet-600 hover:bg-violet-500 rounded-2xl text-sm font-medium flex items-center gap-x-2 transition">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>提交新数据集</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Filter -->
+        <div class="flex flex-wrap gap-3 mb-8">
+            <button onclick="filterDatasets('all')" class="filter-btn active px-5 py-2 rounded-2xl text-sm border border-zinc-700 bg-zinc-900">全部</button>
+            <button onclick="filterDatasets('text')" class="filter-btn px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">文本</button>
+            <button onclick="filterDatasets('audio')" class="filter-btn px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">语音/音频</button>
+            <button onclick="filterDatasets('visual')" class="filter-btn px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">视觉/图像</button>
+            <button onclick="filterDatasets('multimodal')" class="filter-btn px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">多模态</button>
+        </div>
+
+        <!-- Datasets Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="datasets-grid">
+            
+            <!-- Text Datasets -->
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-7" data-type="text">
+                <div class="flex items-start justify-between mb-5">
+                    <div>
+                        <span class="px-3 py-1 text-xs rounded-full bg-emerald-900/60 text-emerald-400">文本</span>
+                        <h3 class="font-semibold text-2xl mt-3">GoEmotions</h3>
+                        <p class="text-sm text-zinc-400">Google • 58k 条评论</p>
+                    </div>
+                    <i class="fa-solid fa-comment-dots text-3xl text-emerald-400"></i>
+                </div>
+                <p class="text-zinc-400 text-sm mb-5">包含 27 种细粒度情感标签的 Reddit 评论数据集，适合情感分类与细粒度情感分析。</p>
+                <div class="flex items-center justify-between text-xs">
+                    <div class="text-zinc-400">开源 • Apache 2.0</div>
+                    <a href="https://github.com/google-research/google-research/tree/master/goemotions" target="_blank" 
+                       class="text-violet-400 hover:text-violet-300 flex items-center gap-x-1">查看 <i class="fa-solid fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-7" data-type="text">
+                <div class="flex items-start justify-between mb-5">
+                    <div>
+                        <span class="px-3 py-1 text-xs rounded-full bg-emerald-900/60 text-emerald-400">文本</span>
+                        <h3 class="font-semibold text-2xl mt-3">DailyDialog</h3>
+                        <p class="text-sm text-zinc-400">日常对话 • 13k 对话</p>
+                    </div>
+                    <i class="fa-solid fa-comments text-3xl text-emerald-400"></i>
+                </div>
+                <p class="text-zinc-400 text-sm mb-5">高质量日常多轮对话数据集，标注了情绪、对话行为和话题，适合情感对话生成研究。</p>
+                <div class="flex items-center justify-between text-xs">
+                    <div class="text-zinc-400">开源 • CC BY-NC-SA 4.0</div>
+                    <a href="https://github.com/kaushikacharya/dailydialog" target="_blank" 
+                       class="text-violet-400 hover:text-violet-300 flex items-center gap-x-1">查看 <i class="fa-solid fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <!-- Audio Datasets -->
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-7" data-type="audio">
+                <div class="flex items-start justify-between mb-5">
+                    <div>
+                        <span class="px-3 py-1 text-xs rounded-full bg-blue-900/60 text-blue-400">语音</span>
+                        <h3 class="font-semibold text-2xl mt-3">IEMOCAP</h3>
+                        <p class="text-sm text-zinc-400">USC • 12 小时</p>
+                    </div>
+                    <i class="fa-solid fa-microphone text-3xl text-blue-400"></i>
+                </div>
+                <p class="text-zinc-400 text-sm mb-5">经典情感语音数据集，包含音频、转录文本和 9 种情感标签（愤怒、开心、悲伤等）。</p>
+                <div class="flex items-center justify-between text-xs">
+                    <div class="text-zinc-400">需申请 • 学术使用</div>
+                    <a href="https://sail.usc.edu/iemocap/" target="_blank" 
+                       class="text-violet-400 hover:text-violet-300 flex items-center gap-x-1">申请 <i class="fa-solid fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-7" data-type="audio">
+                <div class="flex items-start justify-between mb-5">
+                    <div>
+                        <span class="px-3 py-1 text-xs rounded-full bg-blue-900/60 text-blue-400">语音</span>
+                        <h3 class="font-semibold text-2xl mt-3">RAVDESS</h3>
+                        <p class="text-sm text-zinc-400">Ryerson • 7,356 文件</p>
+                    </div>
+                    <i class="fa-solid fa-microphone-lines text-3xl text-blue-400"></i>
+                </div>
+                <p class="text-zinc-400 text-sm mb-5">高质量情感语音和歌曲数据集，包含 8 种情感，适合语音情感识别基准测试。</p>
+                <div class="flex items-center justify-between text-xs">
+                    <div class="text-zinc-400">开源 • CC BY-NC-SA 4.0</div>
+                    <a href="https://zenodo.org/records/1188976" target="_blank" 
+                       class="text-violet-400 hover:text-violet-300 flex items-center gap-x-1">下载 <i class="fa-solid fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <!-- Visual Datasets -->
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-7" data-type="visual">
+                <div class="flex items-start justify-between mb-5">
+                    <div>
+                        <span class="px-3 py-1 text-xs rounded-full bg-orange-900/60 text-orange-400">视觉</span>
+                        <h3 class="font-semibold text-2xl mt-3">AffectNet</h3>
+                        <p class="text-sm text-zinc-400">面部表情 • 100万+ 图像</p>
+                    </div>
+                    <i class="fa-solid fa-image text-3xl text-orange-400"></i>
+                </div>
+                <p class="text-zinc-400 text-sm mb-5">目前最大的面部表情数据集，包含 8 种基本情绪，适合视觉情感识别与生成任务。</p>
+                <div class="flex items-center justify-between text-xs">
+                    <div class="text-zinc-400">需申请</div>
+                    <a href="http://mohammadmahoor.com/affectnet/" target="_blank" 
+                       class="text-violet-400 hover:text-violet-300 flex items-center gap-x-1">申请 <i class="fa-solid fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <!-- Multimodal Datasets -->
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-7" data-type="multimodal">
+                <div class="flex items-start justify-between mb-5">
+                    <div>
+                        <span class="px-3 py-1 text-xs rounded-full bg-violet-900/60 text-violet-400">多模态</span>
+                        <h3 class="font-semibold text-2xl mt-3">CMU-MOSEI</h3>
+                        <p class="text-sm text-zinc-400">CMU • 23,453 视频片段</p>
+                    </div>
+                    <i class="fa-solid fa-video text-3xl text-violet-400"></i>
+                </div>
+                <p class="text-zinc-400 text-sm mb-5">大规模多模态情感数据集，包含视频、音频、文本，标注了 6 种情感与情感强度。</p>
+                <div class="flex items-center justify-between text-xs">
+                    <div class="text-zinc-400">开源</div>
+                    <a href="https://github.com/A2Zadeh/CMU-MultimodalSDK" target="_blank" 
+                       class="text-violet-400 hover:text-violet-300 flex items-center gap-x-1">查看 <i class="fa-solid fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-7" data-type="multimodal">
+                <div class="flex items-start justify-between mb-5">
+                    <div>
+                        <span class="px-3 py-1 text-xs rounded-full bg-violet-900/60 text-violet-400">多模态</span>
+                        <h3 class="font-semibold text-2xl mt-3">MELD</h3>
+                        <p class="text-sm text-zinc-400">Friends剧集 • 13,708 话语</p>
+                    </div>
+                    <i class="fa-solid fa-video text-3xl text-violet-400"></i>
+                </div>
+                <p class="text-zinc-400 text-sm mb-5">基于《老友记》的多模态情感对话数据集，包含音频、视频和文本，适合多轮情感对话研究。</p>
+                <div class="flex items-center justify-between text-xs">
+                    <div class="text-zinc-400">开源</div>
+                    <a href="https://github.com/declare-lab/MELD" target="_blank" 
+                       class="text-violet-400 hover:text-violet-300 flex items-center gap-x-1">下载 <i class="fa-solid fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <!-- Self-collected / Proposed -->
+            <div class="dataset-card bg-zinc-900 border border-dashed border-zinc-700 rounded-3xl p-7" data-type="multimodal">
+                <div class="flex items-start justify-between mb-5">
+                    <div>
+                        <span class="px-3 py-1 text-xs rounded-full bg-amber-900/60 text-amber-400">自采</span>
+                        <h3 class="font-semibold text-2xl mt-3">Turing-Emo-Multimodal</h3>
+                        <p class="text-sm text-zinc-400">进行中 • 目标 50k+</p>
+                    </div>
+                    <i class="fa-solid fa-user-secret text-3xl text-amber-400"></i>
+                </div>
+                <p class="text-zinc-400 text-sm mb-5">我们正在构建的高质量中文多模态情感交互数据集，包含文本、语音、面部表情与生理信号。</p>
+                <div class="text-xs text-amber-400">即将开放申请与贡献通道</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function filterDatasets(type) {
+            const cards = document.querySelectorAll('.dataset-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active', 'bg-violet-600', 'border-violet-500'));
+            event.currentTarget?.classList.add('active', 'bg-violet-600', 'border-violet-500');
+
+            cards.forEach(card => {
+                if (type === 'all') {
+                    card.style.display = 'block';
+                } else {
+                    if (card.dataset.type === type) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // 默认激活“全部”按钮
+        document.addEventListener('DOMContentLoaded', () => {
+            const allBtn = document.querySelector('.filter-btn');
+            if (allBtn) allBtn.classList.add('active', 'bg-violet-600', 'border-violet-500');
+        });
+    </script>
+</body>
+</html>
