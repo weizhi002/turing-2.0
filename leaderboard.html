@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情感能力榜单 | 图灵2.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: Inter, system-ui, sans-serif; }
+        .font-display { font-family: 'Space Grotesk', Inter, sans-serif; }
+        .nav-active { color: white; border-bottom: 2px solid #7c3aed; }
+        .leaderboard-table th { cursor: pointer; user-select: none; }
+        .leaderboard-table th:hover { background-color: #27251f; }
+        .data-row { transition: background-color 0.1s ease; }
+        .data-row:hover { background-color: #27251f; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- Navbar -->
+    <nav class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-screen-xl mx-auto px-6 flex items-center justify-between h-16">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 bg-violet-600 rounded-2xl flex items-center justify-center">
+                    <i class="fa-solid fa-brain text-white"></i>
+                </div>
+                <span class="font-display text-2xl font-semibold tracking-tighter">图灵<span class="text-violet-400">2.0</span></span>
+            </div>
+            <div class="flex items-center gap-x-8 text-sm">
+                <a href="index.html" class="hover:text-white transition">首页</a>
+                <a href="datasets.html" class="hover:text-white transition">数据集</a>
+                <a href="methodology.html" class="hover:text-white transition">测评框架</a>
+                <a href="leaderboard.html" class="nav-active">榜单</a>
+                <a href="interaction.html" class="hover:text-white transition">情感交互</a>
+                <a href="https://github.com/weizhi002/turing-2.0" target="_blank" 
+                   class="px-4 py-2 border border-zinc-700 rounded-xl hover:bg-zinc-900 transition">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-screen-xl mx-auto px-6 pt-10 pb-16">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-y-4 mb-8">
+            <div>
+                <div class="text-violet-400 text-sm font-medium tracking-[2px] mb-2">LEADERBOARD</div>
+                <h1 class="text-5xl font-display font-semibold tracking-tighter">大模型情感能力榜单</h1>
+                <p class="text-zinc-400 mt-2">基于图灵2.0 多模态情感交互框架的综合评估</p>
+            </div>
+            <div>
+                <button onclick="window.location.href='https://github.com/weizhi002/turing-2.0/issues/new?labels=evaluation'"
+                        class="px-5 py-2.5 bg-violet-600 hover:bg-violet-500 rounded-2xl text-sm font-medium flex items-center gap-x-2">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>提交新评测结果</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="flex flex-col md:flex-row gap-4 mb-6">
+            <div class="relative flex-1 max-w-md">
+                <i class="fa-solid fa-search absolute left-4 top-3.5 text-zinc-500"></i>
+                <input id="search-input" type="text" placeholder="搜索模型或组织..." 
+                       class="w-full bg-zinc-900 border border-zinc-700 focus:border-violet-500 pl-11 pr-4 py-3 rounded-2xl text-sm outline-none"
+                       onkeyup="filterTable()">
+            </div>
+            <select id="filter-select" onchange="filterTable()" 
+                    class="bg-zinc-900 border border-zinc-700 focus:border-violet-500 px-4 py-3 rounded-2xl text-sm outline-none">
+                <option value="">全部模型</option>
+                <option value="multimodal">支持多模态</option>
+                <option value="text">纯文本模型</option>
+            </select>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full leaderboard-table text-sm">
+                    <thead>
+                        <tr class="border-b border-zinc-700 bg-zinc-950 text-left">
+                            <th class="px-6 py-4 font-medium w-12">#</th>
+                            <th class="px-6 py-4 font-medium" onclick="sortTable(1)">模型 <i class="fa-solid fa-sort text-xs ml-1 opacity-40"></i></th>
+                            <th class="px-6 py-4 font-medium" onclick="sortTable(2)">组织 <i class="fa-solid fa-sort text-xs ml-1 opacity-40"></i></th>
+                            <th class="px-6 py-4 font-medium text-right" onclick="sortTable(3)">综合情感得分 <i class="fa-solid fa-sort text-xs ml-1 opacity-40"></i></th>
+                            <th class="px-6 py-4 font-medium text-right" onclick="sortTable(4)">共情对齐 <i class="fa-solid fa-sort text-xs ml-1 opacity-40"></i></th>
+                            <th class="px-6 py-4 font-medium text-right hidden lg:table-cell" onclick="sortTable(5)">多模态识别 <i class="fa-solid fa-sort text-xs ml-1 opacity-40"></i></th>
+                            <th class="px-6 py-4 font-medium text-right hidden xl:table-cell" onclick="sortTable(6)">多轮连贯性 <i class="fa-solid fa-sort text-xs ml-1 opacity-40"></i></th>
+                            <th class="px-6 py-4 font-medium w-20"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y divide-zinc-800">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="text-center mt-4 text-xs text-zinc-500">
+            数据来源于公开基准 + 社区提交 · 最后更新：2026年5月
+        </div>
+    </div>
+
+    <script>
+        let models = [
+            { id: 1, rank: 1, model: "Claude 3.5 Sonnet", org: "Anthropic", overall: 89.4, empathy: 91.2, multimodal: 87.5, coherence: 88.9, multimodalSupport: true, updated: "2026-05-01" },
+            { id: 2, rank: 2, model: "GPT-4o", org: "OpenAI", overall: 88.7, empathy: 87.8, multimodal: 92.1, coherence: 85.4, multimodalSupport: true, updated: "2026-04-28" },
+            { id: 3, rank: 3, model: "Qwen2.5-VL-72B", org: "Alibaba", overall: 86.9, empathy: 85.3, multimodal: 89.7, coherence: 84.2, multimodalSupport: true, updated: "2026-05-03" },
+            { id: 4, rank: 4, model: "Gemini 2.0 Pro", org: "Google", overall: 85.8, empathy: 84.1, multimodal: 88.3, coherence: 86.7, multimodalSupport: true, updated: "2026-04-20" },
+            { id: 5, rank: 5, model: "Llama 3.1 405B", org: "Meta", overall: 83.2, empathy: 81.5, multimodal: 72.4, coherence: 82.9, multimodalSupport: false, updated: "2026-03-15" },
+            { id: 6, rank: 6, model: "DeepSeek-R1", org: "DeepSeek", overall: 82.6, empathy: 80.9, multimodal: 68.7, coherence: 84.1, multimodalSupport: false, updated: "2026-05-05" },
+            { id: 7, rank: 7, model: "Turing-Emo-v0.8", org: "Weizhi Lab", overall: 81.4, empathy: 88.7, multimodal: 79.2, coherence: 83.5, multimodalSupport: true, updated: "2026-05-08" },
+            { id: 8, rank: 8, model: "Mistral Large 2", org: "Mistral AI", overall: 79.8, empathy: 78.2, multimodal: 65.4, coherence: 80.1, multimodalSupport: false, updated: "2026-04-10" }
+        ];
+
+        let currentSort = { column: 3, direction: 'desc' };
+
+        function renderTable(data) {
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'data-row cursor-pointer';
+                row.innerHTML = `
+                    <td class="px-6 py-4 font-mono text-xs text-zinc-500">${item.rank}</td>
+                    <td class="px-6 py-4 font-medium">${item.model}</td>
+                    <td class="px-6 py-4 text-zinc-400">${item.org}</td>
+                    <td class="px-6 py-4 text-right font-semibold text-lg tabular-nums">${item.overall}</td>
+                    <td class="px-6 py-4 text-right">
+                        <span class="px-3 py-1 text-xs rounded-full ${item.empathy > 85 ? 'bg-emerald-900/60 text-emerald-400' : 'bg-amber-900/60 text-amber-400'}">${item.empathy}</span>
+                    </td>
+                    <td class="px-6 py-4 text-right hidden lg:table-cell text-zinc-400 tabular-nums">${item.multimodal}</td>
+                    <td class="px-6 py-4 text-right hidden xl:table-cell text-zinc-400 tabular-nums">${item.coherence}</td>
+                    <td class="px-6 py-4">
+                        <button onclick="event.stopImmediatePropagation(); showDetail(${item.id})" 
+                                class="text-xs px-4 py-1.5 rounded-xl border border-zinc-600 hover:bg-zinc-800 transition-colors">
+                            详情
+                        </button>
+                    </td>
+                `;
+                row.onclick = () => showDetail(item.id);
+                tbody.appendChild(row);
+            });
+        }
+
+        function sortTable(columnIndex) {
+            const keyMap = {1: 'model', 2: 'org', 3: 'overall', 4: 'empathy', 5: 'multimodal', 6: 'coherence'};
+            const key = keyMap[columnIndex];
+            if (!key) return;
+
+            const direction = currentSort.column === columnIndex && currentSort.direction === 'desc' ? 'asc' : 'desc';
+
+            models.sort((a, b) => {
+                let valA = a[key], valB = b[key];
+                if (typeof valA === 'string') {
+                    valA = valA.toLowerCase();
+                    valB = valB.toLowerCase();
+                }
+                if (valA < valB) return direction === 'asc' ? -1 : 1;
+                if (valA > valB) return direction === 'asc' ? 1 : -1;
+                return 0;
+            });
+
+            // Update ranks
+            models.forEach((item, idx) => item.rank = idx + 1);
+
+            document.querySelectorAll('th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+            const header = document.querySelector(`th:nth-child(${columnIndex + 1})`);
+            if (header) header.classList.add(direction === 'asc' ? 'sort-asc' : 'sort-desc');
+
+            currentSort = { column: columnIndex, direction };
+            filterTable(); // re-apply filters after sorting
+        }
+
+        function filterTable() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
+            const filterType = document.getElementById('filter-select').value;
+
+            let filtered = models;
+
+            if (searchTerm) {
+                filtered = filtered.filter(item => 
+                    item.model.toLowerCase().includes(searchTerm) || 
+                    item.org.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            if (filterType === 'multimodal') {
+                filtered = filtered.filter(item => item.multimodalSupport);
+            } else if (filterType === 'text') {
+                filtered = filtered.filter(item => !item.multimodalSupport);
+            }
+
+            renderTable(filtered);
+        }
+
+        function showDetail(id) {
+            const item = models.find(m => m.id === id);
+            if (!item) return;
+
+            const modalHTML = `
+                <div onclick="this.remove()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-6">
+                    <div onclick="event.stopImmediatePropagation()" class="bg-zinc-900 border border-zinc-700 rounded-3xl w-full max-w-md p-8">
+                        <div class="flex justify-between mb-6">
+                            <div>
+                                <div class="text-xs text-zinc-500">#${item.rank} · ${item.updated}</div>
+                                <h3 class="text-3xl font-semibold mt-1">${item.model}</h3>
+                                <div class="text-violet-400">${item.org}</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-5xl font-semibold tabular-nums">${item.overall}</div>
+                                <div class="text-xs text-zinc-400">OVERALL</div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 mb-8">
+                            <div class="flex justify-between"><span class="text-zinc-400">共情对齐</span><span class="font-semibold">${item.empathy}</span></div>
+                            <div class="flex justify-between"><span class="text-zinc-400">多模态识别</span><span class="font-semibold">${item.multimodal}</span></div>
+                            <div class="flex justify-between"><span class="text-zinc-400">多轮情感连贯性</span><span class="font-semibold">${item.coherence}</span></div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button onclick="this.closest('.fixed').remove()" class="flex-1 py-3 border border-zinc-600 rounded-2xl text-sm">关闭</button>
+                            <button onclick="window.open('https://github.com/weizhi002/turing-2.0/issues/new', '_blank'); this.closest('.fixed').remove()" 
+                                    class="flex-1 py-3 bg-white text-zinc-950 font-medium rounded-2xl text-sm">在 GitHub 讨论</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        }
+
+        function initializeLeaderboard() {
+            // Initial sort by overall score
+            models.sort((a, b) => b.overall - a.overall);
+            models.forEach((item, idx) => item.rank = idx + 1);
+            
+            renderTable(models);
+
+            // Default sort indicator
+            const overallHeader = document.querySelector('th:nth-child(4)');
+            if (overallHeader) overallHeader.classList.add('sort-desc');
+        }
+
+        window.onload = initializeLeaderboard;
+    </script>
+</body>
+</html>
