@@ -16,5 +16,3 @@ https://weizhi002.github.io/turing-2.0/
 
 ## 贡献方式
 欢迎通过 Issue 提交新的情感数据集、评测结果或改进建议。
-
-由 weizhi002 使用 Grok 协助构建
