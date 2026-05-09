@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情感交互 Demo | 图灵2.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: Inter, system-ui, sans-serif; }
+        .font-display { font-family: 'Space Grotesk', Inter, sans-serif; }
+        .nav-active { color: white; border-bottom: 2px solid #7c3aed; }
+        .chat-bubble {
+            max-width: 75%;
+            padding: 14px 18px;
+            border-radius: 20px;
+            line-height: 1.5;
+        }
+        .user-bubble {
+            background-color: #7c3aed;
+            color: white;
+            border-bottom-right-radius: 6px;
+        }
+        .ai-bubble {
+            background-color: #27251f;
+            border-bottom-left-radius: 6px;
+        }
+        .message-container {
+            scrollbar-width: thin;
+            scrollbar-color: #3f3f46 #18181b;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- Navbar -->
+    <nav class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-screen-xl mx-auto px-6 flex items-center justify-between h-16">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 bg-violet-600 rounded-2xl flex items-center justify-center">
+                    <i class="fa-solid fa-brain text-white"></i>
+                </div>
+                <span class="font-display text-2xl font-semibold tracking-tighter">图灵<span class="text-violet-400">2.0</span></span>
+            </div>
+            <div class="flex items-center gap-x-8 text-sm">
+                <a href="index.html" class="hover:text-white transition">首页</a>
+                <a href="datasets.html" class="hover:text-white transition">数据集</a>
+                <a href="methodology.html" class="hover:text-white transition">测评框架</a>
+                <a href="leaderboard.html" class="hover:text-white transition">榜单</a>
+                <a href="interaction.html" class="nav-active">情感交互</a>
+                <a href="https://github.com/weizhi002/turing-2.0" target="_blank" 
+                   class="px-4 py-2 border border-zinc-700 rounded-xl hover:bg-zinc-900 transition">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-screen-xl mx-auto px-6 pt-8 pb-6">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <div class="flex items-center gap-x-3">
+                    <h1 class="text-4xl font-display font-semibold tracking-tighter">多模态情感交互 Demo</h1>
+                    <span class="px-3 py-1 text-xs bg-amber-900/60 text-amber-400 rounded-full">Demo 模式</span>
+                </div>
+                <p class="text-zinc-400 mt-1">自定义人设与风格，体验拟人化情感对话（后续将接入真实模型）</p>
+            </div>
+            <button onclick="resetChat()" 
+                    class="px-4 py-2 text-sm border border-zinc-700 hover:bg-zinc-900 rounded-2xl flex items-center gap-x-2">
+                <i class="fa-solid fa-redo"></i>
+                <span>重置对话</span>
+            </button>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-6">
+            
+            <!-- Sidebar: Persona Customization -->
+            <div class="lg:col-span-4 bg-zinc-900 border border-zinc-800 rounded-3xl p-7 h-fit">
+                <h3 class="font-semibold text-xl mb-5 flex items-center gap-x-2">
+                    <i class="fa-solid fa-user-cog"></i>
+                    <span>人设与风格设置</span>
+                </h3>
+
+                <!-- Presets -->
+                <div class="mb-6">
+                    <div class="text-xs text-zinc-400 mb-2">快速预设</div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="applyPreset('empathetic')" class="preset-btn px-4 py-2 text-sm bg-zinc-800 hover:bg-zinc-700 rounded-2xl text-left"> empathetic 共情伙伴</button>
+                        <button onclick="applyPreset('mentor')" class="preset-btn px-4 py-2 text-sm bg-zinc-800 hover:bg-zinc-700 rounded-2xl text-left"> mentor 智慧导师</button>
+                        <button onclick="applyPreset('playful')" class="preset-btn px-4 py-2 text-sm bg-zinc-800 hover:bg-zinc-700 rounded-2xl text-left"> playful 活泼朋友</button>
+                        <button onclick="applyPreset('counselor')" class="preset-btn px-4 py-2 text-sm bg-zinc-800 hover:bg-zinc-700 rounded-2xl text-left"> counselor 专业咨询师</button>
+                    </div>
+                </div>
+
+                <!-- Sliders -->
+                <div class="space-y-5">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1.5">
+                            <span>共情程度</span>
+                            <span id="empathy-value" class="font-mono text-violet-400">85</span>
+                        </div>
+                        <input type="range" id="empathy" min="0" max="100" value="85" 
+                               class="w-full accent-violet-600" oninput="updateSliderValue('empathy')">
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1.5">
+                            <span>温暖度</span>
+                            <span id="warmth-value" class="font-mono text-violet-400">80</span>
+                        </div>
+                        <input type="range" id="warmth" min="0" max="100" value="80" 
+                               class="w-full accent-violet-600" oninput="updateSliderValue('warmth')">
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1.5">
+                            <span>幽默感</span>
+                            <span id="humor-value" class="font-mono text-violet-400">40</span>
+                        </div>
+                        <input type="range" id="humor" min="0" max="100" value="40" 
+                               class="w-full accent-violet-600" oninput="updateSliderValue('humor')">
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1.5">
+                            <span>情感深度</span>
+                            <span id="depth-value" class="font-mono text-violet-400">75</span>
+                        </div>
+                        <input type="range" id="depth" min="0" max="100" value="75" 
+                               class="w-full accent-violet-600" oninput="updateSliderValue('depth')">
+                    </div>
+                </div>
+
+                <!-- Custom Prompt -->
+                <div class="mt-6">
+                    <div class="text-xs text-zinc-400 mb-1.5">自定义系统提示（可选）</div>
+                    <textarea id="custom-prompt" rows="3" placeholder="例如：你是一位温柔体贴的倾听者，总是用温暖的语言支持用户..."
+                              class="w-full bg-zinc-950 border border-zinc-700 rounded-2xl p-3 text-sm resize-y"></textarea>
+                </div>
+
+                <button onclick="applyCustomPersona()" 
+                        class="mt-4 w-full py-2.5 bg-violet-600 hover:bg-violet-500 rounded-2xl text-sm font-medium">
+                    应用当前人设
+                </button>
+            </div>
+
+            <!-- Chat Area -->
+            <div class="lg:col-span-8 flex flex-col bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden h-[620px]">
+                
+                <!-- Chat Header -->
+                <div class="px-6 py-4 border-b border-zinc-700 flex items-center justify-between bg-zinc-950">
+                    <div class="flex items-center gap-x-3">
+                        <div class="w-9 h-9 bg-violet-600 rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div>
+                            <div class="font-semibold" id="ai-name">Turing Emotional Model</div>
+                            <div class="text-xs text-emerald-400">在线 · Demo 模式</div>
+                        </div>
+                    </div>
+                    <button onclick="submitConversation()" 
+                            class="px-4 py-1.5 text-xs border border-zinc-600 hover:bg-zinc-800 rounded-xl flex items-center gap-x-2">
+                        <i class="fa-solid fa-upload"></i>
+                        <span>提交本次对话</span>
+                    </button>
+                </div>
+
+                <!-- Messages -->
+                <div id="chat-messages" 
+                     class="flex-1 p-6 overflow-y-auto space-y-5 message-container bg-zinc-950">
+                    <!-- Messages will be added dynamically -->
+                </div>
+
+                <!-- Quick Prompts -->
+                <div class="px-6 pt-3 pb-2 border-t border-zinc-700 bg-zinc-900">
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <button onclick="sendQuickMessage('我今天感觉很焦虑...')" 
+                                class="text-xs px-4 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-2xl">我今天感觉很焦虑...</button>
+                        <button onclick="sendQuickMessage('我刚刚完成了一个大项目，特别开心！')" 
+                                class="text-xs px-4 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-2xl">我刚刚完成了一个大项目...</button>
+                        <button onclick="sendQuickMessage('最近和家人吵架了，心里很难受')" 
+                                class="text-xs px-4 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-2xl">最近和家人吵架了...</button>
+                    </div>
+                </div>
+
+                <!-- Input -->
+                <div class="p-4 border-t border-zinc-700 bg-zinc-900">
+                    <div class="flex gap-3">
+                        <input id="user-input" type="text" placeholder="输入你的感受或想法..." 
+                               class="flex-1 bg-zinc-950 border border-zinc-700 focus:border-violet-500 rounded-2xl px-5 py-3 text-sm outline-none"
+                               onkeypress="if (event.key === 'Enter') sendMessage()">
+                        <button onclick="sendMessage()" 
+                                class="px-6 bg-violet-600 hover:bg-violet-500 rounded-2xl font-medium flex items-center justify-center">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPersona = {
+            name: "共情伙伴",
+            empathy: 85,
+            warmth: 80,
+            humor: 40,
+            depth: 75,
+            prompt: ""
+        };
+
+        let conversationHistory = [];
+
+        function updateSliderValue(id) {
+            const value = document.getElementById(id).value;
+            document.getElementById(id + '-value').innerText = value;
+        }
+
+        function applyPreset(type) {
+            const sliders = {
+                empathy: document.getElementById('empathy'),
+                warmth: document.getElementById('warmth'),
+                humor: document.getElementById('humor'),
+                depth: document.getElementById('depth')
+            };
+
+            if (type === 'empathetic') {
+                sliders.empathy.value = 95; sliders.warmth.value = 90; sliders.humor.value = 25; sliders.depth.value = 85;
+                currentPersona.name = "共情伙伴";
+            } else if (type === 'mentor') {
+                sliders.empathy.value = 70; sliders.warmth.value = 75; sliders.humor.value = 20; sliders.depth.value = 95;
+                currentPersona.name = "智慧导师";
+            } else if (type === 'playful') {
+                sliders.empathy.value = 65; sliders.warmth.value = 80; sliders.humor.value = 85; sliders.depth.value = 60;
+                currentPersona.name = "活泼朋友";
+            } else if (type === 'counselor') {
+                sliders.empathy.value = 90; sliders.warmth.value = 85; sliders.humor.value = 15; sliders.depth.value = 90;
+                currentPersona.name = "专业咨询师";
+            }
+
+            // Update display values
+            Object.keys(sliders).forEach(key => {
+                document.getElementById(key + '-value').innerText = sliders[key].value;
+            });
+
+            document.getElementById('ai-name').innerText = currentPersona.name;
+            addSystemMessage(`已切换为人设：${currentPersona.name}`);
+        }
+
+        function applyCustomPersona() {
+            currentPersona.empathy = parseInt(document.getElementById('empathy').value);
+            currentPersona.warmth = parseInt(document.getElementById('warmth').value);
+            currentPersona.humor = parseInt(document.getElementById('humor').value);
+            currentPersona.depth = parseInt(document.getElementById('depth').value);
+            currentPersona.prompt = document.getElementById('custom-prompt').value.trim();
+
+            document.getElementById('ai-name').innerText = currentPersona.name || "自定义情感模型";
+            addSystemMessage("人设已更新，模型将按照新设置回应。");
+        }
+
+        function addMessage(text, isUser) {
+            const container = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
+
+            const bubble = document.createElement('div');
+            bubble.className = `chat-bubble ${isUser ? 'user-bubble' : 'ai-bubble'}`;
+            bubble.innerHTML = text.replace(/\n/g, '<br>');
+
+            messageDiv.appendChild(bubble);
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+
+            conversationHistory.push({ role: isUser ? 'user' : 'assistant', content: text });
+        }
+
+        function addSystemMessage(text) {
+            const container = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.className = 'flex justify-center my-2';
+            div.innerHTML = `<span class="text-xs px-4 py-1 bg-zinc-800 text-zinc-400 rounded-full">${text}</span>`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function getAIResponse(userMessage) {
+            const lowerMsg = userMessage.toLowerCase();
+            let response = "";
+
+            // Simple sentiment + context aware responses
+            if (lowerMsg.includes('难过') || lowerMsg.includes('伤心') || lowerMsg.includes('焦虑') || lowerMsg.includes('难受')) {
+                response = "我能感受到你现在心里很沉重。能告诉我发生了什么吗？我在听。";
+            } else if (lowerMsg.includes('开心') || lowerMsg.includes('高兴') || lowerMsg.includes('成就')) {
+                response = "听到这个消息我真的很为你开心！能分享一下是什么让你这么兴奋吗？";
+            } else if (lowerMsg.includes('累') || lowerMsg.includes('疲惫') || lowerMsg.includes('压力')) {
+                response = "听起来你最近承受了很多压力。需要我陪你一起喘口气吗？";
+            } else {
+                const responses = [
+                    "谢谢你愿意和我分享这些感受。",
+                    "我在这里，愿意一直陪着你。",
+                    "你的感受很重要，我完全理解。",
+                    "继续说吧，我在认真听。"
+                ];
+                response = responses[Math.floor(Math.random() * responses.length)];
+            }
+
+            // Adjust based on persona
+            if (currentPersona.humor > 60 && Math.random() > 0.6) {
+                response += "（轻轻笑了笑）";
+            }
+            if (currentPersona.depth > 80) {
+                response += " 你愿意更深入地聊聊这件事背后的感受吗？";
+            }
+
+            return response;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            addMessage(message, true);
+            input.value = '';
+
+            // Simulate thinking
+            setTimeout(() => {
+                const aiReply = getAIResponse(message);
+                addMessage(aiReply, false);
+            }, 600);
+        }
+
+        function sendQuickMessage(text) {
+            addMessage(text, true);
+            setTimeout(() => {
+                const aiReply = getAIResponse(text);
+                addMessage(aiReply, false);
+            }, 600);
+        }
+
+        function resetChat() {
+            document.getElementById('chat-messages').innerHTML = '';
+            conversationHistory = [];
+            addSystemMessage("对话已重置");
+            
+            // Welcome message
+            setTimeout(() => {
+                addMessage("你好，我是你的情感伙伴。无论你现在感受如何，我都在这里倾听。", false);
+            }, 300);
+        }
+
+        function submitConversation() {
+            if (conversationHistory.length < 2) {
+                alert("请至少进行几轮对话后再提交。");
+                return;
+            }
+            const title = encodeURIComponent("[情感交互] 新对话提交");
+            const body = encodeURIComponent("模型人设：" + currentPersona.name + "\n\n对话记录：\n" + 
+                conversationHistory.map(m => `${m.role}: ${m.content}`).join("\n\n"));
+            
+            window.open(`https://github.com/weizhi002/turing-2.0/issues/new?title=${title}&body=${body}&labels=interaction`, '_blank');
+        }
+
+        function initializeChat() {
+            const container = document.getElementById('chat-messages');
+            container.innerHTML = '';
+
+            // Initial welcome message
+            setTimeout(() => {
+                addMessage("你好，我是你的情感伙伴。无论你现在感受如何，我都在这里倾听。", false);
+            }, 400);
+
+            // Set initial slider values display
+            ['empathy', 'warmth', 'humor', 'depth'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) document.getElementById(id + '-value').innerText = el.value;
+            });
+        }
+
+        // Initialize
+        window.onload = function() {
+            initializeChat();
+        };
+    </script>
+</body>
+</html>
