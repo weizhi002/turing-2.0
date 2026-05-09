@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测评框架 | 图灵2.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: Inter, system-ui, sans-serif; }
+        .font-display { font-family: 'Space Grotesk', Inter, sans-serif; }
+        .nav-active { color: white; border-bottom: 2px solid #7c3aed; }
+        .framework-step {
+            transition: all 0.3s ease;
+        }
+        .framework-step:hover {
+            transform: translateY(-4px);
+            border-color: #7c3aed;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- Navbar -->
+    <nav class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-screen-xl mx-auto px-6 flex items-center justify-between h-16">
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 bg-violet-600 rounded-2xl flex items-center justify-center">
+                    <i class="fa-solid fa-brain text-white"></i>
+                </div>
+                <span class="font-display text-2xl font-semibold tracking-tighter">图灵<span class="text-violet-400">2.0</span></span>
+            </div>
+            <div class="flex items-center gap-x-8 text-sm">
+                <a href="index.html" class="hover:text-white transition">首页</a>
+                <a href="datasets.html" class="hover:text-white transition">数据集</a>
+                <a href="methodology.html" class="nav-active">测评框架</a>
+                <a href="leaderboard.html" class="hover:text-white transition">榜单</a>
+                <a href="interaction.html" class="hover:text-white transition">情感交互</a>
+                <a href="https://github.com/weizhi002/turing-2.0" target="_blank" 
+                   class="px-4 py-2 border border-zinc-700 rounded-xl hover:bg-zinc-900 transition">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-screen-xl mx-auto px-6 pt-12 pb-16">
+        <!-- Header -->
+        <div class="max-w-3xl mb-12">
+            <div class="text-violet-400 text-sm font-medium tracking-[2px] mb-3">METHODOLOGY</div>
+            <h1 class="text-5xl font-display font-semibold tracking-tighter mb-4">多模态情感交互测评框架</h1>
+            <p class="text-xl text-zinc-400">图灵2.0 提出的原创评估范式与方法体系</p>
+        </div>
+
+        <!-- Core Paradigm -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold mb-8 flex items-center gap-x-3">
+                <span>核心范式：多模态情感交互循环</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-5 gap-4">
+                <!-- Step 1 -->
+                <div class="framework-step bg-zinc-900 border border-zinc-700 rounded-3xl p-6">
+                    <div class="w-10 h-10 bg-violet-600/20 text-violet-400 rounded-2xl flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-eye fa-lg"></i>
+                    </div>
+                    <div class="font-semibold text-xl mb-2">1. 多模态感知</div>
+                    <p class="text-sm text-zinc-400">同时处理文本、语音、面部表情、姿态等多模态输入信号。</p>
+                </div>
+                
+                <div class="framework-step bg-zinc-900 border border-zinc-700 rounded-3xl p-6">
+                    <div class="w-10 h-10 bg-violet-600/20 text-violet-400 rounded-2xl flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-brain fa-lg"></i>
+                    </div>
+                    <div class="font-semibold text-xl mb-2">2. 情感理解</div>
+                    <p class="text-sm text-zinc-400">识别情绪类别、强度、触发原因以及隐含的情感意图。</p>
+                </div>
+                
+                <div class="framework-step bg-zinc-900 border border-zinc-700 rounded-3xl p-6">
+                    <div class="w-10 h-10 bg-violet-600/20 text-violet-400 rounded-2xl flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-heart fa-lg"></i>
+                    </div>
+                    <div class="font-semibold text-xl mb-2">3. 共情模拟</div>
+                    <p class="text-sm text-zinc-400">生成符合情境的共情反应，匹配用户当前情感状态。</p>
+                </div>
+                
+                <div class="framework-step bg-zinc-900 border border-zinc-700 rounded-3xl p-6">
+                    <div class="w-10 h-10 bg-violet-600/20 text-violet-400 rounded-2xl flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-reply fa-lg"></i>
+                    </div>
+                    <div class="font-semibold text-xl mb-2">4. 情感生成</div>
+                    <p class="text-sm text-zinc-400">输出自然、连贯且具有情感一致性的多模态响应。</p>
+                </div>
+                
+                <div class="framework-step bg-zinc-900 border border-zinc-700 rounded-3xl p-6">
+                    <div class="w-10 h-10 bg-violet-600/20 text-violet-400 rounded-2xl flex items-center justify-center mb-5">
+                        <i class="fa-solid fa-sync fa-lg"></i>
+                    </div>
+                    <div class="font-semibold text-xl mb-2">5. 反馈闭环</div>
+                    <p class="text-sm text-zinc-400">根据用户后续反馈动态调整情感交互策略。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evaluation Dimensions -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold mb-8">核心评估维度</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+                    <div class="flex items-center gap-x-3 mb-4">
+                        <i class="fa-solid fa-check-circle text-emerald-400 text-xl"></i>
+                        <span class="font-semibold text-xl">情感识别准确率</span>
+                    </div>
+                    <p class="text-zinc-400">在多模态输入下正确识别情绪类别与强度的能力。</p>
+                </div>
+                
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+                    <div class="flex items-center gap-x-3 mb-4">
+                        <i class="fa-solid fa-heart text-rose-400 text-xl"></i>
+                        <span class="font-semibold text-xl">共情对齐分数</span>
+                    </div>
+                    <p class="text-zinc-400">模型响应与用户真实情感状态的匹配程度（人工 + 自动评估）。</p>
+                </div>
+                
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+                    <div class="flex items-center gap-x-3 mb-4">
+                        <i class="fa-solid fa-link text-blue-400 text-xl"></i>
+                        <span class="font-semibold text-xl">跨模态一致性</span>
+                    </div>
+                    <p class="text-zinc-400">文本、语音、视觉等多模态输出在情感表达上的一致性。</p>
+                </div>
+                
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+                    <div class="flex items-center gap-x-3 mb-4">
+                        <i class="fa-solid fa-sync text-amber-400 text-xl"></i>
+                        <span class="font-semibold text-xl">多轮情感连贯性</span>
+                    </div>
+                    <p class="text-zinc-400">长对话中情感状态的稳定性和合理演变能力。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benchmark Tasks -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold mb-8">基准测试任务</h2>
+            
+            <div class="space-y-4">
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-7 flex gap-6">
+                    <div class="w-12 h-12 bg-violet-600/20 text-violet-400 rounded-2xl flex-shrink-0 flex items-center justify-center">
+                        <i class="fa-solid fa-tasks fa-lg"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-xl mb-1">任务1：多模态情感分类</div>
+                        <p class="text-zinc-400">在给定文本+语音+图像的场景下，准确分类情绪并给出置信度。</p>
+                    </div>
+                </div>
+                
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-7 flex gap-6">
+                    <div class="w-12 h-12 bg-violet-600/20 text-violet-400 rounded-2xl flex-shrink-0 flex items-center justify-center">
+                        <i class="fa-solid fa-comments fa-lg"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-xl mb-1">任务2：情感共情对话生成</div>
+                        <p class="text-zinc-400">根据用户当前情绪状态，生成具有共情能力的多轮回复。</p>
+                    </div>
+                </div>
+                
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-7 flex gap-6">
+                    <div class="w-12 h-12 bg-violet-600/20 text-violet-400 rounded-2xl flex-shrink-0 flex items-center justify-center">
+                        <i class="fa-solid fa-user-check fa-lg"></i>
+                    </div>
+                    <div>
+                        <div class="font-semibold text-xl mb-1">任务3：情感一致性与人类 likeness 评估</div>
+                        <p class="text-zinc-400">通过人工图灵测试与自动指标，评估模型响应的拟人情感表现。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Submit -->
+        <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-10">
+            <h2 class="text-3xl font-semibold mb-6">如何提交评测结果</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-sm">
+                <div>
+                    <div class="font-medium mb-2 text-violet-400">方式一：GitHub Issue（推荐）</div>
+                    <p class="text-zinc-400">在仓库提交 Issue，选择 “evaluation” 标签，填写模型信息与评测结果。</p>
+                </div>
+                <div>
+                    <div class="font-medium mb-2 text-violet-400">方式二：Pull Request</div>
+                    <p class="text-zinc-400">在 <code class="bg-zinc-800 px-1.5 py-0.5 rounded">data/evaluations/</code> 目录下添加 JSON 文件并提交 PR。</p>
+                </div>
+                <div>
+                    <div class="font-medium mb-2 text-violet-400">方式三：在线交互贡献</div>
+                    <p class="text-zinc-400">在情感交互 Demo 中完成对话后，可一键提交为评测数据。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-t border-zinc-800 py-8 text-center text-sm text-zinc-500">
+        图灵2.0 · 由社区共同构建的情感智能基准平台
+    </footer>
+</body>
+</html>
