@@ -30,8 +30,7 @@
                 <a href="methodology.html" class="hover:text-white transition">测评框架</a>
                 <a href="leaderboard.html" class="hover:text-white transition">榜单</a>
                 <a href="interaction.html" class="hover:text-white transition">情感交互</a>
-                <a href="https://github.com/weizhi002/turing-2.0" target="_blank" 
-                   class="px-4 py-2 border border-zinc-700 rounded-xl hover:bg-zinc-900 transition">GitHub</a>
+                <a href="https://github.com/weizhi002/turing-2.0" target="_blank" class="px-4 py-2 border border-zinc-700 rounded-xl hover:bg-zinc-900 transition">GitHub</a>
             </div>
         </div>
     </nav>
@@ -42,170 +41,210 @@
             <div>
                 <div class="text-violet-400 text-sm font-medium tracking-[2px] mb-2">DATASETS</div>
                 <h1 class="text-5xl font-display font-semibold tracking-tighter">多模态情感数据集库</h1>
-                <p class="text-xl text-zinc-400 mt-3">开源数据集 + 自采数据集 · 持续更新中</p>
+                <p class="text-xl text-zinc-400 mt-3">50+ 开源 + 自采数据集 · MER/ABAW/MuSe/生理/微表情全覆盖 · 持续更新</p>
             </div>
             <div class="flex items-center gap-x-3">
                 <div class="px-4 py-2 bg-zinc-900 border border-zinc-700 rounded-2xl text-sm flex items-center gap-x-2">
                     <i class="fa-solid fa-database text-violet-400"></i>
-                    <span>已收录 <span class="font-semibold text-white">28</span> 个数据集</span>
+                    <span>已收录 <span class="font-semibold text-white">52</span> 个数据集</span>
                 </div>
-                <button onclick="window.location.href='https://github.com/weizhi002/turing-2.0/issues/new?labels=dataset&title=%5B%E6%95%B0%E6%8D%AE%E9%9B%86%E6%8F%90%E4%BA%A4%5D'"
-                        class="px-5 py-2.5 bg-violet-600 hover:bg-violet-500 rounded-2xl text-sm font-medium flex items-center gap-x-2 transition">
+                <button onclick="window.location.href='https://github.com/weizhi002/turing-2.0/issues/new?labels=dataset&title=%5B%E6%95%B0%E6%8D%AE%E9%9B%86%E6%8F%90%E4%BA%A4%5D'" class="px-5 py-2.5 bg-violet-600 hover:bg-violet-500 rounded-2xl text-sm font-medium flex items-center gap-x-2 transition">
                     <i class="fa-solid fa-plus"></i>
                     <span>提交新数据集</span>
                 </button>
             </div>
         </div>
 
-        <!-- Filter -->
-        <div class="flex flex-wrap gap-3 mb-8">
-            <button onclick="filterDatasets('all')" class="filter-btn active px-5 py-2 rounded-2xl text-sm border border-zinc-700 bg-zinc-900">全部</button>
-            <button onclick="filterDatasets('text')" class="filter-btn px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">文本</button>
-            <button onclick="filterDatasets('audio')" class="filter-btn px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">语音/音频</button>
-            <button onclick="filterDatasets('visual')" class="filter-btn px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">视觉/图像</button>
-            <button onclick="filterDatasets('multimodal')" class="filter-btn px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">多模态</button>
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-2 mb-8">
+            <button onclick="filterDatasets('all')" class="filter-btn active px-4 py-1.5 text-xs rounded-2xl border border-zinc-700 bg-zinc-900">全部</button>
+            <button onclick="filterDatasets('text')" class="filter-btn px-4 py-1.5 text-xs rounded-2xl border border-zinc-700 hover:bg-zinc-900">文本</button>
+            <button onclick="filterDatasets('audio')" class="filter-btn px-4 py-1.5 text-xs rounded-2xl border border-zinc-700 hover:bg-zinc-900">语音</button>
+            <button onclick="filterDatasets('visual')" class="filter-btn px-4 py-1.5 text-xs rounded-2xl border border-zinc-700 hover:bg-zinc-900">视觉</button>
+            <button onclick="filterDatasets('multimodal')" class="filter-btn px-4 py-1.5 text-xs rounded-2xl border border-zinc-700 hover:bg-zinc-900">多模态</button>
+            <button onclick="filterDatasets('mer')" class="filter-btn px-4 py-1.5 text-xs rounded-2xl border border-zinc-700 hover:bg-zinc-900">MER挑战</button>
+            <button onclick="filterDatasets('abaw')" class="filter-btn px-4 py-1.5 text-xs rounded-2xl border border-zinc-700 hover:bg-zinc-900">ABAW</button>
+            <button onclick="filterDatasets('muse')" class="filter-btn px-4 py-1.5 text-xs rounded-2xl border border-zinc-700 hover:bg-zinc-900">MuSe</button>
+            <button onclick="filterDatasets('physio')" class="filter-btn px-4 py-1.5 text-xs rounded-2xl border border-zinc-700 hover:bg-zinc-900">生理信号</button>
+            <button onclick="filterDatasets('micro')" class="filter-btn px-4 py-1.5 text-xs rounded-2xl border border-zinc-700 hover:bg-zinc-900">微表情</button>
+            <button onclick="filterDatasets('dialog')" class="filter-btn px-4 py-1.5 text-xs rounded-2xl border border-zinc-700 hover:bg-zinc-900">对话</button>
         </div>
 
-        <!-- Datasets Grid -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="datasets-grid">
-            
-            <!-- Text Datasets -->
-            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-7" data-type="text">
-                <div class="flex items-start justify-between mb-5">
-                    <div>
-                        <span class="px-3 py-1 text-xs rounded-full bg-emerald-900/60 text-emerald-400">文本</span>
-                        <h3 class="font-semibold text-2xl mt-3">GoEmotions</h3>
-                        <p class="text-sm text-zinc-400">Google • 58k 条评论</p>
-                    </div>
-                    <i class="fa-solid fa-comment-dots text-3xl text-emerald-400"></i>
-                </div>
-                <p class="text-zinc-400 text-sm mb-5">包含 27 种细粒度情感标签的 Reddit 评论数据集，适合情感分类与细粒度情感分析。</p>
-                <div class="flex items-center justify-between text-xs">
-                    <div class="text-zinc-400">开源 • Apache 2.0</div>
-                    <a href="https://github.com/google-research/google-research/tree/master/goemotions" target="_blank" 
-                       class="text-violet-400 hover:text-violet-300 flex items-center gap-x-1">查看 <i class="fa-solid fa-external-link-alt"></i></a>
-                </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5" id="datasets-grid">
+            <!-- Existing + New cards from design doc -->
+            <!-- Text -->
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="text">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-emerald-900/60 text-emerald-400">文本</span><span class="text-[10px] text-zinc-500">Google</span></div>
+                <h3 class="font-semibold text-xl">GoEmotions</h3>
+                <p class="text-xs text-zinc-400 mb-2">58k Reddit 评论 · 27细粒度标签</p>
+                <p class="text-xs text-zinc-400">适合细粒度情感分类。Apache 2.0</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="text dialog">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-emerald-900/60 text-emerald-400">文本/对话</span><span class="text-[10px] text-zinc-500">DailyDialog</span></div>
+                <h3 class="font-semibold text-xl">DailyDialog</h3>
+                <p class="text-xs text-zinc-400 mb-2">13k 日常多轮对话 · 情绪+话题+行为</p>
+                <p class="text-xs text-zinc-400">CC BY-NC-SA 4.0 · 情感对话生成</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="text dialog">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-emerald-900/60 text-emerald-400">文本/对话</span></div>
+                <h3 class="font-semibold text-xl">CMU-MOSI</h3>
+                <p class="text-xs text-zinc-400 mb-2">2,199 opinion clips · sentiment intensity -3~+3</p>
+                <p class="text-xs text-zinc-400">YouTube影评 · MAE/Pearson/Acc</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="text dialog">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-emerald-900/60 text-emerald-400">文本/对话</span></div>
+                <h3 class="font-semibold text-xl">CH-SIMS</h3>
+                <p class="text-xs text-zinc-400 mb-2">2,281 中文视频片段 · 多模态+单模态独立标注</p>
+                <p class="text-xs text-zinc-400">模态冲突分析 · MAE/Pearson</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="text dialog">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-emerald-900/60 text-emerald-400">文本/对话</span></div>
+                <h3 class="font-semibold text-xl">M3ED</h3>
+                <p class="text-xs text-zinc-400 mb-2">56部中文剧 · 990对话 9k turns 7类情绪</p>
+                <p class="text-xs text-zinc-400">多场景多标签对话 · WAF/F1</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="text dialog">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-emerald-900/60 text-emerald-400">文本/对话</span></div>
+                <h3 class="font-semibold text-xl">EmotionTalk</h3>
+                <p class="text-xs text-zinc-400 mb-2">19.25k utterances · 7类情绪 + 5维极性 + 4维caption</p>
+                <p class="text-xs text-zinc-400">交互式中文对话 · BLEU/ROUGE</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="text dialog">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-emerald-900/60 text-emerald-400">文本/对话</span></div>
+                <h3 class="font-semibold text-xl">MIntRec / MIntRec2.0</h3>
+                <p class="text-xs text-zinc-400 mb-2">意图识别 + OOS检测 · 30细粒度意图</p>
+                <p class="text-xs text-zinc-400">Superstore / 多方对话 · F1/ACC</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="text dialog">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-emerald-900/60 text-emerald-400">文本/对话</span></div>
+                <h3 class="font-semibold text-xl">RECCON / ConvECPE / ECPE-D</h3>
+                <p class="text-xs text-zinc-400 mb-2">对话情绪原因抽取 · emotion-cause pairs</p>
+                <p class="text-xs text-zinc-400">DailyDialog/IEMOCAP · Span F1 / Pair F1</p>
             </div>
 
-            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-7" data-type="text">
-                <div class="flex items-start justify-between mb-5">
-                    <div>
-                        <span class="px-3 py-1 text-xs rounded-full bg-emerald-900/60 text-emerald-400">文本</span>
-                        <h3 class="font-semibold text-2xl mt-3">DailyDialog</h3>
-                        <p class="text-sm text-zinc-400">日常对话 • 13k 对话</p>
-                    </div>
-                    <i class="fa-solid fa-comments text-3xl text-emerald-400"></i>
-                </div>
-                <p class="text-zinc-400 text-sm mb-5">高质量日常多轮对话数据集，标注了情绪、对话行为和话题，适合情感对话生成研究。</p>
-                <div class="flex items-center justify-between text-xs">
-                    <div class="text-zinc-400">开源 • CC BY-NC-SA 4.0</div>
-                    <a href="https://github.com/kaushikacharya/dailydialog" target="_blank" 
-                       class="text-violet-400 hover:text-violet-300 flex items-center gap-x-1">查看 <i class="fa-solid fa-external-link-alt"></i></a>
-                </div>
+            <!-- Multimodal -->
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="multimodal">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-violet-900/60 text-violet-400">多模态</span><span class="text-[10px] text-zinc-500">CMU</span></div>
+                <h3 class="font-semibold text-xl">CMU-MOSEI</h3>
+                <p class="text-xs text-zinc-400 mb-2">23,453 clips · 6类Ekman + intensity</p>
+                <p class="text-xs text-zinc-400">YouTube · MAE / multi-label F1</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="multimodal dialog">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-violet-900/60 text-violet-400">多模态/对话</span></div>
+                <h3 class="font-semibold text-xl">MELD</h3>
+                <p class="text-xs text-zinc-400 mb-2">Friends剧集 · 13k utterances 7类情绪</p>
+                <p class="text-xs text-zinc-400">多方对话 · F1</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="multimodal">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-violet-900/60 text-violet-400">多模态</span></div>
+                <h3 class="font-semibold text-xl">MAFW</h3>
+                <p class="text-xs text-zinc-400 mb-2">10k video-audio clips · 11类 + 32复合情绪 + caption</p>
+                <p class="text-xs text-zinc-400">影视剧 · mAP / macro-F1 / BLEU</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="multimodal">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-violet-900/60 text-violet-400">多模态</span></div>
+                <h3 class="font-semibold text-xl">Aff-Wild2</h3>
+                <p class="text-xs text-zinc-400 mb-2">~550 videos ~2.8M frames · VA + 8类表情 + 12 AU</p>
+                <p class="text-xs text-zinc-400">in-the-wild YouTube · ABAW核心</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="multimodal dialog">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-violet-900/60 text-violet-400">多模态/对话</span></div>
+                <h3 class="font-semibold text-xl">EmotionTalk / Multi-HM</h3>
+                <p class="text-xs text-zinc-400 mb-2">中文交互/人机对话 · 细粒度情绪+强度+上下文</p>
+                <p class="text-xs text-zinc-400">南开/人机咨询 · WAF / MAE</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="multimodal dialog">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-violet-900/60 text-violet-400">多模态/对话</span></div>
+                <h3 class="font-semibold text-xl">ECF / Emotion-Cause-in-Friends</h3>
+                <p class="text-xs text-zinc-400 mb-2">Friends剧集 · 多模态情绪-原因对抽取</p>
+                <p class="text-xs text-zinc-400">SemEval-2024 Task 3 · Pair F1</p>
             </div>
 
-            <!-- Audio Datasets -->
-            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-7" data-type="audio">
-                <div class="flex items-start justify-between mb-5">
-                    <div>
-                        <span class="px-3 py-1 text-xs rounded-full bg-blue-900/60 text-blue-400">语音</span>
-                        <h3 class="font-semibold text-2xl mt-3">IEMOCAP</h3>
-                        <p class="text-sm text-zinc-400">USC • 12 小时</p>
-                    </div>
-                    <i class="fa-solid fa-microphone text-3xl text-blue-400"></i>
-                </div>
-                <p class="text-zinc-400 text-sm mb-5">经典情感语音数据集，包含音频、转录文本和 9 种情感标签（愤怒、开心、悲伤等）。</p>
-                <div class="flex items-center justify-between text-xs">
-                    <div class="text-zinc-400">需申请 • 学术使用</div>
-                    <a href="https://sail.usc.edu/iemocap/" target="_blank" 
-                       class="text-violet-400 hover:text-violet-300 flex items-center gap-x-1">申请 <i class="fa-solid fa-external-link-alt"></i></a>
-                </div>
+            <!-- Audio/Physio -->
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="audio physio">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-blue-900/60 text-blue-400">语音/生理</span></div>
+                <h3 class="font-semibold text-xl">IEMOCAP</h3>
+                <p class="text-xs text-zinc-400 mb-2">12h · 9类情绪 + 转录 + 视频</p>
+                <p class="text-xs text-zinc-400">USC经典 · 学术申请</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="audio">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-blue-900/60 text-blue-400">语音</span></div>
+                <h3 class="font-semibold text-xl">RAVDESS</h3>
+                <p class="text-xs text-zinc-400 mb-2">7k+ files · 8类情感歌曲/语音</p>
+                <p class="text-xs text-zinc-400">Ryerson · CC BY-NC-SA</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="physio">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-blue-900/60 text-blue-400">生理</span></div>
+                <h3 class="font-semibold text-xl">SEED / SEED-IV</h3>
+                <p class="text-xs text-zinc-400 mb-2">EEG 62ch + 眼动 · 3/4类情绪</p>
+                <p class="text-xs text-zinc-400">上海交大 · 跨被试迁移</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="physio">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-blue-900/60 text-blue-400">生理</span></div>
+                <h3 class="font-semibold text-xl">ASCERTAIN</h3>
+                <p class="text-xs text-zinc-400 mb-2">EEG/ECG/GSR + BigFive + 自评</p>
+                <p class="text-xs text-zinc-400">人格-情绪-生理联合建模</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="physio">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-blue-900/60 text-blue-400">生理</span></div>
+                <h3 class="font-semibold text-xl">BioVid Heat Pain</h3>
+                <p class="text-xs text-zinc-400 mb-2">热痛刺激 · 视频 + ECG/EMG/EDA</p>
+                <p class="text-xs text-zinc-400">疼痛/压力/负性唤醒</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="physio">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-blue-900/60 text-blue-400">生理</span></div>
+                <h3 class="font-semibold text-xl">CASE / DECAF / SWELL-KW</h3>
+                <p class="text-xs text-zinc-400 mb-2">连续VA + 多生理 · 压力/工作负荷</p>
+                <p class="text-xs text-zinc-400">可穿戴与多媒体刺激</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="physio multimodal">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-blue-900/60 text-blue-400">生理/多模态</span></div>
+                <h3 class="font-semibold text-xl">RECOLA / SEWA / SEMAINE</h3>
+                <p class="text-xs text-zinc-400 mb-2">远程协作/广告讨论/ SAL代理 · 连续VA + 生理 + 社会行为</p>
+                <p class="text-xs text-zinc-400">AVEC经典 · CCC/MAE</p>
             </div>
 
-            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-7" data-type="audio">
-                <div class="flex items-start justify-between mb-5">
-                    <div>
-                        <span class="px-3 py-1 text-xs rounded-full bg-blue-900/60 text-blue-400">语音</span>
-                        <h3 class="font-semibold text-2xl mt-3">RAVDESS</h3>
-                        <p class="text-sm text-zinc-400">Ryerson • 7,356 文件</p>
-                    </div>
-                    <i class="fa-solid fa-microphone-lines text-3xl text-blue-400"></i>
-                </div>
-                <p class="text-zinc-400 text-sm mb-5">高质量情感语音和歌曲数据集，包含 8 种情感，适合语音情感识别基准测试。</p>
-                <div class="flex items-center justify-between text-xs">
-                    <div class="text-zinc-400">开源 • CC BY-NC-SA 4.0</div>
-                    <a href="https://zenodo.org/records/1188976" target="_blank" 
-                       class="text-violet-400 hover:text-violet-300 flex items-center gap-x-1">下载 <i class="fa-solid fa-external-link-alt"></i></a>
-                </div>
+            <!-- Visual / Micro -->
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="visual">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-orange-900/60 text-orange-400">视觉</span></div>
+                <h3 class="font-semibold text-xl">AffectNet</h3>
+                <p class="text-xs text-zinc-400 mb-2">100万+ 面部图像 · 8类基本情绪</p>
+                <p class="text-xs text-zinc-400">最大野外表情数据集</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="micro visual">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-orange-900/60 text-orange-400">微表情</span></div>
+                <h3 class="font-semibold text-xl">CAS(ME)³ / CAS(ME)2</h3>
+                <p class="text-xs text-zinc-400 mb-2">80h+ · 1.1k微表情 + 3.5k宏表情 + 深度</p>
+                <p class="text-xs text-zinc-400">CAS心理所 · Spotting/Recognition</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6" data-type="micro visual">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-orange-900/60 text-orange-400">微表情</span></div>
+                <h3 class="font-semibold text-xl">SAMM Long Videos / MMEW</h3>
+                <p class="text-xs text-zinc-400 mb-2">长视频微/宏表情 · FACS AU</p>
+                <p class="text-xs text-zinc-400">MEGC挑战基准</p>
             </div>
 
-            <!-- Visual Datasets -->
-            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-7" data-type="visual">
-                <div class="flex items-start justify-between mb-5">
-                    <div>
-                        <span class="px-3 py-1 text-xs rounded-full bg-orange-900/60 text-orange-400">视觉</span>
-                        <h3 class="font-semibold text-2xl mt-3">AffectNet</h3>
-                        <p class="text-sm text-zinc-400">面部表情 • 100万+ 图像</p>
-                    </div>
-                    <i class="fa-solid fa-image text-3xl text-orange-400"></i>
-                </div>
-                <p class="text-zinc-400 text-sm mb-5">目前最大的面部表情数据集，包含 8 种基本情绪，适合视觉情感识别与生成任务。</p>
-                <div class="flex items-center justify-between text-xs">
-                    <div class="text-zinc-400">需申请</div>
-                    <a href="http://mohammadmahoor.com/affectnet/" target="_blank" 
-                       class="text-violet-400 hover:text-violet-300 flex items-center gap-x-1">申请 <i class="fa-solid fa-external-link-alt"></i></a>
-                </div>
+            <!-- MER / Challenge specific -->
+            <div class="dataset-card bg-zinc-900 border border-amber-700/60 rounded-3xl p-6" data-type="mer multimodal">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-amber-900/60 text-amber-400">MER专用</span></div>
+                <h3 class="font-semibold text-xl">OV-MERD + MER-Caption+</h3>
+                <p class="text-xs text-zinc-400 mb-2">开放词表 + 描述式标注 · 33k+ 样本</p>
+                <p class="text-xs text-zinc-400">MER2025/26 FG & DES 核心数据</p>
+            </div>
+            <div class="dataset-card bg-zinc-900 border border-amber-700/60 rounded-3xl p-6" data-type="mer multimodal">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-amber-900/60 text-amber-400">MER专用</span></div>
+                <h3 class="font-semibold text-xl">MDPE (MER-PR)</h3>
+                <p class="text-xs text-zinc-400 mb-2">233被试 · 情绪+Big Five人格双标注</p>
+                <p class="text-xs text-zinc-400">情绪增强人格识别</p>
             </div>
 
-            <!-- Multimodal Datasets -->
-            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-7" data-type="multimodal">
-                <div class="flex items-start justify-between mb-5">
-                    <div>
-                        <span class="px-3 py-1 text-xs rounded-full bg-violet-900/60 text-violet-400">多模态</span>
-                        <h3 class="font-semibold text-2xl mt-3">CMU-MOSEI</h3>
-                        <p class="text-sm text-zinc-400">CMU • 23,453 视频片段</p>
-                    </div>
-                    <i class="fa-solid fa-video text-3xl text-violet-400"></i>
-                </div>
-                <p class="text-zinc-400 text-sm mb-5">大规模多模态情感数据集，包含视频、音频、文本，标注了 6 种情感与情感强度。</p>
-                <div class="flex items-center justify-between text-xs">
-                    <div class="text-zinc-400">开源</div>
-                    <a href="https://github.com/A2Zadeh/CMU-MultimodalSDK" target="_blank" 
-                       class="text-violet-400 hover:text-violet-300 flex items-center gap-x-1">查看 <i class="fa-solid fa-external-link-alt"></i></a>
-                </div>
+            <!-- Proposed -->
+            <div class="dataset-card bg-zinc-900 border border-dashed border-amber-600 rounded-3xl p-6" data-type="multimodal physio">
+                <div class="flex justify-between mb-3"><span class="px-2.5 py-0.5 text-[10px] rounded-full bg-amber-900/60 text-amber-400">自采/平台</span></div>
+                <h3 class="font-semibold text-xl">Turing-Emo-Multimodal</h3>
+                <p class="text-xs text-zinc-400 mb-2">目标 50k+ · 中文多模态 + 生理 + 长期轨迹</p>
+                <p class="text-xs text-amber-400">进行中 · 欢迎贡献与申请</p>
             </div>
-
-            <div class="dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-7" data-type="multimodal">
-                <div class="flex items-start justify-between mb-5">
-                    <div>
-                        <span class="px-3 py-1 text-xs rounded-full bg-violet-900/60 text-violet-400">多模态</span>
-                        <h3 class="font-semibold text-2xl mt-3">MELD</h3>
-                        <p class="text-sm text-zinc-400">Friends剧集 • 13,708 话语</p>
-                    </div>
-                    <i class="fa-solid fa-video text-3xl text-violet-400"></i>
-                </div>
-                <p class="text-zinc-400 text-sm mb-5">基于《老友记》的多模态情感对话数据集，包含音频、视频和文本，适合多轮情感对话研究。</p>
-                <div class="flex items-center justify-between text-xs">
-                    <div class="text-zinc-400">开源</div>
-                    <a href="https://github.com/declare-lab/MELD" target="_blank" 
-                       class="text-violet-400 hover:text-violet-300 flex items-center gap-x-1">下载 <i class="fa-solid fa-external-link-alt"></i></a>
-                </div>
-            </div>
-
-            <!-- Self-collected / Proposed -->
-            <div class="dataset-card bg-zinc-900 border border-dashed border-zinc-700 rounded-3xl p-7" data-type="multimodal">
-                <div class="flex items-start justify-between mb-5">
-                    <div>
-                        <span class="px-3 py-1 text-xs rounded-full bg-amber-900/60 text-amber-400">自采</span>
-                        <h3 class="font-semibold text-2xl mt-3">Turing-Emo-Multimodal</h3>
-                        <p class="text-sm text-zinc-400">进行中 • 目标 50k+</p>
-                    </div>
-                    <i class="fa-solid fa-user-secret text-3xl text-amber-400"></i>
-                </div>
-                <p class="text-zinc-400 text-sm mb-5">我们正在构建的高质量中文多模态情感交互数据集，包含文本、语音、面部表情与生理信号。</p>
-                <div class="text-xs text-amber-400">即将开放申请与贡献通道</div>
-            </div>
-
         </div>
     </div>
 
@@ -213,24 +252,17 @@
         function filterDatasets(type) {
             const cards = document.querySelectorAll('.dataset-card');
             const buttons = document.querySelectorAll('.filter-btn');
-            
             buttons.forEach(btn => btn.classList.remove('active', 'bg-violet-600', 'border-violet-500'));
             event.currentTarget?.classList.add('active', 'bg-violet-600', 'border-violet-500');
-
             cards.forEach(card => {
                 if (type === 'all') {
                     card.style.display = 'block';
                 } else {
-                    if (card.dataset.type === type) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
+                    const types = card.dataset.type ? card.dataset.type.split(' ') : [];
+                    card.style.display = types.includes(type) ? 'block' : 'none';
                 }
             });
         }
-
-        // 默认激活“全部”按钮
         document.addEventListener('DOMContentLoaded', () => {
             const allBtn = document.querySelector('.filter-btn');
             if (allBtn) allBtn.classList.add('active', 'bg-violet-600', 'border-violet-500');
