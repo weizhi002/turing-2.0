@@ -10,13 +10,12 @@
         body { font-family: Inter, system-ui, sans-serif; }
         .font-display { font-family: 'Space Grotesk', Inter, sans-serif; }
         .nav-active { color: white; border-bottom: 2px solid #7c3aed; }
-        .framework-step {
-            transition: all 0.3s ease;
-        }
-        .framework-step:hover {
-            transform: translateY(-4px);
-            border-color: #7c3aed;
-        }
+        .framework-step { transition: all 0.3s ease; }
+        .framework-step:hover { transform: translateY(-4px); border-color: #7c3aed; }
+        .tab-btn { transition: all 0.2s; }
+        .tab-btn.active { border-bottom: 3px solid #7c3aed; color: white; }
+        .emotion-card { transition: transform 0.2s; }
+        .emotion-card:hover { transform: scale(1.02); }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-200">
@@ -35,168 +34,210 @@
                 <a href="methodology.html" class="nav-active">测评框架</a>
                 <a href="leaderboard.html" class="hover:text-white transition">榜单</a>
                 <a href="interaction.html" class="hover:text-white transition">情感交互</a>
-                <a href="https://github.com/weizhi002/turing-2.0" target="_blank" 
-                   class="px-4 py-2 border border-zinc-700 rounded-xl hover:bg-zinc-900 transition">GitHub</a>
+                <a href="https://github.com/weizhi002/turing-2.0" target="_blank" class="px-4 py-2 border border-zinc-700 rounded-xl hover:bg-zinc-900 transition">GitHub</a>
             </div>
         </div>
     </nav>
 
     <div class="max-w-screen-xl mx-auto px-6 pt-12 pb-16">
         <!-- Header -->
-        <div class="max-w-3xl mb-12">
-            <div class="text-violet-400 text-sm font-medium tracking-[2px] mb-3">METHODOLOGY</div>
+        <div class="max-w-4xl mb-12">
+            <div class="text-violet-400 text-sm font-medium tracking-[2px] mb-3">METHODOLOGY & THEORY</div>
             <h1 class="text-5xl font-display font-semibold tracking-tighter mb-4">多模态情感交互测评框架</h1>
-            <p class="text-xl text-zinc-400">图灵2.0 提出的原创评估范式与方法体系</p>
+            <p class="text-xl text-zinc-400">图灵2.0 提出的原创评估范式，融合经典情感理论与前沿MER/ABAW/MuSe挑战赛方法，支撑情感陪护大模型全流程闭环。</p>
         </div>
 
-        <!-- Core Paradigm -->
+        <!-- Emotional Theories Section -->
         <div class="mb-16">
-            <h2 class="text-3xl font-semibold mb-8 flex items-center gap-x-3">
-                <span>核心范式：多模态情感交互循环</span>
-            </h2>
+            <h2 class="text-3xl font-semibold mb-8 flex items-center gap-x-3"><i class="fa-solid fa-lightbulb text-violet-400"></i> <span>情感理论基础</span></h2>
             
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Ekman -->
+                <div class="emotion-card bg-zinc-900 border border-zinc-700 rounded-3xl p-8">
+                    <div class="flex items-center gap-x-4 mb-5">
+                        <div class="w-12 h-12 bg-red-600/20 text-red-400 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-user fa-lg"></i></div>
+                        <div>
+                            <h3 class="font-semibold text-2xl">Ekman 六大基本情感</h3>
+                            <p class="text-xs text-zinc-400">Paul Ekman, 1969 · 离散情感模型 (Discrete Emotion Model)</p>
+                        </div>
+                    </div>
+                    <p class="text-zinc-400 mb-4">经典离散分类理论，认为人类有6种基本、跨文化普遍的情绪，每种有特定面部表情、神经生理模式和进化功能。</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
+                        <div class="flex items-center gap-x-2 px-3 py-1.5 bg-zinc-800 rounded-xl"><span class="text-blue-400">😢</span> <span>Sadness 悲伤</span></div>
+                        <div class="flex items-center gap-x-2 px-3 py-1.5 bg-zinc-800 rounded-xl"><span class="text-red-400">😠</span> <span>Anger 愤怒</span></div>
+                        <div class="flex items-center gap-x-2 px-3 py-1.5 bg-zinc-800 rounded-xl"><span class="text-yellow-400">😨</span> <span>Fear 恐惧</span></div>
+                        <div class="flex items-center gap-x-2 px-3 py-1.5 bg-zinc-800 rounded-xl"><span class="text-purple-400">😮</span> <span>Surprise 惊讶</span></div>
+                        <div class="flex items-center gap-x-2 px-3 py-1.5 bg-zinc-800 rounded-xl"><span class="text-green-400">🤢</span> <span>Disgust 厌恶</span></div>
+                        <div class="flex items-center gap-x-2 px-3 py-1.5 bg-zinc-800 rounded-xl"><span class="text-amber-400">😊</span> <span>Happy 快乐</span></div>
+                    </div>
+                    <p class="text-xs text-zinc-500 mt-3">平台应用：基础离散分类、MER-SEMI固定类别任务、表情识别 baseline。</p>
+                </div>
+
+                <!-- Russell -->
+                <div class="emotion-card bg-zinc-900 border border-zinc-700 rounded-3xl p-8">
+                    <div class="flex items-center gap-x-4 mb-5">
+                        <div class="w-12 h-12 bg-blue-600/20 text-blue-400 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-chart-line fa-lg"></i></div>
+                        <div>
+                            <h3 class="font-semibold text-2xl">Russell 效价-唤醒模型</h3>
+                            <p class="text-xs text-zinc-400">James A. Russell, 1980 · 连续情感模型 (Continuous Emotion Model)</p>
+                        </div>
+                    </div>
+                    <p class="text-zinc-400 mb-4">情绪不是离散类别，而是二维连续空间：Valence（效价：愉快-不愉快）、Arousal（唤醒：平静-激动）。可衍生更多情绪状态，适合动态轨迹建模。</p>
+                    <div class="bg-zinc-950 border border-zinc-700 rounded-2xl p-4 mb-3 text-xs">
+                        <div class="flex justify-between text-[10px] mb-1"><span>高唤醒</span><span>低唤醒</span></div>
+                        <div class="h-2 bg-gradient-to-r from-blue-500 via-violet-500 to-red-500 rounded mb-1"></div>
+                        <div class="flex justify-between text-[10px]"><span class="text-blue-400">Valence -</span><span class="text-red-400">Valence +</span></div>
+                    </div>
+                    <p class="text-xs text-zinc-500">平台应用：MER-PS生理信号轨迹、ABAW VA估计、RECOLA/SEWA连续回归、长期情绪轨迹建模。</p>
+                </div>
+            </div>
+
+            <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8">
+                <h4 class="font-semibold mb-3 flex items-center gap-x-2"><i class="fa-solid fa-globe text-emerald-400"></i> 开放词汇情感识别 (MER-OV / OV-MERD)</h4>
+                <p class="text-zinc-400 text-sm">从封闭分类转向生成式开放词表。模型输出任意数量、任意细粒度情绪词或自然语言描述（如 "feeling nervous but trying to stay calm"），而非固定6类。数据来自 OV-MERD (人工+模型辅助标注) 和 MER-Caption+。评价使用 Emotion Wheel 层级归一化后的集合级 Precision/Recall/F1。</p>
+                <p class="text-xs text-emerald-400 mt-2">平台核心：支撑细粒度理解、描述式共情回应 (MER-DES)、偏好判断 (MER-Prefer)。</p>
+            </div>
+        </div>
+
+        <!-- MER Challenge Series -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold mb-8 flex items-center gap-x-3"><i class="fa-solid fa-trophy text-violet-400"></i> <span>MER 多模态情感识别挑战赛 (2023-2026)</span></h2>
+            <p class="text-zinc-400 mb-6">ACM Multimedia 绑定学术挑战赛，从判别式分类向生成式理解演进。图灵2.0 覆盖其核心赛道与数据。</p>
+
+            <div class="space-y-6">
+                <!-- MER2025 -->
+                <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-semibold text-xl">MER2025：情感计算与大语言模型结合</h3>
+                        <span class="px-3 py-1 text-xs bg-violet-900/60 text-violet-300 rounded-full">核心年份</span>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6 text-sm">
+                        <div>
+                            <div class="font-medium text-violet-400 mb-1">Track 1: MER-SEMI 半监督固定类别</div>
+                            <p class="text-zinc-400 text-xs">少量标注 + 大量未标注，6类 (neutral, happy, angry, sad, surprise, worry)。WAF 主要指标。数据来自 MC-EIU, M3ED, 19部中文剧。</p>
+                        </div>
+                        <div>
+                            <div class="font-medium text-violet-400 mb-1">Track 2: MER-FG 细粒度开放词表</div>
+                            <p class="text-zinc-400 text-xs">开放词表，任意数量细粒度标签。Emotion Wheel 集合级 F1。数据 OV-MERD + MER-Caption+。</p>
+                        </div>
+                        <div>
+                            <div class="font-medium text-violet-400 mb-1">Track 3: MER-DES 描述式情绪理解</div>
+                            <p class="text-zinc-400 text-xs">输出多模态线索描述 + 标签。可解释性人工评测。强调 "为什么是这种情绪"。</p>
+                        </div>
+                        <div>
+                            <div class="font-medium text-violet-400 mb-1">Track 4: MER-PR 情绪增强人格识别</div>
+                            <p class="text-zinc-400 text-xs">MDPE 数据集，情绪预测辅助 Big Five 人格 (0-1 连续)。RMSE 指标。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MER2026 -->
+                <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-semibold text-xl">MER2026：从判别转向生成式理解（进行中）</h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6 text-sm">
+                        <div>
+                            <div class="font-medium text-violet-400 mb-1">Track 1: MER-Cross 对话听者情绪</div>
+                            <p class="text-zinc-400 text-xs">预测对话另一方（听者）情绪，强调上下文、情绪传递。WAF 指标。数据 132k 多模态样本。</p>
+                        </div>
+                        <div>
+                            <div class="font-medium text-violet-400 mb-1">Track 2: MER-FG 细粒度（延续）</div>
+                            <p class="text-zinc-400 text-xs">Human-OV + MER-Caption+ 训练，Emotion Wheel avg F1。</p>
+                        </div>
+                        <div>
+                            <div class="font-medium text-violet-400 mb-1">Track 3: MER-Prefer 情绪偏好判断</div>
+                            <p class="text-zinc-400 text-xs">成对描述偏好二分类（A vs B），WAF。人类偏好学习 / Reward Modeling。</p>
+                        </div>
+                        <div>
+                            <div class="font-medium text-violet-400 mb-1">Track 4: MER-PS 生理信号情绪</div>
+                            <p class="text-zinc-400 text-xs">EEG (64ch 200Hz) + fNIRS (51ch) → 动态 valence/arousal (1Hz)。MAE 指标。HuggingFace 公开 24 被试数据。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABAW & MuSe -->
+        <div class="grid lg:grid-cols-2 gap-6 mb-16">
+            <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8">
+                <h3 class="font-semibold text-xl mb-4 flex items-center gap-x-2"><i class="fa-solid fa-video text-orange-400"></i> ABAW 系列 (FG/CVPR/ECCV/ICCV 2020-2025)</h3>
+                <p class="text-sm text-zinc-400 mb-4">Aff-Wild2 为核心数据，任务从单任务 VA/表情/AU 演进到多任务、复合表情、情绪反应强度、Ambivalence、暴力检测。</p>
+                <ul class="text-xs text-zinc-400 space-y-1">
+                    <li>• 2020-2022: VA (mean CCC), 7/8类表情 (F1/Acc), 8-12 AU (F1)</li>
+                    <li>• 2023-2024: Multi-Task Learning, Compound Expression (7类 macro-F1), Emotional Reaction Intensity (Pearson)</li>
+                    <li>• 2025: Fine-Grained Violence Detection (violent/non-violent macro-F1)</li>
+                </ul>
+                <p class="text-xs text-orange-400 mt-2">平台应用：ABAW MTL 综合得分、复合情绪、VA连续轨迹。</p>
+            </div>
+            <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8">
+                <h3 class="font-semibold text-xl mb-4 flex items-center gap-x-2"><i class="fa-solid fa-car text-blue-400"></i> MuSe 系列 (2020-2025)</h3>
+                <p class="text-sm text-zinc-400 mb-4">MuSe-CaR (汽车评测视频) + Ulm-TSST (压力) + Hume 等。覆盖 wild、humor、stress、physio、personalisation、perception。</p>
+                <ul class="text-xs text-zinc-400 space-y-1">
+                    <li>• MuSe-Wild/Wilder: valence/arousal CCC</li>
+                    <li>• MuSe-Stress/Physio: 生理 arousal + 心理 valence</li>
+                    <li>• MuSe-Humor: humorous/non-humorous AUC (跨语言)</li>
+                    <li>• MuSe-Perception: 16社会感知属性 Pearson corr (CEO路演)</li>
+                </ul>
+                <p class="text-xs text-blue-400 mt-2">平台应用：个性化建模、压力/工作负荷、真实交互场景。</p>
+            </div>
+        </div>
+
+        <!-- Core Framework (kept & enriched) -->
+        <div class="mb-16">
+            <h2 class="text-3xl font-semibold mb-8">图灵2.0 核心评估范式：多模态情感交互闭环</h2>
             <div class="grid md:grid-cols-5 gap-4">
-                <!-- Step 1 -->
                 <div class="framework-step bg-zinc-900 border border-zinc-700 rounded-3xl p-6">
-                    <div class="w-10 h-10 bg-violet-600/20 text-violet-400 rounded-2xl flex items-center justify-center mb-5">
-                        <i class="fa-solid fa-eye fa-lg"></i>
-                    </div>
+                    <div class="w-10 h-10 bg-violet-600/20 text-violet-400 rounded-2xl flex items-center justify-center mb-5"><i class="fa-solid fa-eye fa-lg"></i></div>
                     <div class="font-semibold text-xl mb-2">1. 多模态感知</div>
-                    <p class="text-sm text-zinc-400">同时处理文本、语音、面部表情、姿态等多模态输入信号。</p>
+                    <p class="text-sm text-zinc-400">融合文本语义、语音声学、视觉表情/姿态/动作、生理信号（EEG/fNIRS）。</p>
                 </div>
-                
                 <div class="framework-step bg-zinc-900 border border-zinc-700 rounded-3xl p-6">
-                    <div class="w-10 h-10 bg-violet-600/20 text-violet-400 rounded-2xl flex items-center justify-center mb-5">
-                        <i class="fa-solid fa-brain fa-lg"></i>
-                    </div>
+                    <div class="w-10 h-10 bg-violet-600/20 text-violet-400 rounded-2xl flex items-center justify-center mb-5"><i class="fa-solid fa-brain fa-lg"></i></div>
                     <div class="font-semibold text-xl mb-2">2. 情感理解</div>
-                    <p class="text-sm text-zinc-400">识别情绪类别、强度、触发原因以及隐含的情感意图。</p>
+                    <p class="text-sm text-zinc-400">离散类别 + 连续VA + 开放细粒度词 + 原因/意图推理 + 人格关联。</p>
                 </div>
-                
                 <div class="framework-step bg-zinc-900 border border-zinc-700 rounded-3xl p-6">
-                    <div class="w-10 h-10 bg-violet-600/20 text-violet-400 rounded-2xl flex items-center justify-center mb-5">
-                        <i class="fa-solid fa-heart fa-lg"></i>
-                    </div>
+                    <div class="w-10 h-10 bg-violet-600/20 text-violet-400 rounded-2xl flex items-center justify-center mb-5"><i class="fa-solid fa-heart fa-lg"></i></div>
                     <div class="font-semibold text-xl mb-2">3. 共情模拟</div>
-                    <p class="text-sm text-zinc-400">生成符合情境的共情反应，匹配用户当前情感状态。</p>
+                    <p class="text-sm text-zinc-400">匹配用户状态，生成自然描述，支持偏好学习与可解释线索。</p>
                 </div>
-                
                 <div class="framework-step bg-zinc-900 border border-zinc-700 rounded-3xl p-6">
-                    <div class="w-10 h-10 bg-violet-600/20 text-violet-400 rounded-2xl flex items-center justify-center mb-5">
-                        <i class="fa-solid fa-reply fa-lg"></i>
-                    </div>
+                    <div class="w-10 h-10 bg-violet-600/20 text-violet-400 rounded-2xl flex items-center justify-center mb-5"><i class="fa-solid fa-reply fa-lg"></i></div>
                     <div class="font-semibold text-xl mb-2">4. 情感生成</div>
-                    <p class="text-sm text-zinc-400">输出自然、连贯且具有情感一致性的多模态响应。</p>
+                    <p class="text-sm text-zinc-400">多模态一致响应，危机风险识别，个性化陪护策略。</p>
                 </div>
-                
                 <div class="framework-step bg-zinc-900 border border-zinc-700 rounded-3xl p-6">
-                    <div class="w-10 h-10 bg-violet-600/20 text-violet-400 rounded-2xl flex items-center justify-center mb-5">
-                        <i class="fa-solid fa-sync fa-lg"></i>
-                    </div>
+                    <div class="w-10 h-10 bg-violet-600/20 text-violet-400 rounded-2xl flex items-center justify-center mb-5"><i class="fa-solid fa-sync fa-lg"></i></div>
                     <div class="font-semibold text-xl mb-2">5. 反馈闭环</div>
-                    <p class="text-sm text-zinc-400">根据用户后续反馈动态调整情感交互策略。</p>
+                    <p class="text-sm text-zinc-400">人类偏好 (MER-Prefer)、专家复核、数据质量评分、持续迭代优化。</p>
                 </div>
             </div>
         </div>
 
-        <!-- Evaluation Dimensions -->
-        <div class="mb-16">
-            <h2 class="text-3xl font-semibold mb-8">核心评估维度</h2>
-            
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
-                    <div class="flex items-center gap-x-3 mb-4">
-                        <i class="fa-solid fa-check-circle text-emerald-400 text-xl"></i>
-                        <span class="font-semibold text-xl">情感识别准确率</span>
-                    </div>
-                    <p class="text-zinc-400">在多模态输入下正确识别情绪类别与强度的能力。</p>
-                </div>
-                
-                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
-                    <div class="flex items-center gap-x-3 mb-4">
-                        <i class="fa-solid fa-heart text-rose-400 text-xl"></i>
-                        <span class="font-semibold text-xl">共情对齐分数</span>
-                    </div>
-                    <p class="text-zinc-400">模型响应与用户真实情感状态的匹配程度（人工 + 自动评估）。</p>
-                </div>
-                
-                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
-                    <div class="flex items-center gap-x-3 mb-4">
-                        <i class="fa-solid fa-link text-blue-400 text-xl"></i>
-                        <span class="font-semibold text-xl">跨模态一致性</span>
-                    </div>
-                    <p class="text-zinc-400">文本、语音、视觉等多模态输出在情感表达上的一致性。</p>
-                </div>
-                
-                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
-                    <div class="flex items-center gap-x-3 mb-4">
-                        <i class="fa-solid fa-sync text-amber-400 text-xl"></i>
-                        <span class="font-semibold text-xl">多轮情感连贯性</span>
-                    </div>
-                    <p class="text-zinc-400">长对话中情感状态的稳定性和合理演变能力。</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Benchmark Tasks -->
-        <div class="mb-16">
-            <h2 class="text-3xl font-semibold mb-8">基准测试任务</h2>
-            
-            <div class="space-y-4">
-                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-7 flex gap-6">
-                    <div class="w-12 h-12 bg-violet-600/20 text-violet-400 rounded-2xl flex-shrink-0 flex items-center justify-center">
-                        <i class="fa-solid fa-tasks fa-lg"></i>
-                    </div>
-                    <div>
-                        <div class="font-semibold text-xl mb-1">任务1：多模态情感分类</div>
-                        <p class="text-zinc-400">在给定文本+语音+图像的场景下，准确分类情绪并给出置信度。</p>
-                    </div>
-                </div>
-                
-                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-7 flex gap-6">
-                    <div class="w-12 h-12 bg-violet-600/20 text-violet-400 rounded-2xl flex-shrink-0 flex items-center justify-center">
-                        <i class="fa-solid fa-comments fa-lg"></i>
-                    </div>
-                    <div>
-                        <div class="font-semibold text-xl mb-1">任务2：情感共情对话生成</div>
-                        <p class="text-zinc-400">根据用户当前情绪状态，生成具有共情能力的多轮回复。</p>
-                    </div>
-                </div>
-                
-                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-7 flex gap-6">
-                    <div class="w-12 h-12 bg-violet-600/20 text-violet-400 rounded-2xl flex-shrink-0 flex items-center justify-center">
-                        <i class="fa-solid fa-user-check fa-lg"></i>
-                    </div>
-                    <div>
-                        <div class="font-semibold text-xl mb-1">任务3：情感一致性与人类 likeness 评估</div>
-                        <p class="text-zinc-400">通过人工图灵测试与自动指标，评估模型响应的拟人情感表现。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- How to Submit -->
+        <!-- How to Submit & Platform Goals -->
         <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-10">
-            <h2 class="text-3xl font-semibold mb-6">如何提交评测结果</h2>
-            <div class="grid md:grid-cols-3 gap-8 text-sm">
+            <h2 class="text-3xl font-semibold mb-6">评测结果提交与平台闭环</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-sm mb-8">
                 <div>
                     <div class="font-medium mb-2 text-violet-400">方式一：GitHub Issue（推荐）</div>
-                    <p class="text-zinc-400">在仓库提交 Issue，选择 “evaluation” 标签，填写模型信息与评测结果。</p>
+                    <p class="text-zinc-400">选择 "evaluation" 标签，填写模型、赛道（MER-FG/MER-PS/ABAW等）、指标结果。</p>
                 </div>
                 <div>
                     <div class="font-medium mb-2 text-violet-400">方式二：Pull Request</div>
-                    <p class="text-zinc-400">在 <code class="bg-zinc-800 px-1.5 py-0.5 rounded">data/evaluations/</code> 目录下添加 JSON 文件并提交 PR。</p>
+                    <p class="text-zinc-400">在 <code>data/evaluations/</code> 添加结构化 JSON，包含多任务得分。</p>
                 </div>
                 <div>
-                    <div class="font-medium mb-2 text-violet-400">方式三：在线交互贡献</div>
-                    <p class="text-zinc-400">在情感交互 Demo 中完成对话后，可一键提交为评测数据。</p>
+                    <div class="font-medium mb-2 text-violet-400">方式三：Demo 贡献</div>
+                    <p class="text-zinc-400">交互 Demo 结束后一键提交对话 + 评分，进入人类偏好数据池。</p>
                 </div>
             </div>
+            <div class="text-xs text-zinc-500 border-t border-zinc-700 pt-4">平台目标：沉淀数据资产 → 支撑模型研发 → 全流程闭环 → 真实陪护能力评估 → 安全伦理保障 → 差异化竞争力。</div>
         </div>
     </div>
 
     <footer class="border-t border-zinc-800 py-8 text-center text-sm text-zinc-500">
-        图灵2.0 · 由社区共同构建的情感智能基准平台
+        图灵2.0 · 由社区共同构建的情感智能基准平台 | 融合 Ekman/Russell + MER/ABAW/MuSe
     </footer>
 </body>
 </html>
