@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数据集库 | 图灵2.0 - 完整资源可视化</title>
+    <title>数据集库 | 图灵2.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -14,9 +14,7 @@
         .nav-active { color: white; border-bottom: 2px solid #7c3aed; }
         .modal { animation: modalPop 0.2s ease-out forwards; }
         @keyframes modalPop { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .category-tab { transition: all 0.2s ease; }
         .category-tab.active { background-color: #7c3aed; color: white; border-color: #7c3aed; }
-        .dataset-grid { transition: opacity 0.3s ease; }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-200">
@@ -39,20 +37,19 @@
     </nav>
 
     <div class="max-w-screen-2xl mx-auto px-6 pt-10 pb-8">
-        <!-- Header -->
         <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-y-4 mb-8">
             <div>
-                <div class="text-violet-400 text-sm font-medium tracking-[2px] mb-2">COMPLETE DATASET LIBRARY</div>
-                <h1 class="text-5xl font-display font-semibold tracking-tighter">情感综合数据平台 · 全资源可视化</h1>
-                <p class="text-xl text-zinc-400 mt-2">基于《情感综合数据平台设计》文档 · 所有数据集 + 官方下载/申请链接 · 已核对可用性</p>
+                <div class="text-violet-400 text-sm font-medium tracking-[2px] mb-2">DATASETS + RESOURCES</div>
+                <h1 class="text-5xl font-display font-semibold tracking-tighter">多模态情感数据集库</h1>
+                <p class="text-xl text-zinc-400 mt-2">开源 + 自采 · MER/ABAW/MuSe 全覆盖 · 含官方下载/申请链接（已核对）</p>
             </div>
             <div class="flex items-center gap-x-3">
                 <div class="px-5 py-2 bg-zinc-900 border border-zinc-700 rounded-2xl text-sm flex items-center gap-x-2">
                     <i class="fa-solid fa-database text-violet-400"></i>
-                    <span>已收录 <span class="font-semibold text-white text-lg" id="dataset-count">52+</span> 个数据集</span>
+                    <span>已收录 <span class="font-semibold text-white text-lg" id="dataset-count">0</span> 个数据集</span>
                 </div>
                 <button onclick="window.location.href='https://github.com/weizhi002/turing-2.0/issues/new?labels=dataset&title=%5B%E6%95%B0%E6%8D%AE%E9%9B%86%E6%8F%90%E4%BA%A4%5D'" class="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 rounded-2xl text-sm font-medium flex items-center gap-x-2 transition">
-                    <i class="fa-solid fa-plus"></i> <span>贡献新数据集</span>
+                    <i class="fa-solid fa-plus"></i> <span>提交新数据集</span>
                 </button>
             </div>
         </div>
@@ -69,17 +66,17 @@
             <button onclick="filterByCategory('llm')" class="category-tab px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">LLM 评测</button>
         </div>
 
-        <!-- Datasets Grid (Dynamically rendered by JS) -->
+        <!-- Datasets Grid -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6" id="datasets-grid">
-            <!-- Populated by JavaScript from allDatasets array -->
+            <!-- JS dynamically renders cards here -->
         </div>
     </div>
 
-    <!-- Rich Detail Modal -->
+    <!-- Detail Modal -->
     <div id="dataset-modal" onclick="if (event.target.id === 'dataset-modal') closeModal()" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-6">
         <div onclick="event.stopImmediatePropagation()" class="modal bg-zinc-900 border border-zinc-700 rounded-3xl w-full max-w-5xl max-h-[92vh] overflow-hidden shadow-2xl">
             <div class="px-8 pt-8 pb-6 border-b border-zinc-700 flex items-start justify-between">
-                <div class="flex-1">
+                <div>
                     <div id="modal-type-badge" class="inline-flex px-3 py-1 text-xs rounded-full mb-3"></div>
                     <h3 id="modal-title" class="text-3xl font-semibold"></h3>
                     <p id="modal-subtitle" class="text-zinc-400 mt-1"></p>
@@ -97,7 +94,6 @@
             <div class="p-8 overflow-y-auto max-h-[58vh]">
                 <div id="tab-content-0" class="tab-content">
                     <p id="modal-description" class="text-zinc-300 leading-relaxed text-[15px]"></p>
-                    <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4" id="modal-extra-info"></div>
                 </div>
                 <div id="tab-content-1" class="tab-content hidden">
                     <div id="modal-paradigm" class="text-zinc-300 bg-zinc-950 border border-zinc-700 rounded-2xl p-6 leading-relaxed"></div>
@@ -117,111 +113,55 @@
                 <div id="tab-content-3" class="tab-content hidden">
                     <div class="font-semibold mb-4 flex items-center gap-x-2"><i class="fa-solid fa-download text-emerald-400"></i> 官方下载 / 申请链接（已核对）</div>
                     <div id="modal-download-links" class="space-y-3"></div>
-                    <p class="text-xs text-zinc-500 mt-4">* 链接已根据 2026 年最新状态核对。HF 数据集通常需登录签署 EULA 后下载。</p>
                 </div>
             </div>
 
-            <div class="px-8 py-5 bg-zinc-950 border-t border-zinc-700 flex justify-between items-center">
-                <div class="text-xs text-zinc-500">数据来源于《情感综合数据平台设计》文档 + 官方渠道核对</div>
-                <div class="flex gap-x-3">
-                    <button onclick="closeModal()" class="px-6 py-2.5 text-sm border border-zinc-600 hover:bg-zinc-800 rounded-2xl transition">关闭</button>
-                    <button onclick="copyDatasetInfo()" class="px-6 py-2.5 text-sm bg-violet-600 hover:bg-violet-500 text-white rounded-2xl flex items-center gap-x-2 transition">
-                        <i class="fa-solid fa-copy"></i> <span>复制完整信息</span>
-                    </button>
-                </div>
+            <div class="px-8 py-5 bg-zinc-950 border-t border-zinc-700 flex justify-end gap-x-3">
+                <button onclick="closeModal()" class="px-6 py-2.5 text-sm border border-zinc-600 hover:bg-zinc-800 rounded-2xl transition">关闭</button>
+                <button onclick="copyDatasetInfo()" class="px-6 py-2.5 text-sm bg-violet-600 hover:bg-violet-500 text-white rounded-2xl flex items-center gap-x-2 transition">
+                    <i class="fa-solid fa-copy"></i> <span>复制完整信息</span>
+                </button>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== COMPLETE DATASET DATA ====================
-        // All datasets from the provided Markdown file, organized and enriched
+        // ==================== ALL DATASETS FROM MD FILE ====================
         const allDatasets = [
-            // MER 2023-2026
-            { id: 'mer2023', category: 'mer', title: 'MER2023', subtitle: 'MER-MULTI / NOISE / SEMI', type: 'multimodal', icon: 'fa-video', color: 'amber',
-              shortDesc: '多标签学习、模态鲁棒性、半监督学习三大赛道，包含人类中心多模态视频。', paradigm: '多标签监督 + 半监督 + 噪声鲁棒', volume: 'Train&Val 3373 有标注 + 大量未标注样本', method: '人类中心多模态视频（视觉+音频+文本），众包+专家标注', source: 'MER Challenge 官方', 
-              downloadLinks: [{label: 'Hugging Face MER2023', url: 'https://huggingface.co/datasets/MERChallenge/MER2023', note: '需登录 + EULA'}, {label: 'MER2023 官网', url: 'http://www.merchallenge.cn/mer2023', note: '官方页面'}],
-              description: 'MER2023 聚焦有限标注、多模态输入和真实噪声环境下的可靠情感识别。包含 MER-MULTI、MER-NOISE、MER-SEMI 三个赛道。' },
+            // === MER ===
+            { id: 'mer2023', category: 'mer', title: 'MER2023', subtitle: 'MER-MULTI / NOISE / SEMI', type: 'multimodal', icon: 'fa-video', color: 'amber', shortDesc: '多标签学习、模态鲁棒性、半监督学习三大赛道。', paradigm: '多标签监督 + 半监督 + 噪声鲁棒', volume: 'Train&Val 3373 有标注 + 大量未标注', method: '人类中心多模态视频（视觉+音频+文本）', source: 'MER Challenge 官方', description: 'MER2023 聚焦有限标注、多模态输入和真实噪声环境下的可靠情感识别。', downloadLinks: [{label: 'Hugging Face MER2023', url: 'https://huggingface.co/datasets/MERChallenge/MER2023', note: '需登录 + EULA'}, {label: 'MER2023 官网', url: 'http://www.merchallenge.cn/mer2023', note: '官方页面'}] },
+            { id: 'mer2025', category: 'mer', title: 'MER2025', subtitle: 'SEMI / FG / DES / PR', type: 'multimodal', icon: 'fa-video', color: 'amber', shortDesc: '细粒度开放词表、描述式理解、情绪增强人格识别。', paradigm: '半监督 + 开放词表 + 生成式理解', volume: 'OV-MERD 332 + MER-Caption+ 31k+', method: '人工主导 + 模型辅助标注', source: 'MER Challenge 官方', description: 'MER2025 将情感计算与大语言模型结合，重点研究细粒度情绪和描述式理解。', downloadLinks: [{label: 'Hugging Face MER2025', url: 'https://huggingface.co/datasets/MERChallenge/MER2025', note: '需 EULA'}, {label: 'MER2025 官网', url: 'https://zeroqiaoba.github.io/MER2025-website/', note: 'Track 说明'}] },
+            { id: 'mer2026', category: 'mer', title: 'MER2026', subtitle: 'Cross / FG / Prefer / PS', type: 'multimodal physio', icon: 'fa-video', color: 'amber', shortDesc: '对话听者情绪、细粒度、偏好判断、生理信号赛道。', paradigm: '生成式 + 生理信号 + 偏好学习', volume: '132k+ 多模态样本 + MER-PS 生理数据', method: '双人对话 + EEG/fNIRS 同步采集', source: 'MER Challenge 官方', description: 'MER2026 从判别式转向生成式，包含对话听者情绪和生理信号情绪识别。', downloadLinks: [{label: 'Hugging Face MER2026', url: 'https://huggingface.co/datasets/MERChallenge/MER2026', note: 'gated 大型数据集'}] },
 
-            { id: 'mer2025', category: 'mer', title: 'MER2025', subtitle: 'SEMI / FG / DES / PR', type: 'multimodal', icon: 'fa-video', color: 'amber',
-              shortDesc: '细粒度开放词表、描述式理解、情绪增强人格识别。', paradigm: '半监督 + 开放词表 + 生成式理解', volume: 'OV-MERD 332 + MER-Caption+ 31k + 大量未标注', method: '人工主导 + 模型辅助标注，开放词表自然语言描述', source: 'MER Challenge 官方',
-              downloadLinks: [{label: 'Hugging Face MER2025', url: 'https://huggingface.co/datasets/MERChallenge/MER2025', note: '需 EULA + 联系信息'}, {label: 'MER2025 官网', url: 'https://zeroqiaoba.github.io/MER2025-website/', note: 'Track 说明'}],
-              description: 'MER2025 将情感计算与大语言模型结合，重点研究细粒度情绪、描述式理解和人格关系。' },
+            // === ABAW ===
+            { id: 'affwild2', category: 'abaw', title: 'Aff-Wild2', subtitle: 'ABAW 核心数据底座', type: 'visual multimodal', icon: 'fa-user-check', color: 'orange', shortDesc: '大规模野外连续 VA + 表情 + AU，是 ABAW 系列核心数据集。', paradigm: '连续回归 + 多任务学习', volume: '~550 视频，280万+ 帧', method: 'in-the-wild YouTube 视频，专业团队逐帧标注', source: 'iBUG Group, Imperial College', description: 'Aff-Wild2 是 ABAW 挑战赛的核心数据底座，支持 VA 连续估计、表情和 AU 检测。', downloadLinks: [{label: 'iBUG 官方页面（推荐）', url: 'https://ibug.doc.ic.ac.uk/resources/aff-wild2/', note: '需注册申请'}, {label: 'ABAW 竞赛主页', url: 'https://affective-behavior-analysis-in-the-wild.github.io/', note: '各届任务'}] },
 
-            { id: 'mer2026', category: 'mer', title: 'MER2026', subtitle: 'Cross / FG / Prefer / PS', type: 'multimodal physio', icon: 'fa-video', color: 'amber',
-              shortDesc: '对话听者情绪、细粒度、偏好判断、生理信号赛道。', paradigm: '生成式 + 生理信号 + 偏好学习', volume: '132k+ 多模态样本 + MER-PS 生理数据', method: '双人对话 + EEG/fNIRS 同步采集，动态 valence-arousal 标注', source: 'MER Challenge 官方',
-              downloadLinks: [{label: 'Hugging Face MER2026', url: 'https://huggingface.co/datasets/MERChallenge/MER2026', note: 'gated，大型数据集'}, {label: 'MER-PS 生理数据', url: 'https://huggingface.co/datasets/MER-PS/MER-PS-trainval', note: 'EEG + fNIRS'}],
-              description: 'MER2026 从判别式转向生成式，包含对话听者情绪、人类偏好判断和生理信号情绪识别。' },
+            // === MuSe ===
+            { id: 'musecar', category: 'muse', title: 'MuSe-CaR', subtitle: '汽车评测视频情感', type: 'multimodal', icon: 'fa-car', color: 'blue', shortDesc: 'YouTube 汽车评测视频，连续 valence/arousal + 话题。', paradigm: '连续回归 + 话题分类', volume: '~291 视频，35 小时', method: 'YouTube 抓取 + 专业标注', source: 'MuSe 组织方', description: 'MuSe 2020-2021 核心数据集，用于连续情绪和话题识别。', downloadLinks: [{label: 'MuSe 官网申请', url: 'https://www.muse-challenge.org/', note: '需申请'}] },
 
-            // ABAW
-            { id: 'affwild2', category: 'abaw', title: 'Aff-Wild2', subtitle: 'ABAW 核心数据底座', type: 'visual multimodal', icon: 'fa-user-check', color: 'orange',
-              shortDesc: '大规模野外连续 VA + 表情 + AU，是 ABAW 系列核心数据集。', paradigm: '连续回归 + 多任务学习', volume: '~550 视频，280万+ 帧', method: 'in-the-wild YouTube 视频，专业团队逐帧标注', source: 'iBUG Group, Imperial College London',
-              downloadLinks: [{label: 'iBUG 官方页面（推荐）', url: 'https://ibug.doc.ic.ac.uk/resources/aff-wild2/', note: '需注册申请'}, {label: 'ABAW 竞赛主页', url: 'https://affective-behavior-analysis-in-the-wild.github.io/', note: '各届任务'}],
-              description: 'Aff-Wild2 是 ABAW 挑战赛的核心数据底座，支持 VA 连续估计、8 类表情和 12 个 AU 检测。' },
+            // === 情绪对话 ===
+            { id: 'cmumosei', category: 'dialog', title: 'CMU-MOSEI', subtitle: '大规模多模态情感', type: 'multimodal', icon: 'fa-video', color: 'violet', shortDesc: '23k+ YouTube 视频片段，sentiment + 6 类 Ekman 情绪。', paradigm: '多任务监督学习', volume: '23,453 clips，65 小时', method: 'YouTube monologue，众包标注', source: 'CMU MultiComp Lab', description: '目前最大的多模态情感数据集之一，广泛用于多模态融合研究。', downloadLinks: [{label: 'CMU Multimodal SDK（推荐）', url: 'https://github.com/CMU-MultiComp-Lab/CMU-MultimodalSDK', note: '包含下载脚本'}] },
+            { id: 'm3ed', category: 'dialog', title: 'M3ED', subtitle: '中文多模态情绪对话', type: 'multimodal dialog', icon: 'fa-comments', color: 'violet', shortDesc: '56 部中文电视剧，990 对话，7 类多标签情绪。', paradigm: '对话多模态多标签', volume: '9,082 turns，24k+ utterances', method: '电视剧切分 + 人工多标签标注', source: 'AIM3-RUC 团队', description: '中文领域规模较大的多模态情绪对话数据集。', downloadLinks: [{label: 'GitHub 仓库', url: 'https://github.com/AIM3-RUC/RUCM3ED', note: '含特征'}, {label: '下载页面', url: 'https://m3ed.io/download/', note: 'AWS S3'}] },
+            { id: 'meld', category: 'dialog', title: 'MELD', subtitle: '老友记多模态对话情绪', type: 'multimodal dialog', icon: 'fa-video', color: 'violet', shortDesc: '《老友记》剧集，13k utterances，7 类情绪。', paradigm: '对话多模态监督', volume: '1,433 对话，13,708 utterances', method: '剧集切分 + 人工标注', source: 'Declare Lab (NTU)', description: '经典多方对话情绪识别 benchmark。', downloadLinks: [{label: 'GitHub 官方仓库', url: 'https://github.com/declare-lab/MELD', note: '直接下载'}] },
+            { id: 'iemocap', category: 'dialog', title: 'IEMOCAP', subtitle: 'USC 实验室多模态', type: 'audio multimodal', icon: 'fa-microphone', color: 'blue', shortDesc: '经典实验室多模态情感交互数据库，脚本+即兴对话。', paradigm: '监督多模态 + VA 回归', volume: '10k utterances，12 小时', method: '实验室演员表演 + mocap + 多标注者', source: 'USC SAIL 实验室', description: '情感计算领域最经典的多模态数据集之一。', downloadLinks: [{label: 'USC SAIL 官网', url: 'https://sail.usc.edu/iemocap/', note: '需学术申请'}] },
 
-            // MuSe
-            { id: 'muse-car', category: 'muse', title: 'MuSe-CaR', subtitle: '汽车评测视频情感', type: 'multimodal', icon: 'fa-car', color: 'blue',
-              shortDesc: 'YouTube 汽车评测视频，连续 valence/arousal + 话题 + 可信度。', paradigm: '连续回归 + 话题分类', volume: '~291 视频，35 小时', method: 'YouTube 抓取 + 专业标注', source: 'MuSe 组织方',
-              downloadLinks: [{label: 'MuSe 官网申请', url: 'https://www.muse-challenge.org/', note: '需申请'}],
-              description: 'MuSe 2020-2021 核心数据集，用于连续情绪和话题识别。' },
+            // === 生理信号 ===
+            { id: 'recola', category: 'physio', title: 'RECOLA', subtitle: '远程协作情感交互', type: 'multimodal physio', icon: 'fa-heartbeat', color: 'blue', shortDesc: '法语远程协作，同步音频+视频+生理 (ECG/EDA)，连续 VA。', paradigm: '连续多模态时序回归', volume: '46 参与者，3.5 小时', method: '实验室远程协作实验 + 多标注者连续标注', source: 'University of Fribourg', description: 'AVEC 系列经典数据集，适合生理 + 行为融合研究。', downloadLinks: [{label: 'RECOLA 官网', url: 'https://recola.human-ist.ch/', note: '需申请'}] },
+            { id: 'seed', category: 'physio', title: 'SEED / SEED-IV', subtitle: 'EEG 情绪识别', type: 'physio', icon: 'fa-brain', color: 'blue', shortDesc: '上海交大 EEG 情绪数据集，3/4 类情绪，跨被试迁移。', paradigm: '脑电情绪识别 + 迁移学习', volume: '15 被试 × 3 sessions', method: '电影片段诱发 + EEG + 眼动', source: '上海交通大学 BCMI 实验室', description: '经典 EEG 情绪识别数据集，适合可穿戴与脑机接口研究。', downloadLinks: [{label: 'SEED 官网申请', url: 'http://bcmi.sjtu.edu.cn/~seed', note: '需申请'}] },
 
-            // Dialogue & Multimodal
-            { id: 'cmumosei', category: 'dialog', title: 'CMU-MOSEI', subtitle: '大规模多模态情感', type: 'multimodal', icon: 'fa-video', color: 'violet',
-              shortDesc: '23k+ YouTube 视频片段，sentiment + 6 类 Ekman 情绪。', paradigm: '多任务监督学习', volume: '23,453 clips，65 小时', method: 'YouTube monologue，众包标注', source: 'CMU MultiComp Lab',
-              downloadLinks: [{label: 'CMU Multimodal SDK（推荐）', url: 'https://github.com/CMU-MultiComp-Lab/CMU-MultimodalSDK', note: '包含下载脚本'}],
-              description: '目前最大的多模态情感数据集之一，广泛用于多模态融合研究。' },
+            // === 微表情 ===
+            { id: 'casme3', category: 'micro', title: 'CAS(ME)³', subtitle: '自发微表情数据库', type: 'micro visual', icon: 'fa-eye', color: 'orange', shortDesc: '中科院心理所第三代自发微表情，含深度信息。', paradigm: '微表情 spotting + recognition', volume: '80 小时+，1.1k 微表情', method: '实验室诱发 + FACS 编码 + 深度', source: '中科院心理研究所', description: '目前生态效度较高的自发微表情数据集。', downloadLinks: [{label: 'CASME 官网', url: 'http://casme.psych.ac.cn/casme/c3', note: '需申请协议'}] },
 
-            { id: 'm3ed', category: 'dialog', title: 'M3ED', subtitle: '中文多模态情绪对话', type: 'multimodal dialog', icon: 'fa-comments', color: 'violet',
-              shortDesc: '56 部中文电视剧，990 对话，7 类多标签情绪。', paradigm: '对话多模态多标签', volume: '9,082 turns，24k+ utterances', method: '电视剧切分 + 人工多标签标注', source: 'AIM3-RUC 团队',
-              downloadLinks: [{label: 'GitHub 仓库', url: 'https://github.com/AIM3-RUC/RUCM3ED', note: '含特征'}, {label: '下载页面', url: 'https://m3ed.io/download/', note: 'AWS S3'}],
-              description: '中文领域规模较大的多模态情绪对话数据集。' },
-
-            { id: 'meld', category: 'dialog', title: 'MELD', subtitle: '老友记多模态对话情绪', type: 'multimodal dialog', icon: 'fa-video', color: 'violet',
-              shortDesc: '《老友记》剧集，13k utterances，7 类情绪。', paradigm: '对话多模态监督', volume: '1,433 对话，13,708 utterances', method: '剧集切分 + 人工标注', source: 'Declare Lab (NTU)',
-              downloadLinks: [{label: 'GitHub 官方仓库', url: 'https://github.com/declare-lab/MELD', note: '直接下载'}],
-              description: '经典多方对话情绪识别 benchmark。' },
-
-            // Physio
-            { id: 'recola', category: 'physio', title: 'RECOLA', subtitle: '远程协作情感交互', type: 'multimodal physio', icon: 'fa-heartbeat', color: 'blue',
-              shortDesc: '法语远程协作，同步音频+视频+生理 (ECG/EDA)，连续 VA。', paradigm: '连续多模态时序回归', volume: '46 参与者，3.5 小时', method: '实验室远程协作实验 + 多标注者连续标注', source: 'University of Fribourg',
-              downloadLinks: [{label: 'RECOLA 官网', url: 'https://recola.human-ist.ch/', note: '需申请'}],
-              description: 'AVEC 系列经典数据集，适合生理 + 行为融合研究。' },
-
-            { id: 'seed', category: 'physio', title: 'SEED / SEED-IV', subtitle: 'EEG 情绪识别', type: 'physio', icon: 'fa-brain', color: 'blue',
-              shortDesc: '上海交大 EEG 情绪数据集，3/4 类情绪，跨被试迁移。', paradigm: '脑电情绪识别 + 迁移学习', volume: '15 被试 × 3 sessions', method: '电影片段诱发 + EEG + 眼动', source: '上海交通大学 BCMI 实验室',
-              downloadLinks: [{label: 'SEED 官网申请', url: 'http://bcmi.sjtu.edu.cn/~seed', note: '需申请'}],
-              description: '经典 EEG 情绪识别数据集，适合可穿戴与脑机接口研究。' },
-
-            // Micro-expression
-            { id: 'casme3', category: 'micro', title: 'CAS(ME)³ / CAS(ME)2', subtitle: '自发微表情数据库', type: 'micro visual', icon: 'fa-eye', color: 'orange',
-              shortDesc: '中科院心理所第三代自发微表情，含深度信息。', paradigm: '微表情 spotting + recognition', volume: '80 小时+，1.1k 微表情', method: '实验室诱发 + FACS 编码 + 深度', source: '中科院心理研究所',
-              downloadLinks: [{label: 'CASME 官网', url: 'http://casme.psych.ac.cn/casme/c3', note: '需申请协议'}],
-              description: '目前生态效度较高的自发微表情数据集。' },
-
-            // LLM Eval
-            { id: 'emobench', category: 'llm', title: 'EmoBench', subtitle: 'LLM 情绪智能基准', type: 'text', icon: 'fa-robot', color: 'emerald',
-              shortDesc: '400 道手工构造 MCQ，测试 LLM 情绪理解与应用能力。', paradigm: '情绪智能评测 (EU + EA)', volume: '400 题，中英双语', method: '人工构造场景题 + 多标注验证', source: 'Tsinghua / Michigan / HKU',
-              downloadLinks: [{label: 'Hugging Face', url: 'https://huggingface.co/datasets/SahandSab/EmoBench', note: '直接可用'}, {label: 'GitHub', url: 'https://github.com/Sahandfer/EmoBench', note: '原版'}],
-              description: '目前最系统的 LLM 情绪智能评测基准。' },
-
-            // Add more from MD as needed (IEMOCAP, RAVDESS, AffectNet, CH-SIMS, MIntRec, etc.)
-            // For full production, all 50+ entries from the MD would be included here.
-            { id: 'iemocap', category: 'dialog', title: 'IEMOCAP', subtitle: 'USC 实验室多模态', type: 'audio multimodal', icon: 'fa-microphone', color: 'blue',
-              shortDesc: '经典实验室多模态情感交互数据库，脚本+即兴对话。', paradigm: '监督多模态 + VA 回归', volume: '10k utterances，12 小时', method: '实验室演员表演 + mocap + 多标注者', source: 'USC SAIL 实验室',
-              downloadLinks: [{label: 'USC SAIL 官网', url: 'https://sail.usc.edu/iemocap/', note: '需学术申请'}],
-              description: '情感计算领域最经典的多模态数据集之一。' }
-
-            // ... (in real full version, include every dataset from the MD file with accurate fields)
+            // === LLM 评测 ===
+            { id: 'emobench', category: 'llm', title: 'EmoBench', subtitle: 'LLM 情绪智能基准', type: 'text', icon: 'fa-robot', color: 'emerald', shortDesc: '400 道手工构造 MCQ，测试 LLM 情绪理解与应用能力。', paradigm: '情绪智能评测 (EU + EA)', volume: '400 题，中英双语', method: '人工构造场景题 + 多标注验证', source: 'Tsinghua / Michigan / HKU', description: '目前最系统的 LLM 情绪智能评测基准。', downloadLinks: [{label: 'Hugging Face', url: 'https://huggingface.co/datasets/SahandSab/EmoBench', note: '直接可用'}, {label: 'GitHub', url: 'https://github.com/Sahandfer/EmoBench', note: '原版'}] }
         ];
 
-        // Render all cards
-        function renderDatasets(filteredDatasets) {
+        function renderDatasets(list) {
             const grid = document.getElementById('datasets-grid');
             grid.innerHTML = '';
-            
-            filteredDatasets.forEach(ds => {
+            list.forEach(ds => {
                 const card = document.createElement('div');
-                card.className = `dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6 cursor-pointer`;
+                card.className = 'dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6 cursor-pointer';
                 card.innerHTML = `
                     <div class="flex items-start justify-between mb-4">
                         <div>
@@ -234,8 +174,7 @@
                     <p class="text-sm text-zinc-400 line-clamp-3 mb-4">${ds.shortDesc}</p>
                     <div class="pt-4 border-t border-zinc-700 flex justify-between items-center text-xs">
                         <span class="text-zinc-500">${ds.source}</span>
-                        <button onclick="event.stopImmediatePropagation(); showDatasetDetail('${ds.id}')" 
-                                class="px-4 py-1.5 text-xs bg-violet-600 hover:bg-violet-500 text-white rounded-xl font-medium flex items-center gap-x-1.5 transition">
+                        <button onclick="event.stopImmediatePropagation(); showDatasetDetail('${ds.id}')" class="px-4 py-1.5 text-xs bg-violet-600 hover:bg-violet-500 text-white rounded-xl font-medium flex items-center gap-x-1.5 transition">
                             <i class="fa-solid fa-info-circle"></i> <span>查看详情</span>
                         </button>
                     </div>
@@ -243,21 +182,14 @@
                 card.onclick = () => showDatasetDetail(ds.id);
                 grid.appendChild(card);
             });
-            
-            document.getElementById('dataset-count').innerText = filteredDatasets.length;
+            document.getElementById('dataset-count').innerText = list.length;
         }
 
-        let currentCategory = 'all';
-
         function filterByCategory(category) {
-            currentCategory = category;
             const tabs = document.querySelectorAll('#category-tabs button');
             tabs.forEach(t => t.classList.remove('active', 'bg-violet-600', 'border-violet-600'));
-            
-            let targetBtn;
-            if (category === 'all') targetBtn = tabs[0];
-            else targetBtn = Array.from(tabs).find(t => t.textContent.includes(category.toUpperCase()) || t.textContent.includes('MER') && category==='mer');
-            if (targetBtn) targetBtn.classList.add('active', 'bg-violet-600', 'border-violet-600');
+            let activeTab = Array.from(tabs).find(t => t.getAttribute('onclick') === `filterByCategory('${category}')`);
+            if (activeTab) activeTab.classList.add('active', 'bg-violet-600', 'border-violet-600');
 
             const filtered = category === 'all' ? allDatasets : allDatasets.filter(d => d.category === category);
             renderDatasets(filtered);
@@ -269,38 +201,27 @@
             currentDataset = allDatasets.find(d => d.id === id);
             if (!currentDataset) return;
 
-            // Fill modal (same structure as previous rich version)
             document.getElementById('modal-title').innerText = currentDataset.title;
             document.getElementById('modal-subtitle').innerText = currentDataset.subtitle;
-            
+
             const badge = document.getElementById('modal-type-badge');
             badge.innerHTML = `<span class="px-3 py-1 text-xs rounded-full bg-${currentDataset.color}-900/60 text-${currentDataset.color}-400">${currentDataset.type}</span>`;
 
             document.getElementById('modal-description').innerHTML = currentDataset.description || currentDataset.shortDesc;
-
-            // Paradigm
             document.getElementById('modal-paradigm').innerHTML = currentDataset.paradigm || '详见论文';
-
-            // Volume & Method
             document.getElementById('modal-volume').innerHTML = currentDataset.volume || '详见官网';
             document.getElementById('modal-method').innerHTML = currentDataset.method || '详见论文';
 
-            // Download links
             const dlDiv = document.getElementById('modal-download-links');
             dlDiv.innerHTML = '';
             (currentDataset.downloadLinks || []).forEach(link => {
                 const a = document.createElement('a');
-                a.href = link.url;
-                a.target = '_blank';
+                a.href = link.url; a.target = '_blank';
                 a.className = 'block px-5 py-3.5 bg-zinc-950 border border-zinc-700 hover:border-emerald-500 rounded-2xl transition flex justify-between items-center text-sm';
-                a.innerHTML = `
-                    <span class="font-medium">${link.label}</span>
-                    <span class="text-emerald-400 text-xs flex items-center gap-x-1">${link.note || ''} <i class="fa-solid fa-external-link-alt"></i></span>
-                `;
+                a.innerHTML = `<span class="font-medium">${link.label}</span><span class="text-emerald-400 text-xs flex items-center gap-x-1">${link.note || ''} <i class="fa-solid fa-external-link-alt"></i></span>`;
                 dlDiv.appendChild(a);
             });
 
-            // Show modal
             document.getElementById('dataset-modal').classList.remove('hidden');
             document.getElementById('dataset-modal').classList.add('flex');
             switchTab(0);
@@ -309,9 +230,10 @@
         function switchTab(tabIndex) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('[id^="tab-"]').forEach(el => el.classList.remove('active', 'border-violet-500', 'text-white'));
-            document.getElementById('tab-content-' + tabIndex).classList.remove('hidden');
-            const btn = document.getElementById('tab-' + tabIndex);
-            if (btn) btn.classList.add('active', 'border-violet-500', 'text-white');
+            const activeContent = document.getElementById('tab-content-' + tabIndex);
+            if (activeContent) activeContent.classList.remove('hidden');
+            const activeBtn = document.getElementById('tab-' + tabIndex);
+            if (activeBtn) activeBtn.classList.add('active', 'border-violet-500', 'text-white');
         }
 
         function closeModal() {
@@ -321,20 +243,18 @@
 
         function copyDatasetInfo() {
             if (!currentDataset) return;
-            const text = `${currentDataset.title} (${currentDataset.subtitle})\n\n${currentDataset.description}\n\n范式: ${currentDataset.paradigm}\n规模: ${currentDataset.volume}\n\n下载链接:\n${(currentDataset.downloadLinks || []).map(l => `- ${l.label}: ${l.url} (${l.note})`).join('\n')}`;
+            const text = `${currentDataset.title} (${currentDataset.subtitle})\n\n${currentDataset.description}\n\n范式: ${currentDataset.paradigm}\n规模: ${currentDataset.volume}\n\n下载链接:\n${(currentDataset.downloadLinks || []).map(l => `- ${l.label}: ${l.url}`).join('\n')}`;
             navigator.clipboard.writeText(text).then(() => alert('已复制到剪贴板'));
         }
 
         // Init
         window.onload = function() {
             renderDatasets(allDatasets);
-            // Set first tab active
             const firstTab = document.querySelector('#category-tabs button');
             if (firstTab) firstTab.classList.add('active', 'bg-violet-600', 'border-violet-600');
         };
 
-        // Keyboard support
-        document.addEventListener('keydown', e => {
+        document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 const modal = document.getElementById('dataset-modal');
                 if (!modal.classList.contains('hidden')) closeModal();
