@@ -6,18 +6,8 @@
     <title>测评框架 | 图灵2.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        body { font-family: Inter, system-ui, sans-serif; }
-        .font-display { font-family: 'Space Grotesk', Inter, sans-serif; }
-        .nav-active { color: white; border-bottom: 2px solid #7c3aed; }
-        .framework-step { transition: all 0.3s ease; }
-        .framework-step:hover { transform: translateY(-4px); border-color: #7c3aed; }
-        .tab-btn { transition: all 0.2s; }
-        .tab-btn.active { border-bottom: 3px solid #7c3aed; color: white; }
-        .emotion-card { transition: transform 0.2s; }
-        .emotion-card:hover { transform: scale(1.02); }
-    </style>
-</head>
+<link rel="stylesheet" href="styles.css">
+    </head>
 <body class="bg-zinc-950 text-zinc-200">
     <!-- Navbar -->
     <nav class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur sticky top-0 z-50">
@@ -236,8 +226,12 @@
         </div>
     </div>
 
-    <footer class="border-t border-zinc-800 py-8 text-center text-sm text-zinc-500">
-        图灵2.0 · 由社区共同构建的情感智能基准平台 | 融合 Ekman/Russell + MER/ABAW/MuSe
-    </footer>
+<footer class="noncommercial-footer">
+  <div>
+    <strong>图灵2.0</strong>
+    <span>多模态情感与情绪智能开放基准平台</span>
+  </div>
+  <p>Copyright (c) 2026 Turing 2.0 Contributors. 本网站原创页面设计、文本结构与演示代码仅限非商业研究、教学与展示使用。页面中引用的数据集、论文、模型、图标库、第三方链接及外部资源归各自权利人所有；下载、训练、再分发或商用前，请务必遵守原始许可证、EULA、访问限制与引用要求。本项目不授予任何第三方资源的商业使用权，也不提供医疗、心理、法律或商业决策建议。详见 <a href="NOTICE-NONCOMMERCIAL.md">非商用版权声明</a>。</p>
+</footer>
 </body>
 </html>

@@ -6,22 +6,13 @@
     <title>情感能力榜单 | 图灵2.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        body { font-family: Inter, system-ui, sans-serif; }
-        .font-display { font-family: 'Space Grotesk', Inter, sans-serif; }
-        .nav-active { color: white; border-bottom: 2px solid #7c3aed; }
-        .leaderboard-table th { cursor: pointer; user-select: none; }
-        .leaderboard-table th:hover { background-color: #27251f; }
-        .data-row { transition: background-color 0.1s ease; }
-        .data-row:hover { background-color: #27251f; }
-    </style>
-</head>
+<link rel="stylesheet" href="styles.css">
+    </head>
 <body class="bg-zinc-950 text-zinc-200">
     <nav class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur sticky top-0 z-50">
         <div class="max-w-screen-xl mx-auto px-6 flex items-center justify-between h-16">
             <div class="flex items-center gap-x-3">
-                <div class="w-9 h-9 bg-violet-600 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-brain text-white"></i></div>
-                <span class="font-display text-2xl font-semibold tracking-tighter">图灵<span class="text-violet-400">2.0</span></span>
+                <a href="index.html" class="brand-link" aria-label="返回首页"><span class="brand-mark"><i class="fa-solid fa-brain text-white"></i></span><span class="font-display text-2xl font-semibold tracking-tighter">图灵<span class="text-violet-400">2.0</span></span></a>
             </div>
             <div class="flex items-center gap-x-8 text-sm">
                 <a href="index.html" class="hover:text-white transition">首页</a>
@@ -79,8 +70,16 @@
                 </table>
             </div>
         </div>
-        <div class="text-center mt-4 text-xs text-zinc-500">数据来源于MER/ABAW/MuSe公开榜单 + 社区提交 · 最后更新 2026-05</div>
+        <div class="text-center mt-4 text-xs text-zinc-500">数据来源于 MER/ABAW/MuSe 公开榜单与社区提交；示例模型分数仅作页面演示，正式结果请以原始榜单和提交记录为准。</div>
     </div>
+
+<footer class="noncommercial-footer">
+  <div>
+    <strong>图灵2.0</strong>
+    <span>多模态情感与情绪智能开放基准平台</span>
+  </div>
+  <p>Copyright (c) 2026 Turing 2.0 Contributors. 本网站原创页面设计、文本结构与演示代码仅限非商业研究、教学与展示使用。页面中引用的数据集、论文、模型、图标库、第三方链接及外部资源归各自权利人所有；下载、训练、再分发或商用前，请务必遵守原始许可证、EULA、访问限制与引用要求。本项目不授予任何第三方资源的商业使用权，也不提供医疗、心理、法律或商业决策建议。详见 <a href="NOTICE-NONCOMMERCIAL.md">非商用版权声明</a>。</p>
+</footer>
 
     <script>
         let models = [

@@ -2,22 +2,20 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>图灵2.0 | 大模型多模态情感基准</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>
-  body { font-family: Inter, system-ui, sans-serif; }
-  .font-display { font-family: 'Space Grotesk', Inter, sans-serif; }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-zinc-950 text-zinc-200">
+<body class="bg-zinc-950 text-zinc-200 site-home">
 <nav class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur sticky top-0 z-50">
   <div class="max-w-screen-xl mx-auto px-6 flex items-center justify-between h-16">
     <div class="flex items-center gap-x-3">
-      <div class="w-9 h-9 bg-violet-600 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-brain text-white"></i></div>
-      <span class="font-display text-2xl font-semibold tracking-tighter">图灵<span class="text-violet-400">2.0</span></span>
+      <a href="index.html" class="brand-link" aria-label="返回首页"><span class="brand-mark"><i class="fa-solid fa-brain text-white"></i></span><span class="font-display text-2xl font-semibold tracking-tighter">图灵<span class="text-violet-400">2.0</span></span></a>
     </div>
     <div class="flex items-center gap-x-8 text-sm">
+      <a href="index.html" class="hover:text-white transition">首页</a>
       <a href="datasets.html" class="hover:text-white transition">数据集</a>
       <a href="methodology.html" class="hover:text-white transition">测评框架</a>
       <a href="leaderboard.html" class="hover:text-white transition">榜单</a>
@@ -27,9 +25,9 @@
   </div>
 </nav>
 
-<div class="max-w-screen-xl mx-auto px-6 pt-20 pb-16 text-center">
+<div class="max-w-screen-xl mx-auto px-6 pt-20 pb-16 text-center hero-shell">
   <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full bg-zinc-900 border border-zinc-700 text-sm mb-6">
-    <span class="text-emerald-400">●</span> 2026 开放基准 · 持续更新
+    <span class="text-emerald-400">●</span> 2026 开放基准 · 非商用研究 · 持续更新
   </div>
   <h1 class="text-7xl font-display font-semibold tracking-tighter mb-6">图灵2.0<br>大模型情感能力基准</h1>
   <p class="max-w-2xl mx-auto text-xl text-zinc-400 mb-10">构建开放、透明、可复现的多模态情感与情绪智能评估体系<br><span class="text-sm">融合 Ekman/Russell 理论 · 覆盖 MER/ABAW/MuSe 挑战 · 50+ 数据集 · 情感陪护全闭环</span></p>
@@ -56,6 +54,13 @@
   </div>
 </div>
 
-<footer class="border-t border-zinc-800 py-8 text-center text-sm text-zinc-500">图灵2.0 · 由社区共同构建的情感智能基准平台</footer>
+
+<footer class="noncommercial-footer">
+  <div>
+    <strong>图灵2.0</strong>
+    <span>多模态情感与情绪智能开放基准平台</span>
+  </div>
+  <p>Copyright (c) 2026 Turing 2.0 Contributors. 本网站原创页面设计、文本结构与演示代码仅限非商业研究、教学与展示使用。页面中引用的数据集、论文、模型、图标库、第三方链接及外部资源归各自权利人所有；下载、训练、再分发或商用前，请务必遵守原始许可证、EULA、访问限制与引用要求。本项目不授予任何第三方资源的商业使用权，也不提供医疗、心理、法律或商业决策建议。详见 <a href="NOTICE-NONCOMMERCIAL.md">非商用版权声明</a>。</p>
+</footer>
 </body>
 </html>

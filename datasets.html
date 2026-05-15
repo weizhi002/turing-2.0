@@ -6,23 +6,13 @@
     <title>数据集库 | 图灵2.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        body { font-family: Inter, system-ui, sans-serif; }
-        .font-display { font-family: 'Space Grotesk', Inter, sans-serif; }
-        .dataset-card { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
-        .dataset-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
-        .nav-active { color: white; border-bottom: 2px solid #7c3aed; }
-        .modal { animation: modalPop 0.2s ease-out forwards; }
-        @keyframes modalPop { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .category-tab.active { background-color: #7c3aed; color: white; border-color: #7c3aed; }
-    </style>
-</head>
+<link rel="stylesheet" href="styles.css">
+    </head>
 <body class="bg-zinc-950 text-zinc-200">
     <nav class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur sticky top-0 z-50">
         <div class="max-w-screen-2xl mx-auto px-6 flex items-center justify-between h-16">
             <div class="flex items-center gap-x-3">
-                <div class="w-9 h-9 bg-violet-600 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-brain text-white"></i></div>
-                <span class="font-display text-2xl font-semibold tracking-tighter">图灵<span class="text-violet-400">2.0</span></span>
+                <a href="index.html" class="brand-link" aria-label="返回首页"><span class="brand-mark"><i class="fa-solid fa-brain text-white"></i></span><span class="font-display text-2xl font-semibold tracking-tighter">图灵<span class="text-violet-400">2.0</span></span></a>
             </div>
             <div class="flex items-center gap-x-8 text-sm">
                 <a href="index.html" class="hover:text-white transition">首页</a>
@@ -40,7 +30,7 @@
             <div>
                 <div class="text-violet-400 text-sm font-medium tracking-[2px] mb-2">DATASETS + RESOURCES</div>
                 <h1 class="text-5xl font-display font-semibold tracking-tighter">多模态情感数据集库</h1>
-                <p class="text-xl text-zinc-400 mt-2">基于《情感综合数据平台设计》 · 完整可视化所有数据集 + 官方下载链接</p>
+                <p class="text-xl text-zinc-400 mt-2">以原有数据集库为基础，统一展示来源、链接、发布时间、机构、模态、任务、标注、处理流程、榜单、引用与使用限制。</p>
             </div>
             <div class="flex items-center gap-x-3">
                 <div class="px-5 py-2 bg-zinc-900 border border-zinc-700 rounded-2xl text-sm flex items-center gap-x-2">
@@ -68,6 +58,15 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6" id="datasets-grid"></div>
     </div>
 
+
+<footer class="noncommercial-footer">
+  <div>
+    <strong>图灵2.0</strong>
+    <span>多模态情感与情绪智能开放基准平台</span>
+  </div>
+  <p>Copyright (c) 2026 Turing 2.0 Contributors. 本网站原创页面设计、文本结构与演示代码仅限非商业研究、教学与展示使用。页面中引用的数据集、论文、模型、图标库、第三方链接及外部资源归各自权利人所有；下载、训练、再分发或商用前，请务必遵守原始许可证、EULA、访问限制与引用要求。本项目不授予任何第三方资源的商业使用权，也不提供医疗、心理、法律或商业决策建议。详见 <a href="NOTICE-NONCOMMERCIAL.md">非商用版权声明</a>。</p>
+</footer>
+
     <!-- Modal -->
     <div id="dataset-modal" onclick="if (event.target.id === 'dataset-modal') closeModal()" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-6">
         <div onclick="event.stopImmediatePropagation()" class="modal bg-zinc-900 border border-zinc-700 rounded-3xl w-full max-w-5xl max-h-[92vh] overflow-hidden shadow-2xl">
@@ -81,18 +80,24 @@
             </div>
 
             <div class="px-8 pt-6 border-b border-zinc-700 flex gap-x-8 text-sm overflow-x-auto">
-                <button onclick="switchTab(0)" id="tab-0" class="tab-button active pb-4 font-medium text-white border-b-2 border-violet-500">基本信息</button>
-                <button onclick="switchTab(1)" id="tab-1" class="tab-button pb-4 font-medium text-zinc-400 hover:text-zinc-200">评估范式与指标</button>
-                <button onclick="switchTab(2)" id="tab-2" class="tab-button pb-4 font-medium text-zinc-400 hover:text-zinc-200">数据详情</button>
-                <button onclick="switchTab(3)" id="tab-3" class="tab-button pb-4 font-medium text-zinc-400 hover:text-zinc-200">下载资源</button>
+                <button onclick="switchTab(0)" id="tab-0" class="tab-button active pb-4 font-medium text-white border-b-2 border-violet-500">详情信息卡面</button>
+                <button onclick="switchTab(1)" id="tab-1" class="tab-button pb-4 font-medium text-zinc-400 hover:text-zinc-200">任务与 Benchmark</button>
+                <button onclick="switchTab(2)" id="tab-2" class="tab-button pb-4 font-medium text-zinc-400 hover:text-zinc-200">采集与处理</button>
+                <button onclick="switchTab(3)" id="tab-3" class="tab-button pb-4 font-medium text-zinc-400 hover:text-zinc-200">链接与限制</button>
             </div>
 
             <div class="p-8 overflow-y-auto max-h-[58vh]">
                 <div id="tab-content-0" class="tab-content">
                     <p id="modal-description" class="text-zinc-300 leading-relaxed text-[15px]"></p>
+                    <div class="mt-6 flex items-center justify-between gap-3 flex-wrap">
+                        <div class="font-semibold flex items-center gap-x-2"><i class="fa-solid fa-list-check text-emerald-400"></i> 数据集详情信息卡面</div>
+                        <div class="text-xs text-zinc-500">未知字段保留为“待补充”，便于后续维护。</div>
+                    </div>
+                    <div id="modal-required-info" class="required-info-grid mt-4"></div>
                 </div>
                 <div id="tab-content-1" class="tab-content hidden">
                     <div id="modal-paradigm" class="text-zinc-300 bg-zinc-950 border border-zinc-700 rounded-2xl p-6 leading-relaxed"></div>
+                    <div id="modal-benchmark" class="mt-4 text-zinc-300 bg-zinc-950 border border-zinc-700 rounded-2xl p-6 leading-relaxed text-sm"></div>
                 </div>
                 <div id="tab-content-2" class="tab-content hidden">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -101,7 +106,7 @@
                             <div id="modal-volume" class="text-zinc-300 bg-zinc-950 border border-zinc-700 rounded-2xl p-5 text-sm leading-relaxed"></div>
                         </div>
                         <div>
-                            <div class="font-semibold mb-3 flex items-center gap-x-2"><i class="fa-solid fa-cogs text-blue-400"></i> 采集与标注方式</div>
+                            <div class="font-semibold mb-3 flex items-center gap-x-2"><i class="fa-solid fa-cogs text-blue-400"></i> 采集、标注与处理流程</div>
                             <div id="modal-method" class="text-zinc-300 bg-zinc-950 border border-zinc-700 rounded-2xl p-5 text-sm leading-relaxed"></div>
                         </div>
                     </div>
@@ -198,6 +203,74 @@
             { id: 'deap', category: 'physio', title: 'DEAP', subtitle: 'Database for Emotion Analysis using Physiological signals', type: 'multimodal', icon: 'fa-brain', color: 'blue', shortDesc: '32名被试 EEG、EOG、EMG、GSR、RSP、BP、ST 等生理信号 + 视频，用于情感分析。', paradigm: 'VAD 模型', volume: '32 被试', method: '40段1分钟音乐视频诱发 + 自评', source: 'Queen Mary University of London', description: 'DEAP 是情感计算领域最经典的多生理信号数据集之一，广泛用于 VA 连续情感分析。', downloadLinks: [{label: 'QMUL 官网', url: 'https://www.eecs.qmul.ac.uk/mmv/datasets/deap/', note: '需注册/同意协议'}] }
         ];
 
+
+        const detailRows = [
+            ['数据来源', 'source'],
+            ['下载链接/官网链接/申请页面链接', 'links'],
+            ['发布时间', 'publishTime'],
+            ['发布机构', 'publisher'],
+            ['数据模态类型', 'modality'],
+            ['数据集对应任务', 'task'],
+            ['数据集采集与标注方式', 'collectionAnnotation'],
+            ['数据处理流程和 benchmark', 'processingBenchmark'],
+            ['数据集实时打榜排名（如有）', 'liveRanking'],
+            ['stars/cite 的数量（如有）', 'starsCites'],
+            ['使用限制（如有）', 'usageLimits']
+        ];
+
+        function escapeHtml(value) {
+            return String(value || '待补充').replace(/[&<>"]/g, function(char) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]; });
+        }
+
+        function stripHtml(value) {
+            const div = document.createElement('div');
+            div.innerHTML = String(value || '待补充');
+            return div.textContent || div.innerText || '待补充';
+        }
+
+        function pending(value) {
+            if (value === undefined || value === null || String(value).trim() === '') return '待补充';
+            return value;
+        }
+
+        function inferUsageLimits(ds) {
+            const notes = (ds.downloadLinks || []).map(function(link) { return link.note || ''; }).filter(Boolean).join('；');
+            if (notes) return notes + '；请遵守原始许可证、EULA、访问限制与引用要求；本平台仅作非商用研究展示。';
+            return '请遵守原始许可证、EULA、访问限制与引用要求；本平台仅作非商用研究展示，不授予第三方资源商业使用权。';
+        }
+
+        function renderLinks(ds) {
+            const links = ds.downloadLinks || [];
+            if (!links.length) return '待补充';
+            return links.map(function(link) {
+                return '<a href="' + link.url + '" target="_blank" rel="noopener">' + escapeHtml(link.label) + ' <i class="fa-solid fa-arrow-up-right-from-square"></i></a><span class="info-note">' + escapeHtml(link.note || '') + '</span>';
+            }).join('<br>');
+        }
+
+        function datasetDetail(ds) {
+            return {
+                source: pending(ds.source),
+                links: renderLinks(ds),
+                publishTime: pending(ds.publishTime || ds.releaseDate || ds.year),
+                publisher: pending(ds.publisher || ds.source),
+                modality: pending(ds.modality || ds.type),
+                task: pending(ds.task || ds.paradigm),
+                collectionAnnotation: pending(ds.collectionAnnotation || ds.method),
+                processingBenchmark: pending(ds.processingBenchmark || ds.paradigm),
+                liveRanking: pending(ds.liveRanking || '待补充 / 暂未接入实时打榜'),
+                starsCites: pending(ds.starsCites),
+                usageLimits: pending(ds.usageLimits || inferUsageLimits(ds))
+            };
+        }
+
+        function renderRequiredInfo(ds) {
+            const info = datasetDetail(ds);
+            const grid = document.getElementById('modal-required-info');
+            grid.innerHTML = detailRows.map(function(row) {
+                return '<div class="info-item"><div>' + row[0] + '</div><p>' + info[row[1]] + '</p></div>';
+            }).join('');
+        }
+
         function renderDatasets(list) {
             const grid = document.getElementById('datasets-grid');
             grid.innerHTML = '';
@@ -250,9 +323,11 @@
             badge.innerHTML = `<span class="px-3 py-1 text-xs rounded-full bg-${currentDataset.color}-900/60 text-${currentDataset.color}-400">${currentDataset.type}</span>`;
 
             document.getElementById('modal-description').innerHTML = currentDataset.description || currentDataset.shortDesc;
-            document.getElementById('modal-paradigm').innerHTML = currentDataset.paradigm || '详见论文';
+            document.getElementById('modal-paradigm').innerHTML = currentDataset.paradigm || currentDataset.task || '待补充';
+            document.getElementById('modal-benchmark').innerHTML = '<div class="text-xs text-zinc-500 mb-2">数据处理流程和 benchmark</div>' + escapeHtml(datasetDetail(currentDataset).processingBenchmark);
             document.getElementById('modal-volume').innerHTML = currentDataset.volume || '详见官网';
-            document.getElementById('modal-method').innerHTML = currentDataset.method || '详见论文';
+            document.getElementById('modal-method').innerHTML = currentDataset.method || currentDataset.collectionAnnotation || '待补充';
+            renderRequiredInfo(currentDataset);
 
             const dlDiv = document.getElementById('modal-download-links');
             dlDiv.innerHTML = '';
@@ -285,7 +360,8 @@
 
         function copyDatasetInfo() {
             if (!currentDataset) return;
-            const text = `${currentDataset.title} (${currentDataset.subtitle})\n\n${currentDataset.description}\n\n范式: ${currentDataset.paradigm}\n规模: ${currentDataset.volume}\n\n下载链接:\n${(currentDataset.downloadLinks || []).map(l => `- ${l.label}: ${l.url} (${l.note})`).join('\n')}`;
+            const detail = datasetDetail(currentDataset);
+            const text = currentDataset.title + ' (' + currentDataset.subtitle + ')\n\n' + currentDataset.description + '\n\n' + detailRows.map(function(row) { return row[0] + ': ' + stripHtml(detail[row[1]]); }).join('\n') + '\n\n下载链接:\n' + (currentDataset.downloadLinks || []).map(function(l) { return '- ' + l.label + ': ' + l.url + ' (' + (l.note || '待补充') + ')'; }).join('\n');
             navigator.clipboard.writeText(text).then(() => alert('已复制到剪贴板'));
         }
 

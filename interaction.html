@@ -6,23 +6,13 @@
     <title>情感交互 Demo | 图灵2.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        body { font-family: Inter, system-ui, sans-serif; }
-        .font-display { font-family: 'Space Grotesk', Inter, sans-serif; }
-        .nav-active { color: white; border-bottom: 2px solid #7c3aed; }
-        .chat-bubble { max-width: 78%; padding: 13px 17px; border-radius: 18px; line-height: 1.45; }
-        .user-bubble { background-color: #7c3aed; color: white; border-bottom-right-radius: 5px; }
-        .ai-bubble { background-color: #27251f; border-bottom-left-radius: 5px; }
-        .message-container { scrollbar-width: thin; scrollbar-color: #3f3f46 #18181b; }
-        .emotion-bar { height: 6px; background: linear-gradient(to right, #3b82f6, #a855f7, #ef4444); border-radius: 999px; }
-    </style>
-</head>
+<link rel="stylesheet" href="styles.css">
+    </head>
 <body class="bg-zinc-950 text-zinc-200">
     <nav class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur sticky top-0 z-50">
         <div class="max-w-screen-xl mx-auto px-6 flex items-center justify-between h-16">
             <div class="flex items-center gap-x-3">
-                <div class="w-9 h-9 bg-violet-600 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-brain text-white"></i></div>
-                <span class="font-display text-2xl font-semibold tracking-tighter">图灵<span class="text-violet-400">2.0</span></span>
+                <a href="index.html" class="brand-link" aria-label="返回首页"><span class="brand-mark"><i class="fa-solid fa-brain text-white"></i></span><span class="font-display text-2xl font-semibold tracking-tighter">图灵<span class="text-violet-400">2.0</span></span></a>
             </div>
             <div class="flex items-center gap-x-8 text-sm">
                 <a href="index.html" class="hover:text-white transition">首页</a>
@@ -40,9 +30,9 @@
             <div>
                 <div class="flex items-center gap-x-3">
                     <h1 class="text-4xl font-display font-semibold tracking-tighter">多模态情感交互 Demo</h1>
-                    <span class="px-3 py-1 text-xs bg-amber-900/60 text-amber-400 rounded-full">Demo · 规则增强</span>
+                    <span class="px-3 py-1 text-xs bg-amber-900/60 text-amber-400 rounded-full">Demo · 非医疗建议</span>
                 </div>
-                <p class="text-zinc-400 text-sm mt-1">自定义人设 · 实时情绪分析 (Ekman/Russell) · 危机检测 · 偏好评分 · 支持MER场景</p>
+                <p class="text-zinc-400 text-sm mt-1">自定义人设 · 实时情绪分析 (Ekman/Russell) · 风险提示 · 偏好评分 · 支持 MER 场景；仅用于研究演示</p>
             </div>
             <div class="flex gap-2">
                 <button onclick="resetChat()" class="px-4 py-2 text-sm border border-zinc-700 hover:bg-zinc-900 rounded-2xl flex items-center gap-x-2"><i class="fa-solid fa-redo"></i> <span>重置</span></button>
@@ -149,6 +139,14 @@
             </div>
         </div>
     </div>
+
+<footer class="noncommercial-footer">
+  <div>
+    <strong>图灵2.0</strong>
+    <span>多模态情感与情绪智能开放基准平台</span>
+  </div>
+  <p>Copyright (c) 2026 Turing 2.0 Contributors. 本网站原创页面设计、文本结构与演示代码仅限非商业研究、教学与展示使用。页面中引用的数据集、论文、模型、图标库、第三方链接及外部资源归各自权利人所有；下载、训练、再分发或商用前，请务必遵守原始许可证、EULA、访问限制与引用要求。本项目不授予任何第三方资源的商业使用权，也不提供医疗、心理、法律或商业决策建议。详见 <a href="NOTICE-NONCOMMERCIAL.md">非商用版权声明</a>。</p>
+</footer>
 
     <script>
         let currentPersona = { name: "共情伙伴", empathy: 85, warmth: 80, humor: 40, depth: 75, prompt: "" };
