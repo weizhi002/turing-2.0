@@ -6,13 +6,26 @@
     <title>数据集库 | 图灵2.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="styles.css">
-    </head>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body { font-family: Inter, system-ui, sans-serif; }
+        .font-display { font-family: 'Space Grotesk', Inter, sans-serif; }
+        .nav-active { color: white; border-bottom: 2px solid #7c3aed; }
+        .dataset-card { transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+        .dataset-card:hover { transform: translateY(-3px); border-color: rgba(34, 211, 238, .45); }
+        .category-tab.active { background: linear-gradient(135deg, #7c3aed, #2563eb); color: #fff; border-color: transparent; }
+        .modal { animation: modalPop .18s ease-out forwards; }
+        @keyframes modalPop { from { transform: scale(.97); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
 <body class="bg-zinc-950 text-zinc-200">
     <nav class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur sticky top-0 z-50">
         <div class="max-w-screen-2xl mx-auto px-6 flex items-center justify-between h-16">
             <div class="flex items-center gap-x-3">
-                <a href="index.html" class="brand-link" aria-label="返回首页"><span class="brand-mark"><i class="fa-solid fa-brain text-white"></i></span><span class="font-display text-2xl font-semibold tracking-tighter">图灵<span class="text-violet-400">2.0</span></span></a>
+                <a href="index.html" class="brand-link" aria-label="返回首页">
+                    <span class="brand-mark"><i class="fa-solid fa-brain text-white"></i></span>
+                    <span class="font-display text-2xl font-semibold tracking-tighter">图灵<span class="text-violet-400">2.0</span></span>
+                </a>
             </div>
             <div class="flex items-center gap-x-8 text-sm">
                 <a href="index.html" class="hover:text-white transition">首页</a>
@@ -25,98 +38,45 @@
         </div>
     </nav>
 
-    <div class="max-w-screen-2xl mx-auto px-6 pt-10 pb-8">
-        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-y-4 mb-8">
+    <main class="max-w-screen-2xl mx-auto px-6 pt-10 pb-10">
+        <section class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-y-4 mb-8">
             <div>
                 <div class="text-violet-400 text-sm font-medium tracking-[2px] mb-2">DATASETS + RESOURCES</div>
-                <h1 class="text-5xl font-display font-semibold tracking-tighter">多模态情感数据集库</h1>
-                <p class="text-xl text-zinc-400 mt-2">以原有数据集库为基础，统一展示来源、链接、发布时间、机构、模态、任务、标注、处理流程、榜单、引用与使用限制。</p>
+                <h1 class="text-5xl font-display font-semibold tracking-tighter">情感智能数据集库</h1>
+                <p class="text-xl text-zinc-400 mt-2 max-w-4xl">囊括多模态、视频、文本等7个类型的数据集，以供大模型情感智能综合测评</p>
             </div>
-            <div class="flex items-center gap-x-3">
-                <div class="px-5 py-2 bg-zinc-900 border border-zinc-700 rounded-2xl text-sm flex items-center gap-x-2">
-                    <i class="fa-solid fa-database text-violet-400"></i>
-                    <span>已收录 <span class="font-semibold text-white text-lg" id="dataset-count">0</span> 个数据集</span>
-                </div>
-                <button onclick="window.location.href='https://github.com/weizhi002/turing-2.0/issues/new?labels=dataset&title=%5B%E6%95%B0%E6%8D%AE%E9%9B%86%E6%8F%90%E4%BA%A4%5D'" class="px-6 py-2.5 bg-violet-600 hover:bg-violet-500 rounded-2xl text-sm font-medium flex items-center gap-x-2 transition">
-                    <i class="fa-solid fa-plus"></i> <span>提交新数据集</span>
-                </button>
+            <div class="px-5 py-2 bg-zinc-900 border border-zinc-700 rounded-2xl text-sm flex items-center gap-x-2 w-fit">
+                <i class="fa-solid fa-database text-violet-400"></i>
+                <span>已收录 <span class="font-semibold text-white text-lg" id="dataset-count">0</span> 个数据集</span>
             </div>
+        </section>
+
+        <section class="flex flex-wrap gap-2 mb-8 border-b border-zinc-800 pb-4" id="category-tabs"></section>
+        <section class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6" id="datasets-grid"></section>
+    </main>
+
+    <footer class="noncommercial-footer">
+        <div>
+            <strong>图灵2.0</strong>
+            <span>多模态情感与情绪智能开放基准平台</span>
         </div>
+        <p>Copyright (c) 2026 Turing 2.0 Contributors. 本网站原创页面设计、文本结构与演示代码仅限非商业研究、教学与展示使用。页面中引用的数据集、论文、模型、图标库、第三方链接及外部资源归各自权利人所有；下载、训练、再分发或商用前，请务必遵守原始许可证、EULA、访问限制与引用要求。本项目不授予任何第三方资源的商业使用权，也不提供医疗、心理、法律或商业决策建议。详见 <a href="NOTICE-NONCOMMERCIAL.md">非商用版权声明</a>。</p>
+    </footer>
 
-        <div class="flex flex-wrap gap-2 mb-8 border-b border-zinc-800 pb-4" id="category-tabs">
-            <button onclick="filterByCategory('all')" class="category-tab active px-5 py-2 rounded-2xl text-sm border border-violet-600 bg-violet-600 text-white font-medium">全部</button>
-            <button onclick="filterByCategory('mer')" class="category-tab px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">MER 挑战赛</button>
-            <button onclick="filterByCategory('abaw')" class="category-tab px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">ABAW</button>
-            <button onclick="filterByCategory('muse')" class="category-tab px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">MuSe</button>
-            <button onclick="filterByCategory('dialog')" class="category-tab px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">情绪对话</button>
-            <button onclick="filterByCategory('physio')" class="category-tab px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">生理信号</button>
-            <button onclick="filterByCategory('micro')" class="category-tab px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">微表情</button>
-            <button onclick="filterByCategory('llm')" class="category-tab px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">LLM 评测</button>
-            <button onclick="filterByCategory('dynamic')" class="category-tab px-5 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900">动态表情</button>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6" id="datasets-grid"></div>
-    </div>
-
-
-<footer class="noncommercial-footer">
-  <div>
-    <strong>图灵2.0</strong>
-    <span>多模态情感与情绪智能开放基准平台</span>
-  </div>
-  <p>Copyright (c) 2026 Turing 2.0 Contributors. 本网站原创页面设计、文本结构与演示代码仅限非商业研究、教学与展示使用。页面中引用的数据集、论文、模型、图标库、第三方链接及外部资源归各自权利人所有；下载、训练、再分发或商用前，请务必遵守原始许可证、EULA、访问限制与引用要求。本项目不授予任何第三方资源的商业使用权，也不提供医疗、心理、法律或商业决策建议。详见 <a href="NOTICE-NONCOMMERCIAL.md">非商用版权声明</a>。</p>
-</footer>
-
-    <!-- Modal -->
-    <div id="dataset-modal" onclick="if (event.target.id === 'dataset-modal') closeModal()" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center p-6">
+    <div id="dataset-modal" onclick="if (event.target.id === 'dataset-modal') closeModal()" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] items-center justify-center p-6">
         <div onclick="event.stopImmediatePropagation()" class="modal bg-zinc-900 border border-zinc-700 rounded-3xl w-full max-w-5xl max-h-[92vh] overflow-hidden shadow-2xl">
-            <div class="px-8 pt-8 pb-6 border-b border-zinc-700 flex items-start justify-between">
+            <div class="px-8 pt-8 pb-6 border-b border-zinc-700 flex items-start justify-between gap-4">
                 <div>
-                    <div id="modal-type-badge" class="inline-flex px-3 py-1 text-xs rounded-full mb-3"></div>
+                    <div id="modal-category" class="inline-flex px-3 py-1 text-xs rounded-full mb-3 bg-violet-900/60 text-violet-200"></div>
                     <h3 id="modal-title" class="text-3xl font-semibold"></h3>
                     <p id="modal-subtitle" class="text-zinc-400 mt-1"></p>
                 </div>
-                <button onclick="closeModal()" class="text-zinc-400 hover:text-white p-2 -mt-2 -mr-2"><i class="fa-solid fa-times fa-xl"></i></button>
+                <button onclick="closeModal()" class="text-zinc-400 hover:text-white p-2 -mt-2 -mr-2" aria-label="关闭"><i class="fa-solid fa-times fa-xl"></i></button>
             </div>
-
-            <div class="px-8 pt-6 border-b border-zinc-700 flex gap-x-8 text-sm overflow-x-auto">
-                <button onclick="switchTab(0)" id="tab-0" class="tab-button active pb-4 font-medium text-white border-b-2 border-violet-500">详情信息卡面</button>
-                <button onclick="switchTab(1)" id="tab-1" class="tab-button pb-4 font-medium text-zinc-400 hover:text-zinc-200">任务与 Benchmark</button>
-                <button onclick="switchTab(2)" id="tab-2" class="tab-button pb-4 font-medium text-zinc-400 hover:text-zinc-200">采集与处理</button>
-                <button onclick="switchTab(3)" id="tab-3" class="tab-button pb-4 font-medium text-zinc-400 hover:text-zinc-200">链接与限制</button>
+            <div class="p-8 overflow-y-auto max-h-[66vh]">
+                <p id="modal-description" class="text-zinc-300 leading-relaxed text-[15px] mb-6"></p>
+                <div id="modal-required-info" class="required-info-grid"></div>
             </div>
-
-            <div class="p-8 overflow-y-auto max-h-[58vh]">
-                <div id="tab-content-0" class="tab-content">
-                    <p id="modal-description" class="text-zinc-300 leading-relaxed text-[15px]"></p>
-                    <div class="mt-6 flex items-center justify-between gap-3 flex-wrap">
-                        <div class="font-semibold flex items-center gap-x-2"><i class="fa-solid fa-list-check text-emerald-400"></i> 数据集详情信息卡面</div>
-                        <div class="text-xs text-zinc-500">未知字段保留为“待补充”，便于后续维护。</div>
-                    </div>
-                    <div id="modal-required-info" class="required-info-grid mt-4"></div>
-                </div>
-                <div id="tab-content-1" class="tab-content hidden">
-                    <div id="modal-paradigm" class="text-zinc-300 bg-zinc-950 border border-zinc-700 rounded-2xl p-6 leading-relaxed"></div>
-                    <div id="modal-benchmark" class="mt-4 text-zinc-300 bg-zinc-950 border border-zinc-700 rounded-2xl p-6 leading-relaxed text-sm"></div>
-                </div>
-                <div id="tab-content-2" class="tab-content hidden">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <div class="font-semibold mb-3 flex items-center gap-x-2"><i class="fa-solid fa-chart-bar text-emerald-400"></i> 数据规模</div>
-                            <div id="modal-volume" class="text-zinc-300 bg-zinc-950 border border-zinc-700 rounded-2xl p-5 text-sm leading-relaxed"></div>
-                        </div>
-                        <div>
-                            <div class="font-semibold mb-3 flex items-center gap-x-2"><i class="fa-solid fa-cogs text-blue-400"></i> 采集、标注与处理流程</div>
-                            <div id="modal-method" class="text-zinc-300 bg-zinc-950 border border-zinc-700 rounded-2xl p-5 text-sm leading-relaxed"></div>
-                        </div>
-                    </div>
-                </div>
-                <div id="tab-content-3" class="tab-content hidden">
-                    <div class="font-semibold mb-4 flex items-center gap-x-2"><i class="fa-solid fa-download text-emerald-400"></i> 官方下载 / 申请链接</div>
-                    <div id="modal-download-links" class="space-y-3"></div>
-                </div>
-            </div>
-
             <div class="px-8 py-5 bg-zinc-950 border-t border-zinc-700 flex justify-end gap-x-3">
                 <button onclick="closeModal()" class="px-6 py-2.5 text-sm border border-zinc-600 hover:bg-zinc-800 rounded-2xl transition">关闭</button>
                 <button onclick="copyDatasetInfo()" class="px-6 py-2.5 text-sm bg-violet-600 hover:bg-violet-500 text-white rounded-2xl flex items-center gap-x-2 transition">
@@ -127,230 +87,190 @@
     </div>
 
     <script>
-        const allDatasets = [
-            // === MER 系列 (完整) ===
-            { id: 'mer2023', category: 'mer', title: 'MER2023', subtitle: 'MER-MULTI / NOISE / SEMI', type: 'multimodal', icon: 'fa-video', color: 'amber', shortDesc: '多标签学习、模态鲁棒性、半监督学习三大赛道。', paradigm: '多标签监督 + 半监督 + 噪声鲁棒', volume: 'Train&Val 3373 有标注 + 大量未标注', method: '人类中心多模态视频（视觉+音频+文本）', source: 'MER Challenge 官方', description: 'MER2023 聚焦有限标注、多模态输入和真实噪声环境下的可靠情感识别。包含 MER-MULTI、MER-NOISE、MER-SEMI 三个赛道，是 ACM Multimedia 挑战赛的重要组成部分。', downloadLinks: [{label: 'Hugging Face MER2023', url: 'https://huggingface.co/datasets/MERChallenge/MER2023', note: '需登录 + EULA'}, {label: 'MER2023 官网', url: 'http://www.merchallenge.cn/mer2023', note: '官方页面'}] },
-            { id: 'mer2025', category: 'mer', title: 'MER2025', subtitle: 'SEMI / FG / DES / PR', type: 'multimodal', icon: 'fa-video', color: 'amber', shortDesc: '细粒度开放词表、描述式理解、情绪增强人格识别。', paradigm: '半监督 + 开放词表 + 生成式理解', volume: 'OV-MERD 332 + MER-Caption+ 31k + 大量未标注', method: '人工主导 + 模型辅助标注，开放词表自然语言描述', source: 'MER Challenge 官方', description: 'MER2025 将情感计算与大语言模型结合，重点研究细粒度情绪、描述式理解和人格关系建模。', downloadLinks: [{label: 'Hugging Face MER2025', url: 'https://huggingface.co/datasets/MERChallenge/MER2025', note: '需 EULA + 联系信息'}, {label: 'MER2025 官网', url: 'https://zeroqiaoba.github.io/MER2025-website/', note: 'Track 说明'}] },
-            { id: 'mer2026', category: 'mer', title: 'MER2026', subtitle: 'Cross / FG / Prefer / PS', type: 'multimodal physio', icon: 'fa-video', color: 'amber', shortDesc: '对话听者情绪、细粒度、偏好判断、生理信号赛道。', paradigm: '生成式 + 生理信号 + 偏好学习', volume: '132k+ 多模态样本 + MER-PS 生理数据', method: '双人对话 + EEG/fNIRS 同步采集，动态 valence-arousal 标注', source: 'MER Challenge 官方', description: 'MER2026 从判别式转向生成式，包含对话听者情绪识别、人类偏好判断和生理信号情绪识别。', downloadLinks: [{label: 'Hugging Face MER2026', url: 'https://huggingface.co/datasets/MERChallenge/MER2026', note: 'gated，大型数据集'}, {label: 'MER-PS 生理数据', url: 'https://huggingface.co/datasets/MER-PS/MER-PS-trainval', note: 'EEG + fNIRS'}] },
-            { id: 'ov-merd', category: 'mer', title: 'OV-MERD', subtitle: '开放词汇多模态情感识别', type: 'multimodal', icon: 'fa-video', color: 'amber', shortDesc: '开放词表多模态情感识别数据集，采用人工主导+模型辅助标注。', paradigm: '开放词表生成式', volume: '332 个高质量标注样本', method: '人工主导 + 模型辅助标注自然语言情绪描述', source: 'AffectGPT 项目', description: '为研究开放词汇多模态情感识别（MER-OV）而构建，突破传统固定情绪类别标签的限制。', downloadLinks: [{label: 'GitHub AffectGPT', url: 'https://github.com/zeroQiaoba/AffectGPT', note: '项目仓库'}] },
-            { id: 'mer-caption', category: 'mer', title: 'MER-Caption+', subtitle: '描述式情绪数据集', type: 'multimodal', icon: 'fa-video', color: 'amber', shortDesc: '高质量描述式情绪数据集，包含情绪描述和标签。', paradigm: '描述式情绪理解', volume: '31,327 个高质量样本', method: '人工主导 + 模型辅助标注', source: 'MER2025 官方', description: 'MER-Caption+ 是筛除不匹配、异常或不可靠样本后得到的高质量子集。', downloadLinks: [{label: 'Hugging Face MER2025', url: 'https://huggingface.co/datasets/MERChallenge/MER2025', note: '需 EULA'}] },
-            { id: 'mdpe', category: 'mer', title: 'MDPE', subtitle: '情绪增强人格识别数据集', type: 'multimodal', icon: 'fa-video', color: 'amber', shortDesc: '情绪和人格双重标注数据集，每名被试观看 16 个情绪诱发视频。', paradigm: '情绪增强人格识别', volume: '233 被试，3,728 个样本', method: '实验室情绪诱发 + Big Five 人格问卷 + 自评', source: 'MER2025 官方', description: '用于研究情绪预测结果是否能够提升人格预测性能。', downloadLinks: [{label: 'MER2025 官网', url: 'https://zeroqiaoba.github.io/MER2025-website/', note: 'Track 4 说明'}] },
-
-            // === ABAW ===
-            { id: 'affwild2', category: 'abaw', title: 'Aff-Wild2', subtitle: 'ABAW 核心数据底座', type: 'visual multimodal', icon: 'fa-user-check', color: 'orange', shortDesc: '大规模野外连续 VA + 表情 + AU，是 ABAW 系列核心数据集。', paradigm: '连续回归 + 多任务学习', volume: '~550 视频，280万+ 帧', method: 'in-the-wild YouTube 视频，专业团队逐帧标注', source: 'iBUG Group, Imperial College London', description: 'Aff-Wild2 是 ABAW 挑战赛的核心数据底座，支持 VA 连续估计、8 类表情和 12 个 AU 检测。', downloadLinks: [{label: 'iBUG 官方页面（推荐）', url: 'https://ibug.doc.ic.ac.uk/resources/aff-wild2/', note: '需注册申请'}, {label: 'ABAW 竞赛主页', url: 'https://affective-behavior-analysis-in-the-wild.github.io/', note: '各届任务'}] },
-            { id: 'affwild', category: 'abaw', title: 'Aff-Wild', subtitle: '原始野外连续 VA 数据集', type: 'visual', icon: 'fa-user-check', color: 'orange', shortDesc: '早期野外连续情绪识别数据集。', paradigm: '连续 VA 回归', volume: '多视频 in-the-wild', method: 'YouTube 等网络视频，逐帧标注', source: 'iBUG Group', description: 'Aff-Wild 是 Aff-Wild2 的前身，是野外连续情绪识别的重要基础数据集。', downloadLinks: [{label: 'GitHub', url: 'https://github.com/ibug-group/aff-wild', note: '仓库'}] },
-            { id: 'c-expr-db', category: 'abaw', title: 'C-EXPR-DB', subtitle: 'ABAW 补充数据集', type: 'visual', icon: 'fa-user-check', color: 'orange', shortDesc: 'ABAW 补充的复合表情数据集。', paradigm: '复合表情识别', volume: 'ABAW 各届补充数据', method: '网络视频 + 标注', source: 'ABAW 组织方', description: 'ABAW 竞赛各届的补充数据集，详情见竞赛页面。', downloadLinks: [{label: 'ABAW 竞赛主页', url: 'https://affective-behavior-analysis-in-the-wild.github.io/', note: '各届页面含下载说明'}] },
-
-            // === MuSe ===
-            { id: 'musecar', category: 'muse', title: 'MuSe-CaR', subtitle: '汽车评测视频情感', type: 'multimodal', icon: 'fa-car', color: 'blue', shortDesc: 'YouTube 汽车评测视频，连续 valence/arousal + 话题 + 可信度。', paradigm: '连续回归 + 话题分类', volume: '~291 视频，35 小时', method: 'YouTube 抓取 + 专业标注', source: 'MuSe 组织方', description: 'MuSe 2020-2021 核心数据集，用于连续情绪和话题识别。', downloadLinks: [{label: 'MuSe 官网申请', url: 'https://www.muse-challenge.org/', note: '需申请'}] },
-            { id: 'ulm-tsst', category: 'muse', title: 'Ulm-TSST', subtitle: 'Trier Social Stress Test 压力数据', type: 'multimodal physio', icon: 'fa-heartbeat', color: 'blue', shortDesc: 'Trier Social Stress Test 压力场景，包含生理信号。', paradigm: '连续 valence + 生理化唤醒', volume: '69 名被试，约 6 小时', method: '实验室压力诱发 + 生理信号采集', source: 'University of Ulm', description: 'MuSe-Stress 和 MuSe-Physio 使用的经典压力数据集。', downloadLinks: [{label: 'MuSe 官网申请', url: 'https://www.muse-challenge.org/', note: '需申请'}] },
-            { id: 'passau-sfch', category: 'muse', title: 'Passau-SFCH', subtitle: '足球教练发布会幽默数据', type: 'multimodal', icon: 'fa-video', color: 'blue', shortDesc: '德国 Bundesliga 足球教练新闻发布会幽默检测数据。', paradigm: '幽默二分类', volume: '约 10 名教练，10+ 小时', method: '真实发布会视频 + 标注', source: 'University of Passau', description: 'MuSe-Humor 使用的经典幽默数据集。', downloadLinks: [{label: 'MuSe 官网申请', url: 'https://www.muse-challenge.org/', note: '需申请'}] },
-            { id: 'hume-reaction', category: 'muse', title: 'Hume-Reaction', subtitle: '情绪反应强度', type: 'multimodal', icon: 'fa-video', color: 'blue', shortDesc: '用户观看情绪刺激后的自发反应视频，7 个情绪反应强度。', paradigm: '情绪反应强度回归', volume: '约 75 小时，2,222 个记录', method: '用户生成内容 + 标注', source: 'Hume AI', description: 'MuSe-Reaction 使用的经典情绪反应数据集。', downloadLinks: [{label: 'MuSe 官网申请', url: 'https://www.muse-challenge.org/', note: '需申请'}] },
-
-            // === 动态表情 ===
-            { id: 'dfew', category: 'dynamic', title: 'DFEW', subtitle: 'Dynamic Facial Expression in-the-Wild', type: 'visual', icon: 'fa-film', color: 'orange', shortDesc: '野外环境下的动态人脸表情视频，适合视频时序表情识别。', paradigm: '视频级表情识别', volume: '16,372 个视频片段', method: '电影片段，标注 7 类基本情绪', source: '中国科学院计算技术研究所', description: 'DFEW 是研究从静态图像表情识别到视频时序表情识别的重要数据集。', downloadLinks: [{label: 'DFEW 官网', url: 'https://dfew-dataset.github.io/', note: '含下载页面'}] },
-            { id: 'ferv39k', category: 'dynamic', title: 'FERV39k', subtitle: '大规模多场景表情视频', type: 'visual', icon: 'fa-film', color: 'orange', shortDesc: '覆盖 4 大场景 22 个细分场景的大规模视频表情数据。', paradigm: '视频级 FER + 域泛化', volume: '38,935 个视频片段', method: '电影、电视剧、综艺等真实场景视频', source: '中国科学院计算技术研究所', description: 'FERV39k 适合研究场景分布、表情时序建模和域泛化。', downloadLinks: [{label: '数据集页面', url: 'https://wangyanckxx.github.io/datasets.html', note: '官方下载'}, {label: 'Hugging Face 镜像', url: 'https://huggingface.co/datasets/NoahMartinezXiang/FERV39K', note: '镜像'}] },
-            { id: 'mafw', category: 'dynamic', title: 'MAFW', subtitle: '多模态复合情感数据库', type: 'multimodal', icon: 'fa-film', color: 'orange', shortDesc: '大规模多模态复合情绪数据集，包含视频、音频和情绪 caption。', paradigm: '复合情绪识别 + 多标签 + 描述生成', volume: '10,045 个 video-audio clips', method: '影视剧和网络视频片段', source: '中国科学院计算技术研究所', description: 'MAFW 支持复合情绪识别、多标签和情绪描述生成任务。', downloadLinks: [{label: '数据集页面', url: 'https://wangyanckxx.github.io/datasets.html', note: '官方下载'}] },
-            { id: 'afewva', category: 'dynamic', title: 'AFEW-VA', subtitle: '动态 valence-arousal 数据集', type: 'visual', icon: 'fa-film', color: 'orange', shortDesc: '面向 in-the-wild 视频的连续情绪维度数据集，逐帧标注 VA。', paradigm: '连续情绪曲线预测', volume: '600 个电影视频片段', method: '电影片段，逐帧标注 valence 和 arousal', source: 'EmotiW / AFEW 团队', description: 'AFEW-VA 适合连续情绪曲线预测和时序情绪建模。', downloadLinks: [{label: 'ANU 官方', url: 'https://cs.anu.edu.au/few/AFEW.html', note: '官方页面'}, {label: 'OpenDataLab 镜像', url: 'https://opendatalab.com/OpenDataLab/AFEW-VA', note: '镜像'}] },
-
-            // === 情绪对话 (完整) ===
-            { id: 'cmumosei', category: 'dialog', title: 'CMU-MOSEI', subtitle: '大规模多模态情感', type: 'multimodal', icon: 'fa-video', color: 'violet', shortDesc: '23k+ YouTube 视频片段，sentiment + 6 类 Ekman 情绪。', paradigm: '多任务监督学习', volume: '23,453 clips，65 小时', method: 'YouTube monologue，众包标注', source: 'CMU MultiComp Lab', description: '目前最大的多模态情感数据集之一，广泛用于多模态融合研究。', downloadLinks: [{label: 'CMU Multimodal SDK（推荐）', url: 'https://github.com/CMU-MultiComp-Lab/CMU-MultimodalSDK', note: '包含下载脚本'}] },
-            { id: 'cmumosi', category: 'dialog', title: 'CMU-MOSI', subtitle: '多模态意见情感强度', type: 'multimodal', icon: 'fa-video', color: 'violet', shortDesc: '2,199 opinion clips，sentiment intensity -3~+3。', paradigm: '多模态回归 + 分类', volume: '2,199 clips', method: 'YouTube 影评视频，众包标注', source: 'CMU MultiComp Lab', description: '经典多模态意见与情感强度数据集。', downloadLinks: [{label: 'CMU Multimodal SDK', url: 'https://github.com/CMU-MultiComp-Lab/CMU-MultimodalSDK', note: '推荐'}] },
-            { id: 'cmumoseas', category: 'dialog', title: 'CMU-MOSEAS', subtitle: '多语言多模态情感', type: 'multimodal', icon: 'fa-video', color: 'violet', shortDesc: 'CMU-MOSEI 的多语言扩展，覆盖 Spanish、Portuguese、German、French。', paradigm: '跨语言多模态情感', volume: '约 40,000 个标注句级样本', method: '多语言在线视频', source: 'CMU MultiComp Lab', description: '适合跨语言、跨文化多模态情感和属性建模。', downloadLinks: [{label: 'CMU Multimodal SDK', url: 'https://github.com/CMU-MultiComp-Lab/CMU-MultimodalSDK', note: '推荐'}] },
-            { id: 'm3ed', category: 'dialog', title: 'M3ED', subtitle: '中文多模态情绪对话', type: 'multimodal dialog', icon: 'fa-comments', color: 'violet', shortDesc: '56 部中文电视剧，990 对话，7 类多标签情绪。', paradigm: '对话多模态多标签', volume: '9,082 turns，24k+ utterances', method: '电视剧切分 + 人工多标签标注', source: 'AIM3-RUC 团队', description: '中文领域规模较大的多模态情绪对话数据集。', downloadLinks: [{label: 'GitHub 仓库', url: 'https://github.com/AIM3-RUC/RUCM3ED', note: '含特征'}, {label: '下载页面', url: 'https://m3ed.io/download/', note: 'AWS S3'}] },
-            { id: 'meld', category: 'dialog', title: 'MELD', subtitle: '老友记多模态对话情绪', type: 'multimodal dialog', icon: 'fa-video', color: 'violet', shortDesc: '《老友记》剧集，13k utterances，7 类情绪。', paradigm: '对话多模态监督', volume: '1,433 对话，13,708 utterances', method: '剧集切分 + 人工标注', source: 'Declare Lab (NTU)', description: '经典多方对话情绪识别 benchmark。', downloadLinks: [{label: 'GitHub 官方仓库', url: 'https://github.com/declare-lab/MELD', note: '直接下载'}] },
-            { id: 'chsims', category: 'dialog', title: 'CH-SIMS', subtitle: '中文多模态情感分析', type: 'multimodal', icon: 'fa-comments', color: 'violet', shortDesc: '中文多模态情感分析数据集，提供多模态整体和单模态独立标注。', paradigm: '多模态融合 + 模态冲突分析', volume: '2,281 个精细切分视频片段', method: '中文电影、电视剧、综艺 in-the-wild 视频', source: '清华大学 THUIAR', description: 'CH-SIMS 的核心特色是同时提供多模态整体标注和单模态独立标注。', downloadLinks: [{label: '官网', url: 'https://thuiar.github.io/sims.github.io/chsims/', note: '官方'}, {label: 'ModelScope 镜像', url: 'https://www.modelscope.cn/datasets/OmniData/CH-SIMS', note: '镜像'}] },
-            { id: 'emotiontalk', category: 'dialog', title: 'EmotionTalk', subtitle: '交互式中文多模态情绪', type: 'multimodal dialog', icon: 'fa-comments', color: 'violet', shortDesc: '19 名演员参与的中文双人交互式对话数据集。', paradigm: '对话多模态 + 极性 + caption', volume: '19,250 utterances，23.6 小时', method: '中文双人交互式对话', source: 'NKU-HLT / BAAI', description: '适合中文情绪对话识别、缺失模态情绪识别和 speech captioning。', downloadLinks: [{label: 'Hugging Face', url: 'https://huggingface.co/EmotionTalk', note: '直接下载'}] },
-            { id: 'multi-hm', category: 'dialog', title: 'Multi-HM', subtitle: '人机对话多模态情绪', type: 'multimodal dialog', icon: 'fa-comments', color: 'violet', shortDesc: '中文人机咨询 / 人机对话多模态情绪数据集。', paradigm: '人机对话情绪识别', volume: '1,433 个多方对话，13,708 个 utterances', method: '中文人机对话场景', source: 'Fu 等研究团队', description: '面向 human-machine dialogue systems，包含话题、言语行为、情绪指向等细粒度标注。', downloadLinks: [{label: 'GitHub', url: 'https://github.com/miticuc/Multi-HM', note: '官方仓库'}] },
-
-            // === 意图-原因 ===
-            { id: 'mintrec', category: 'dialog', title: 'MIntRec', subtitle: '多模态意图识别', type: 'multimodal', icon: 'fa-comments', color: 'violet', shortDesc: '多模态意图识别数据集，包含说话人 bounding box。', paradigm: '多模态意图识别 + OOS 检测', volume: '2,224 个高质量视频片段', method: '美剧 Superstore 视频片段', source: '清华大学 THUIAR', description: '适合研究真实场景下语言、表情、动作和语音线索共同作用的意图识别。', downloadLinks: [{label: 'GitHub', url: 'https://github.com/thuiar/MIntRec', note: '官方仓库'}, {label: '官网', url: 'https://mintrec.github.io/', note: '项目主页'}] },
-            { id: 'mintrec2', category: 'dialog', title: 'MIntRec2.0', subtitle: '大规模多方对话意图识别', type: 'multimodal', icon: 'fa-comments', color: 'violet', shortDesc: '大规模多模态、多方对话意图识别与 out-of-scope detection。', paradigm: '多方对话意图识别 + OOS', volume: '1,245 个高质量对话，15,040 个样本', method: '多方对话视频', source: '清华大学 THUIAR', description: '适合研究真实开放场景中的意图识别、拒识、上下文建模。', downloadLinks: [{label: 'GitHub', url: 'https://github.com/thuiar/MIntRec2.0', note: '官方仓库'}] },
-            { id: 'reccon', category: 'dialog', title: 'RECCON', subtitle: '对话情绪原因识别', type: 'text dialog', icon: 'fa-comments', color: 'violet', shortDesc: 'Recognizing Emotion Cause in Conversations 数据集。', paradigm: '因果 span 抽取 + 情绪蕴含', volume: '超过 1,000 个对话，10k+ pairs', method: '基于 DailyDialog 和 IEMOCAP 构建', source: 'DeCLaRe Lab', description: '从“识别情绪”走向“解释为什么产生该情绪”的典型数据集。', downloadLinks: [{label: 'GitHub', url: 'https://github.com/declare-lab/RECCON', note: '官方仓库'}] },
-
-            // === 生理信号 (完整) ===
-            { id: 'recola', category: 'physio', title: 'RECOLA', subtitle: '远程协作情感交互', type: 'multimodal physio', icon: 'fa-heartbeat', color: 'blue', shortDesc: '法语远程协作，同步音频+视频+生理 (ECG/EDA)，连续 VA。', paradigm: '连续多模态时序回归', volume: '46 参与者，3.5 小时', method: '实验室远程协作实验 + 多标注者连续标注', source: 'University of Fribourg', description: 'AVEC 系列经典数据集，适合生理 + 行为融合研究。', downloadLinks: [{label: 'RECOLA 官网', url: 'https://recola.human-ist.ch/', note: '需申请'}] },
-            { id: 'seed', category: 'physio', title: 'SEED / SEED-IV', subtitle: 'EEG 情绪识别', type: 'physio', icon: 'fa-brain', color: 'blue', shortDesc: '上海交大 EEG 情绪数据集，3/4 类情绪，跨被试迁移。', paradigm: '脑电情绪识别 + 迁移学习', volume: '15 被试 × 3 sessions', method: '电影片段诱发 + EEG + 眼动', source: '上海交通大学 BCMI 实验室', description: '经典 EEG 情绪识别数据集，适合可穿戴与脑机接口研究。', downloadLinks: [{label: 'SEED 官网申请', url: 'http://bcmi.sjtu.edu.cn/~seed', note: '需申请'}] },
-            { id: 'ascertain', category: 'physio', title: 'ASCERTAIN', subtitle: '多模态人格与情绪生理', type: 'physio', icon: 'fa-heartbeat', color: 'blue', shortDesc: '包含 Big Five 人格、自评情绪、EEG、ECG、GSR。', paradigm: '人格-情绪-生理联合建模', volume: '58 名被试，36 个情绪视频', method: '商用传感器采集 + 自评', source: 'ASCERTAIN 研究团队', description: '适合人格-情绪-生理联合建模研究。', downloadLinks: [{label: '官网', url: 'https://ascertain-dataset.github.io/', note: '含 EULA 申请说明'}] },
-            { id: 'emognition', category: 'physio', title: 'Emognition', subtitle: '可穿戴设备情绪识别', type: 'physio', icon: 'fa-heartbeat', color: 'blue', shortDesc: '使用 Muse 2、Empatica E4 等可穿戴设备采集生理信号。', paradigm: '可穿戴生理情绪识别', volume: '43 名参与者，9 类离散情绪', method: '可穿戴设备 + 视频', source: 'Emognition 研究团队', description: '适合真实可穿戴产品路线的情绪识别研究。', downloadLinks: [{label: 'GitHub 组织', url: 'https://github.com/Emognition/', note: '含数据下载仓库'}] },
-            { id: 'biovid', category: 'physio', title: 'BioVid Heat Pain', subtitle: '热痛刺激多模态', type: 'physio', icon: 'fa-heartbeat', color: 'blue', shortDesc: '热痛刺激下的面部视频和生理信号（ECG、EMG、EDA）。', paradigm: '疼痛/压力/负性唤醒评估', volume: '87 名健康被试', method: '实验室热痛刺激实验', source: 'University of Magdeburg', description: '适合疼痛、压力、负性唤醒的多模态评估。', downloadLinks: [{label: '官网', url: 'https://ovgu-nit.github.io/paindetection/databases/biovid/', note: '数据库页面'}] },
-            { id: 'swell-kw', category: 'physio', title: 'SWELL-KW', subtitle: '办公压力与工作负荷', type: 'physio', icon: 'fa-heartbeat', color: 'blue', shortDesc: '办公知识工作实验，包含 ECG、EDA、姿态等。', paradigm: '压力/工作负荷检测', volume: '25 名参与者，约 3 小时', method: '操控工作条件产生压力', source: 'Radboud University', description: '适合压力检测、工作负荷识别、用户建模。', downloadLinks: [{label: '官网', url: 'http://cs.ru.nl/~skoldijk/SWELL-KW/Dataset.html', note: '数据集页面'}, {label: 'OpenDataLab', url: 'https://opendatalab.com/OpenDataLab/SWELL-KW', note: '镜像'}] },
-            { id: 'case', category: 'physio', title: 'CASE', subtitle: '连续情绪标注生理信号', type: 'physio', icon: 'fa-heartbeat', color: 'blue', shortDesc: '连续情绪标注与生理信号数据集，被试通过 joystick 连续报告 VA。', paradigm: '连续情绪回归 + 生理融合', volume: '30 名参与者，8 路生理信号', method: '观看情绪视频 + joystick 连续报告', source: 'German Aerospace Center', description: '适合连续情绪回归和生理情绪建模。', downloadLinks: [{label: 'arXiv 论文', url: 'https://arxiv.org/abs/1812.02782', note: '含数据获取说明'}] },
-
-            // === 微表情 ===
-            { id: 'casme3', category: 'micro', title: 'CAS(ME)³', subtitle: '自发微表情数据库', type: 'micro visual', icon: 'fa-eye', color: 'orange', shortDesc: '中科院心理所第三代自发微表情，含深度信息。', paradigm: '微表情 spotting + recognition', volume: '80 小时+，1.1k 微表情', method: '实验室诱发 + FACS 编码 + 深度', source: '中科院心理研究所', description: '目前生态效度较高的自发微表情数据集。', downloadLinks: [{label: 'CASME 官网', url: 'http://casme.psych.ac.cn/casme/c3', note: '需申请协议'}] },
-            { id: 'casme2', category: 'micro', title: 'CAS(ME)²', subtitle: '长视频宏/微表情 Spotting', type: 'micro visual', icon: 'fa-eye', color: 'orange', shortDesc: '长视频微表情与宏表情 spotting / recognition 数据集。', paradigm: '长视频 spotting + recognition', volume: '87 个长视频 + 裁剪样本', method: '实验室诱发自发微/宏表情', source: '中科院心理研究所', description: 'Part A 适合长视频 spotting，Part B 适合已裁剪样本识别。', downloadLinks: [{label: 'CASME 官网', url: 'http://casme.psych.ac.cn/casme/e3', note: '需申请'}] },
-            { id: 'samm', category: 'micro', title: 'SAMM Long Videos', subtitle: '长视频微/宏表情', type: 'micro visual', icon: 'fa-eye', color: 'orange', shortDesc: '147 个长视频，FACS-coded，包含 343 个宏表情和 159 个微表情。', paradigm: '长视频 micro/macro spotting', volume: '147 个长视频', method: '自发长视频，FACS 编码', source: 'Manchester Metropolitan University', description: '适合长视频表情事件检测、AU 分析和微表情定位。', downloadLinks: [{label: 'arXiv 论文', url: 'https://arxiv.org/abs/1911.01519', note: '需签署 Release Agreement'}] },
-            { id: 'mmew', category: 'micro', title: 'MMEW', subtitle: '宏/微表情联合数据集', type: 'micro visual', icon: 'fa-eye', color: 'orange', shortDesc: '包含同一批被试的 macro-expression 和 micro-expression 样本。', paradigm: '宏/微表达联合建模', volume: '300 个微表情 + 900 个宏表情', method: '实验室诱发', source: 'MMEW 研究团队', description: '适合研究宏表情辅助微表情识别和预训练迁移。', downloadLinks: [{label: 'GitHub', url: 'https://github.com/benxianyeteam/MMEW-Dataset', note: '官方仓库'}] },
-            { id: 'megc', category: 'micro', title: 'MEGC', subtitle: 'Facial Micro-Expression Grand Challenge', type: 'micro visual', icon: 'fa-eye', color: 'orange', shortDesc: '微表情领域系列挑战赛，包含 spotting、recognition 等任务。', paradigm: '微表情 spotting + recognition + VQA', volume: '不同年份使用不同数据', method: '基于多个公开微表情数据集构建', source: 'MEGC 组织委员会', description: '推动更真实、更统一的微表情理解评测。', downloadLinks: [{label: 'MEGC 2026 官网', url: 'https://megc2026.github.io/challenge.html', note: '官方页面'}] },
-
-            // === LLM 评测 ===
-            { id: 'emobench', category: 'llm', title: 'EmoBench', subtitle: 'LLM 情绪智能基准', type: 'text', icon: 'fa-robot', color: 'emerald', shortDesc: '400 道手工构造 MCQ，测试 LLM 情绪理解与应用能力。', paradigm: '情绪智能评测 (EU + EA)', volume: '400 题，中英双语', method: '人工构造场景题 + 多标注验证', source: 'Tsinghua / Michigan / HKU', description: '目前最系统的 LLM 情绪智能评测基准，包含 Emotional Understanding 和 Emotional Application 两大任务。', downloadLinks: [{label: 'Hugging Face', url: 'https://huggingface.co/datasets/SahandSab/EmoBench', note: '直接可用'}, {label: 'GitHub', url: 'https://github.com/Sahandfer/EmoBench', note: '原版'}] },
-            { id: 'emobenchm', category: 'llm', title: 'EmoBench-M', subtitle: '多模态 MLLM 情绪基准', type: 'multimodal', icon: 'fa-robot', color: 'emerald', shortDesc: '多模态 MLLM 情绪智能评测基准，覆盖 13 个场景。', paradigm: '多模态情绪智能评测', volume: '超过 5000 个样本', method: '汇总多个公开多模态情感数据集', source: '深圳大学等', description: 'EmoBench-M 组织为三层能力：基础情绪识别、对话情绪理解、复杂社会情绪分析。', downloadLinks: [{label: 'GitHub', url: 'https://github.com/Emo-gml/EmoBench-M', note: '项目仓库'}, {label: '官网', url: 'https://emo-gml.github.io/', note: '项目主页'}] },
-            { id: 'emobench-reddit', category: 'llm', title: 'EmoBench-Reddit', subtitle: '图文情绪推理', type: 'multimodal', icon: 'fa-robot', color: 'emerald', shortDesc: 'Reddit 社交媒体图文内容，4 类情绪，7 个问题。', paradigm: '图文情绪推理 (Perception + Cognition)', volume: '350 个精筛 Reddit 样本', method: 'Reddit 帖子 + 图像 + 文本', source: 'Tianjin University 等', description: '测试 LLM 在图文情绪推理、意图识别、深层共情推理上的能力。', downloadLinks: [{label: 'arXiv 论文', url: 'https://arxiv.org/abs/2509.11101', note: '数据获取见论文'}, {label: 'Hugging Face 论文页', url: 'https://huggingface.co/papers/2509.11101', note: '论文页面'}] },
-            { id: 'eq-bench', category: 'llm', title: 'EQ-Bench', subtitle: 'LLM 情商评测', type: 'text', icon: 'fa-robot', color: 'emerald', shortDesc: 'LLM 情商评测，当前 EQ-Bench 3 包含高难度 roleplay scenarios。', paradigm: '情商 / 情绪智能评测', volume: '约 45 个高难度 roleplay scenarios', method: '角色扮演场景 + LLM-as-a-judge', source: 'Samuel J. Paech', description: '考察 empathy、social dexterity、emotional reasoning 等主动情绪智能能力。', downloadLinks: [{label: '官网', url: 'https://eqbench.com/', note: '当前榜单'}] },
-
-            // === 补充 ===
-            { id: 'mspimprov', category: 'dialog', title: 'MSP-IMPROV', subtitle: '多模态情感识别', type: 'audio multimodal', icon: 'fa-microphone', color: 'blue', shortDesc: 'UT Dallas 多模态情感识别数据集，12 名演员多轮互动对话。', paradigm: '多模态情感识别 + 维度标注', volume: '约 8400 个情绪语音片段，9 小时', method: '多轮互动对话 + 音频、视频、文本转录', source: 'UT Dallas MSP Lab', description: '适合研究语音与视觉结合的情感计算问题。', downloadLinks: [{label: '官网', url: 'https://lab-msp.com/MSP/MSP-Improv.html', note: '官方页面'}, {label: '下载工具', url: 'https://github.com/jmg049/MSP-IMPROV-Data-Download-Tool', note: '下载工具'}] },
-
-            // === 新增：图片表格中的数据集（仅添加缺失的） ===
-            { id: 'mahnob-hci', category: 'physio', title: 'MAHNOB-HCI', subtitle: '多模态情感标注数据集', type: 'multimodal', icon: 'fa-brain', color: 'blue', shortDesc: '27名被试 EEG 及多种生理信号和图片、视频信息，用于情感识别和隐式标注研究。', paradigm: 'VAD 模型', volume: '27 被试，多模态记录', method: '情感刺激诱发 + 多相机多模态同步记录', source: 'MAHNOB Databases', description: 'MAHNOB-HCI 是多模态情感计算经典数据集，包含 EEG、ECG、GSR、呼吸、皮肤温度、面部视频等，用于情感识别和隐式标注。', downloadLinks: [{label: 'MAHNOB 官网', url: 'https://mahnob-db.eu/hci-tagging/', note: '需注册/申请'}] },
-            { id: 'decaf', category: 'physio', title: 'DECAF', subtitle: 'MEG-based Multimodal Affective Database', type: 'physio', icon: 'fa-brain', color: 'blue', shortDesc: '30名被试 EOG、ECG、EMG 及视频信息，用于解码用户对情感多媒体内容的生理响应。', paradigm: 'VA 模型', volume: '30 被试', method: 'MEG + 生理 + 视频记录', source: 'University of Trento', description: 'DECAF 是用于解码用户对情感多媒体内容生理响应的多模态数据集。', downloadLinks: [{label: 'DECAF 官网', url: 'https://decaf-dataset.github.io/', note: '直接下载'}] },
-            { id: 'amigos', category: 'physio', title: 'AMIGOS', subtitle: 'Multimodal research of affect, personality and mood', type: 'multimodal', icon: 'fa-users', color: 'violet', shortDesc: '40名被试 EEG、ECG、GSR 及图片、视频信息，用于个体和群体情感、人格和心情研究。', paradigm: '5种情绪类别 + VA 模型', volume: '40 被试', method: '多模态生理 + 视频', source: 'QMUL', description: 'AMIGOS 是用于个体和群体情感、人格和心情的多模态研究数据集。', downloadLinks: [{label: 'QMUL 下载页（可能需替代）', url: 'http://www.eecs.qmul.ac.uk/mmv/datasets/amigos/download.html', note: '原链接可能失效，推荐 Kaggle/Zenodo'}] },
-            { id: 'dreamer', category: 'physio', title: 'DREAMER', subtitle: 'Emotion Recognition through EEG and ECG', type: 'physio', icon: 'fa-brain', color: 'blue', shortDesc: '23名被试 EEG 和 ECG 信号，通过音频-视觉刺激诱发情感。', paradigm: 'VAD 模型', volume: '23 被试', method: '无线低成本设备记录 EEG/ECG', source: 'Katsigiannis & Ramzan', description: 'DREAMER 是使用无线低成本设备记录 EEG 和 ECG 的情感识别多模态数据库。', downloadLinks: [{label: 'Zenodo', url: 'https://zenodo.org/records/546113', note: '需请求访问'}] },
-            { id: 'rcls', category: 'physio', title: 'RCLS', subtitle: 'EEG Emotion Dataset', type: 'physio', icon: 'fa-brain', color: 'blue', shortDesc: '14名被试 EEG 数据集（特定论文中提及）。', paradigm: '3种情绪类别', volume: '14 被试', method: 'EEG 记录', source: '特定研究论文', description: 'RCLS 是一个较小规模的 EEG 情感数据集，详情见相关论文。', downloadLinks: [{label: '论文搜索', url: 'https://www.researchgate.net/figure/RCLS-database-acquisition-procedure-54_fig23_382919350', note: '可能需联系作者'}] },
-            { id: 'hr-eeg4emo', category: 'physio', title: 'HR-EEG4EMO', subtitle: 'High-Resolution EEG for Emotion', type: 'physio', icon: 'fa-brain', color: 'blue', shortDesc: '高分辨率 EEG 情感数据库，首个公开的高分辨率 EEG 情感研究数据集。', paradigm: '情感研究', volume: '特定被试数', method: '高分辨率 EEG 记录', source: 'InterDigital', description: 'HR-EEG4EMO 是第一个公开的高分辨率 EEG 情感数据库。', downloadLinks: [{label: 'InterDigital', url: 'https://www.interdigital.com/data_sets/hr-eeg4emo-dataset', note: '需签署 EULA 并邮件申请'}] },
-            { id: 'deap', category: 'physio', title: 'DEAP', subtitle: 'Database for Emotion Analysis using Physiological signals', type: 'multimodal', icon: 'fa-brain', color: 'blue', shortDesc: '32名被试 EEG、EOG、EMG、GSR、RSP、BP、ST 等生理信号 + 视频，用于情感分析。', paradigm: 'VAD 模型', volume: '32 被试', method: '40段1分钟音乐视频诱发 + 自评', source: 'Queen Mary University of London', description: 'DEAP 是情感计算领域最经典的多生理信号数据集之一，广泛用于 VA 连续情感分析。', downloadLinks: [{label: 'QMUL 官网', url: 'https://www.eecs.qmul.ac.uk/mmv/datasets/deap/', note: '需注册/同意协议'}] }
+        const categories = [
+            { id: 'all', label: '全部', icon: 'fa-border-all' },
+            { id: 'multimodal', label: '多模态情绪识别与跨模态融合', icon: 'fa-layer-group' },
+            { id: 'visual', label: '视觉表情、微表情与人脸理解', icon: 'fa-face-smile' },
+            { id: 'text', label: '文本情感分析、观点挖掘与社会媒体', icon: 'fa-align-left' },
+            { id: 'audio', label: '语音情绪、音频理解与TTS', icon: 'fa-microphone-lines' },
+            { id: 'generation', label: '情绪生成、可控表达与数字人', icon: 'fa-wand-magic-sparkles' },
+            { id: 'empathy', label: '共情对话、情绪支持与心理健康', icon: 'fa-hand-holding-heart' },
+            { id: 'social', label: '人格、文化、偏见、安全与社会认知', icon: 'fa-scale-balanced' }
         ];
 
+        const sourceLinks = {
+            survey: 'https://wcn53vllwfcg.feishu.cn/wiki/SF1tw3UarifNeNkgbWgcg5ibnto',
+            index: 'https://wcn53vllwfcg.feishu.cn/wiki/D9IzwiFAOiToldklUSJc0Z1Rn0d?fromScene=spaceOverview'
+        };
+
+        const datasets = [
+            ds('MER2023', 'multimodal', 'MER-MULTI / MER-NOISE / MER-SEMI', '多标签学习、模态鲁棒性与半监督多模态情绪识别挑战。', '视频 / 音频 / 文本', '多模态情绪识别、噪声鲁棒、半监督学习', 'ACM Multimedia MER Challenge', '2023', 'MER Challenge', 'WAF、F1、MSE、Combined Score', 'https://wcn53vllwfcg.feishu.cn/wiki/FruxwcX2Pi7yhykltDBcX28Fnmc', '学术研究与挑战赛规则约束'),
+            ds('MER2024', 'multimodal', 'MER-SEMI / MER-OV', '延续半监督与噪声鲁棒任务，并引入开放词汇情感识别。', '视频 / 音频 / 文本', '半监督情绪识别、开放词汇情绪标签', 'ACM Multimedia MER Challenge', '2024', 'MER Challenge', 'WAF、Emotion Wheel F1', 'https://wcn53vllwfcg.feishu.cn/wiki/G7iIwvMVkii2NBkXwbYcmJvonLb', '学术研究与挑战赛规则约束'),
+            ds('MER2025', 'multimodal', 'SEMI / FG / DES / PR', '结合情感计算与大语言模型，覆盖细粒度标签、描述式理解和人格识别。', '视频 / 音频 / 文本 / OpenFace 特征', '固定类别、开放词表、描述式情绪理解、情绪增强人格识别', 'ACM Multimedia MER Challenge', '2025', 'MER Challenge', 'WAF、Emotion Wheel F1、人工评分、RMSE', 'https://wcn53vllwfcg.feishu.cn/wiki/MhddwOdBfiNnJ6kZJE2cNbXEnzc', 'Hugging Face gated / EULA'),
+            ds('MER2026', 'multimodal', 'Cross / FG / Prefer / PS', '从判别式情绪识别转向生成式情绪理解，包含听者情绪和偏好判断。', '视频 / 音频 / 文本 / 人脸特征', '交互对象情绪识别、细粒度标签、情绪偏好判断', 'ACM Multimedia MER Challenge', '2026', 'MER Challenge', 'WAF、Emotion Wheel Average F1、MAE', 'https://wcn53vllwfcg.feishu.cn/wiki/KWqdwZx7kixf0PkWOiOc8S3Znoc', 'Hugging Face gated / EULA'),
+            ds('OV-MERD', 'multimodal', 'Open-Vocabulary Multimodal Emotion Recognition Dataset', '开放词汇多模态情感识别数据集，要求模型输出任意数量、任意类别情感标签。', '视频 / 音频 / OpenFace 特征 / 中英文字幕', '开放词汇多模态情感识别', '中国科学院自动化研究所', '2025', 'AffectGPT / MER2025', '论文静态对比结果，无独立实时榜单', 'https://huggingface.co/datasets/MERChallenge/MER2025', 'Apache 2.0 协议但仅限学术研究，禁止商业用途'),
+
+            ds('AffectNet', 'visual', '大规模野外人脸表情与 VA 数据集', '网络人脸图像上的表情分类与 valence-arousal 标注。', '图像', '表情分类、VA 回归', 'University of Denver / Mohammad H. Mahoor 团队', '2017', '视觉表情知识库子文档', 'Accuracy、F1、RMSE、CCC', 'https://wcn53vllwfcg.feishu.cn/wiki/KXebwX3avi8I3LkEWY6cFsLqngc', '需遵守原始数据使用协议'),
+            ds('AffectNet+', 'visual', 'AffectNet 扩展与增强版本', '用于提升野外人脸表情识别、类别覆盖与标注质量。', '图像', '表情分类、鲁棒性评测', '知识库整理', '待补充', '视觉表情知识库子文档', 'Accuracy、Macro-F1', 'https://wcn53vllwfcg.feishu.cn/wiki/WalcwTsPliOnFtkEZRlcU4pHneg', '需遵守原始数据使用协议'),
+            ds('CAS(ME)²', 'visual', '长视频宏/微表情 Spotting', '同时覆盖宏表情与微表情事件检测，适合长视频表情定位。', '视频', '宏表情/微表情 spotting 与识别', '中科院心理所相关团队', '待补充', '视觉表情知识库子文档', 'UF1、UAR、F1', 'https://wcn53vllwfcg.feishu.cn/wiki/Or8Nw1Pyei2ac4kA9FQc2xOSnWe', '需申请或遵守研究用途限制'),
+            ds('CAS(ME)3', 'visual', '第三代自发微表情数据集', '包含更丰富的自发微表情、深度信息与高生态效度场景。', '视频 / 深度信息', '微表情 spotting、识别、人脸理解', '中科院心理所', '待补充', '视觉表情知识库子文档', 'UF1、UAR、F1', 'https://wcn53vllwfcg.feishu.cn/wiki/A90VwwsTAi3V0FkdRJhc0cOfnTw', '需申请或遵守研究用途限制'),
+            ds('CASME II', 'visual', '高帧率自发微表情数据集', '经典微表情识别基准，用于短时、细粒度面部动作分析。', '视频', '微表情识别', '中科院心理所', '2014', '视觉表情知识库子文档', 'UF1、UAR、Accuracy、F1', 'https://wcn53vllwfcg.feishu.cn/wiki/IAI9wwZBLiYWDbksL0WcCtbanAg', '需申请或遵守研究用途限制'),
+            ds('DFEW', 'visual', 'Dynamic Facial Expression in-the-Wild', '电影片段中的动态野外表情识别数据集。', '视频', '动态表情识别', 'DFEW 团队', '待补充', '视觉表情知识库子文档', 'UAR、WAR、Accuracy、F1', 'https://wcn53vllwfcg.feishu.cn/wiki/AvxZwUKWmiN9VzkV3xlcfxsqnCg', '需遵守原始数据使用协议'),
+            ds('DISFA', 'visual', 'Denver Intensity of Spontaneous Facial Action', '面向自发面部动作单元强度估计的数据集。', '视频 / 人脸 AU', 'AU 检测与强度估计', 'University of Denver', '待补充', '视觉表情知识库子文档', 'F1、ICC、MAE', 'https://wcn53vllwfcg.feishu.cn/wiki/Jfw6wBN6TiA65YkF0GmckXM0nsh', '需遵守原始数据使用协议'),
+            ds('MAFW', 'visual', 'Multimodal Affective in-the-Wild', '野外视频情绪识别数据集，适合复杂真实场景动态情绪建模。', '视频 / 音频', '动态情绪识别、多模态融合', 'MAFW 团队', '待补充', '视觉表情知识库子文档', 'Accuracy、F1、UAR', 'https://wcn53vllwfcg.feishu.cn/wiki/LsTswxXPdi1OIQk4SCLcZNLtnvg', '需遵守原始数据使用协议'),
+            ds('Aff-Wild2', 'visual', 'ABAW 核心数据底座', '野外视频中的 VA、表情类别和 AU 多任务标注。', '视频 / 人脸', 'VA 估计、表情分类、AU 检测、多任务学习', 'iBUG Group, Imperial College London', '待补充', 'ABAW / Aff-Wild2', 'mean CCC、F1/Accuracy、AU F1', 'https://wcn53vllwfcg.feishu.cn/wiki/F5jFw2SEVi0FpSkdXXRcGGq2nQg', '需注册申请，遵守 iBUG / ABAW 使用协议'),
+            ds('RAF-DB', 'visual', 'Real-world Affective Faces Database', '真实网络人脸图像中的基本表情与复合表情识别数据集。', '图像', '基本表情、复合表情识别', '北京邮电大学 / 邓伟洪团队等', '待补充', '视觉表情知识库子文档', 'Accuracy、Macro-F1', 'https://wcn53vllwfcg.feishu.cn/wiki/IhehwULAZi40S7kBP44cafCDnSh', '需遵守原始数据使用协议'),
+            ds('BP4D-Spontaneous', 'visual', '自发面部行为分析数据集', '面向 AU、表情和动态面部行为建模的实验室采集数据集。', '视频 / 人脸', 'AU 检测、表情分析', 'BP4D 团队', '待补充', '视觉表情知识库子文档', 'F1、Accuracy、AU 指标', 'https://wcn53vllwfcg.feishu.cn/wiki/CjL5wExdViRU3tkGDKCcVwZdnNb', '需遵守原始数据使用协议'),
+            ds('OULU-NPU', 'visual', '人脸反欺骗与活体检测数据集', '移动设备场景下的人脸 presentation attack detection 数据集。', '视频 / 人脸', '人脸活体检测、反欺骗', 'University of Oulu', '待补充', '视觉表情知识库子文档', 'APCER、BPCER、ACER', 'https://wcn53vllwfcg.feishu.cn/wiki/Ybtswn2mpitGEQk4mkRcEvYinNd', '需遵守原始数据使用协议'),
+            ds('WFLW', 'visual', 'Wider Facial Landmarks in-the-Wild', '野外人脸关键点定位数据集，覆盖姿态、遮挡和表情变化。', '图像 / 人脸关键点', '人脸关键点检测、鲁棒人脸理解', 'WFLW 团队', '待补充', '视觉表情知识库子文档', 'NME、Failure Rate、AUC', 'https://wcn53vllwfcg.feishu.cn/wiki/Moqhw9yU5iBUpzkRYR6c8A6gnFh', '需遵守原始数据使用协议'),
+            ds('WIDER FACE', 'visual', '大规模野外人脸检测数据集', '复杂场景下的人脸检测数据集，可作为表情/人脸理解前置能力。', '图像', '人脸检测', 'WIDER FACE 团队', '待补充', '视觉表情知识库子文档', 'mAP', 'https://wcn53vllwfcg.feishu.cn/wiki/Q7Mww2eaWiDj0Akzls4cZgm5nDe', '需遵守原始数据使用协议'),
+
+            ds('DynaSent', 'text', '动态鲁棒情感分析数据集', '通过模型易错样本和人机对抗方式构造，用于 positive / negative / neutral 三分类鲁棒性评测。', '文本', '句子级情感极性分类、鲁棒性测试', 'DynaSent / Dynabench 思路', '待补充', '飞书调研数据集文档', 'Round 1/2 Macro-F1', sourceLinks.survey, '公开数据集，需遵守原始许可'),
+            ds('SST / SST-2', 'text', 'Stanford Sentiment Treebank', '英文电影评论情感分析经典基础数据集，SST-2 为二分类版本。', '文本', '句子级/短语级情感极性分类', 'Stanford NLP', '待补充', '飞书调研数据集文档', 'Accuracy', sourceLinks.survey, '公开 benchmark，需遵守原始许可'),
+            ds('Sentiment140', 'text', 'Twitter 远程监督情感分析', '大规模英文 Twitter 情感分析数据集，使用表情符号作为弱监督信号。', '文本 / Twitter', '社交媒体短文本情感分类', 'Sentiment140 团队', '2009', '飞书调研数据集文档', 'Accuracy、Macro-F1', sourceLinks.survey, '注意 Twitter/X 数据再分发限制'),
+            ds('TweetEval', 'text', '统一 Twitter 分类 Benchmark', '整合 sentiment、emotion、hate、irony、offensive、stance、emoji 等 7 个任务。', '文本 / Twitter', '社交媒体情感极性与情绪分类', 'TweetEval 团队', '待补充', '飞书调研数据集文档', 'Sentiment Macro Recall、Emotion Macro-F1', sourceLinks.survey, '需遵守各原始任务数据许可'),
+            ds('GoEmotions', 'text', '细粒度 Reddit 情绪识别', '包含 27 类细粒度情绪和 neutral 标签，适合细颗粒度文本情绪识别。', '文本 / Reddit', '多标签细粒度情绪分类', 'Google Research', '待补充', '飞书调研数据集文档', 'Macro-F1、Micro-F1', sourceLinks.survey, '需遵守原始许可与 Reddit 数据约束'),
+            ds('NewsMTSC', 'text', '新闻目标级情感分类', '面向新闻文本的 target-specific sentiment classification。', '文本 / 新闻', '目标级情感分析', 'NewsMTSC 团队', '待补充', '飞书调研数据集文档', 'Accuracy、Macro-F1', sourceLinks.survey, '需遵守原始许可'),
+            ds('SemEval-2014 Task 4 ABSA', 'text', 'Aspect-Based Sentiment Analysis', '餐厅与笔记本领域的方面级情感分析经典数据集。', '文本', 'Aspect term/category 情感分类', 'SemEval', '2014', '飞书调研数据集文档', 'Accuracy、F1', sourceLinks.survey, '需遵守 SemEval 数据使用规则'),
+            ds('MAMS', 'text', 'Multi-Aspect Multi-Sentiment', '每条评论包含多个方面和不同情感，避免模型只依赖句子整体极性。', '文本', '多方面情感分析', 'MAMS 团队', '待补充', '飞书调研数据集文档', 'Accuracy、Macro-F1', sourceLinks.survey, '需遵守原始许可'),
+            ds('SentiHood', 'text', '地点与方面级情感分析', '面向城市区域的 aspect/location sentiment analysis 数据集。', '文本', '目标/方面级情感分析', 'SentiHood 团队', '待补充', '飞书调研数据集文档', 'Accuracy、F1', sourceLinks.survey, '需遵守原始许可'),
+            ds('BRIGHTER / SemEval-2025 Task 11', 'text', '多语种细粒度情绪识别', '面向多语言、多文化语境的细粒度情绪识别任务。', '文本 / 多语种', '多语种情绪识别', 'SemEval 2025', '2025', '飞书调研数据集文档', '任务官方指标', sourceLinks.survey, '需遵守 SemEval 数据使用规则'),
+            ds('EZ-STANCE', 'text', '观点挖掘与立场检测', '用于判断文本对特定目标的支持、反对或中立立场。', '文本', 'Stance Detection', 'EZ-STANCE 团队', '待补充', '飞书调研数据集文档', 'Macro-F1', sourceLinks.survey, '需遵守原始许可'),
+            ds('VAST', 'text', '跨主题立场检测', '面向开放主题和跨主题泛化的 stance detection 数据集。', '文本', 'Zero-shot / Few-shot Stance Detection', 'VAST 团队', '待补充', '飞书调研数据集文档', 'Macro-F1', sourceLinks.survey, '需遵守原始许可'),
+            ds('SemEval-2018 Task 1: Affect in Tweets', 'text', '推文情绪与强度识别', '覆盖情绪分类、情绪强度和 valence 估计的 Twitter 情感任务。', '文本 / Twitter', 'Emotion Classification、Intensity、Valence', 'SemEval 2018', '2018', '飞书调研数据集文档', 'Pearson、Macro-F1 等任务指标', sourceLinks.survey, '需遵守 SemEval 与 Twitter 数据规则'),
+            ds('ACOS', 'text', 'Aspect-Category-Opinion-Sentiment', '更强结构化情感理解任务，要求抽取方面、类别、观点词和情感极性。', '文本', '结构化观点挖掘', 'ACOS 团队', '待补充', '飞书调研数据集文档', 'F1', sourceLinks.survey, '需遵守原始许可'),
+            ds('SemEval-2022 Task 10: Structured Sentiment Analysis', 'text', '结构化情感分析', '抽取 holder、target、expression 与 polarity 的结构化情感图。', '文本 / 多语种', 'Structured Sentiment Analysis', 'SemEval 2022', '2022', '飞书调研数据集文档', 'Sentiment graph F1', sourceLinks.survey, '需遵守 SemEval 数据使用规则'),
+            ds('EmoEvent', 'text', '事件相关情绪与冒犯性语言', '围绕社会事件的情绪识别与冒犯性语言分析。', '文本 / 社交媒体', '事件情绪识别、冒犯性语言检测', 'EmoEvent 团队', '待补充', '飞书调研数据集文档', 'Macro-F1、Accuracy', sourceLinks.survey, '需遵守原始许可和平台数据规则'),
+            ds('P-Stance', 'text', '政治立场二分类', '面向政治目标的 stance detection 数据集。', '文本 / 社交媒体', '观点挖掘、立场二分类', 'P-Stance 团队', '待补充', '飞书调研数据集文档', 'Macro-F1', sourceLinks.survey, '需遵守原始许可'),
+            ds('COVID-19-Stance', 'text', '疫情主题立场三分类', '用于区分支持、反对与中立立场，强调情感极性不等于立场。', '文本 / 社交媒体', 'Stance Detection', 'COVID-19-Stance 团队', '待补充', '飞书调研数据集文档', 'Macro-F1', sourceLinks.survey, '需遵守原始许可'),
+            ds('RECCON', 'text', '对话情绪原因识别', '在对话中推理某个情绪发生的诱导原因，而不是只看情绪词。', '文本 / 对话', 'Emotion Cause Extraction in Conversations', 'RECCON 团队', '待补充', '飞书调研数据集文档', 'F1、Macro-F1', sourceLinks.survey, '需遵守原始许可'),
+            ds('ConvECPE', 'text', '对话情绪-原因对抽取', '面向对话的 emotion-cause pair extraction。', '文本 / 对话', '情绪-原因对抽取', 'ConvECPE 团队', '待补充', '飞书调研数据集文档', 'F1', sourceLinks.survey, '需遵守原始许可'),
+            ds('ECPE-D', 'text', '对话情绪原因解释', '从识别情绪升级到解释情绪为什么产生。', '文本 / 对话', 'Emotion-Cause Pair Extraction', 'ECPE-D 团队', '待补充', '飞书调研数据集文档', 'F1、Precision、Recall', sourceLinks.survey, '需遵守原始许可'),
+
+            ds('RAVDESS', 'audio', 'Ryerson Audio-Visual Database of Emotional Speech and Song', '演员语音与歌曲表演数据集，适合基础语音情绪识别。', '音频 / 音视频', '语音情绪识别', 'Ryerson University', '待补充', '飞书调研数据集文档', 'Accuracy、Macro-F1', sourceLinks.survey, '需遵守原始许可'),
+            ds('IEMOCAP', 'audio', '互动式情绪二人对话数据集', '包含语音、视频、文本和动作捕捉，常用于语音/多模态情绪识别。', '音频 / 视频 / 文本', '语音情绪识别、连续情绪维度建模', 'USC SAIL', '待补充', '飞书调研数据集文档', 'WA、UA、Accuracy、Macro-F1、CCC', sourceLinks.survey, '需申请并遵守 IEMOCAP 使用协议'),
+            ds('MSP-Podcast Corpus', 'audio', '大规模播客自然语音情绪数据集', '真实播客语音中的情绪类别和 VAD 标注。', '音频', '自然语音情绪识别', 'UT Dallas MSP Lab', '待补充', '飞书调研数据集文档', 'Macro-F1、CCC、Accuracy', sourceLinks.survey, '需申请并遵守 MSP 使用协议'),
+            ds('EmoDB', 'audio', 'Berlin Database of Emotional Speech', '经典德语单模态语音情绪识别数据集。', '音频', '7 类语音情绪分类', 'TU Berlin', '待补充', '飞书调研数据集文档', 'Accuracy、UAR、Macro-F1', sourceLinks.survey, '需遵守原始许可'),
+            ds('TESS', 'audio', 'Toronto Emotional Speech Set', '两名女性演员朗读中性词汇，测试模型是否能仅靠语音韵律识别情绪。', '音频', '语音情绪识别', 'University of Toronto', '待补充', '飞书调研数据集文档', 'Accuracy、Macro-F1、UAR', sourceLinks.survey, '需遵守原始许可'),
+
+            ds('ESD', 'generation', 'Emotional Speech Dataset', '同一句话用不同情绪说出来，适合情绪 TTS 与语音转换。', '音频 / 文本', '情绪语音生成、TTS、Voice Conversion', 'ESD 团队', '待补充', '飞书调研数据集文档', 'MOS、情绪分类准确率、主观偏好', sourceLinks.survey, '需遵守原始许可'),
+            ds('EmoV-DB', 'generation', 'Emotional Voices Database', '用于情绪语音转换与 TTS，强调音高、语速、能量和停顿等声音线索。', '音频 / 文本 / TextGrid', '情绪 TTS、语音转换、SER', 'EmoV-DB 团队', '待补充', '飞书调研数据集文档', '主观 CMOS、情绪分类正确率', sourceLinks.survey, 'OpenSLR 版本与原论文说明可能存在差异，需以下载页为准'),
+            ds('Expresso', 'generation', 'Expressive Speech Dataset', '覆盖 happy、sad、angry、whisper、laughing、sarcastic 等表达风格。', '音频 / 文本 / 风格标签', 'Expressive TTS、语音重建、风格控制', 'Meta / Interspeech 2023 相关项目', '2023', '飞书调研数据集文档', '风格分类准确率、说话人相似度、重建质量', sourceLinks.survey, '暂无官方动态排行榜，需遵守原始许可'),
+            ds('CSEMOTIONS', 'generation', '中文普通话情绪语音数据集', '让模型用同一个人的声音说出不同情绪，服务于中文情绪 TTS 与 voice cloning。', '音频 / 文本 / 情绪标签 / 说话人', '中文情绪 TTS、语音生成、Voice Cloning、SER', 'AIDC-AI / Marco-Voice', '待补充', '飞书调研数据集文档', '主观评价、A/B 偏好测试、情绪识别分析', sourceLinks.survey, 'Hugging Face 页面存在说话人数说明不一致，使用前需下载核验'),
+
+            ds('EmoBench', 'empathy', 'LLM 情绪智能评测基准', '评测模型是否能理解情绪、理解处境，并选择有帮助的回应。', '文本 / 问答', '情绪理解、情绪应用、共情回应选择', 'Tsinghua / Michigan / HKU 等', '待补充', '飞书调研数据集文档', 'Accuracy、人工/规则评分', sourceLinks.survey, '需遵守原始许可'),
+
+            ds('EQ-Bench', 'social', '大模型情商与社会推理评测', '通过高难度 roleplay scenarios 评估 empathy、social dexterity 与 emotional reasoning。', '文本 / 对话场景', '情商评测、社会推理、关系判断', 'Samuel J. Paech', '待补充', '飞书调研数据集文档', 'EQ-Bench 官方分数', 'https://eqbench.com/', '需遵守原始网站和评测协议'),
+            ds('FairFace', 'social', '公平性人脸属性数据集', '用于人脸属性识别和跨年龄、性别、种族群体的偏见分析。', '图像 / 人脸属性', '公平性评测、偏见分析、人脸属性识别', 'FairFace 团队', '待补充', '视觉表情知识库子文档', 'Accuracy、Group-wise metrics', 'https://wcn53vllwfcg.feishu.cn/wiki/V71jwhtsAiS2IFkm5Alcj4a8n5p', '需遵守原始数据使用协议，注意公平性与隐私边界')
+        ];
 
         const detailRows = [
             ['数据来源', 'source'],
-            ['下载链接/官网链接/申请页面链接', 'links'],
-            ['发布时间', 'publishTime'],
+            ['下载链接 / 申请页面', 'link'],
+            ['发布时间', 'year'],
             ['发布机构', 'publisher'],
-            ['数据模态类型', 'modality'],
+            ['数据集模态类型', 'modality'],
             ['数据集对应任务', 'task'],
-            ['数据集采集与标注方式', 'collectionAnnotation'],
-            ['数据处理流程和 benchmark', 'processingBenchmark'],
-            ['数据集实时打榜排名（如有）', 'liveRanking'],
-            ['stars/cite 的数量（如有）', 'starsCites'],
-            ['使用限制（如有）', 'usageLimits']
+            ['采集与标注方式', 'collection'],
+            ['数据处理流程和 Benchmark', 'benchmark'],
+            ['实时打榜排名', 'leaderboard'],
+            ['Stars / Cite 数量', 'stars'],
+            ['使用限制', 'usage']
         ];
 
-        function escapeHtml(value) {
-            return String(value || '待补充').replace(/[&<>"]/g, function(char) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]; });
-        }
+        let currentDataset = null;
 
-        function stripHtml(value) {
-            const div = document.createElement('div');
-            div.innerHTML = String(value || '待补充');
-            return div.textContent || div.innerText || '待补充';
-        }
-
-        function pending(value) {
-            if (value === undefined || value === null || String(value).trim() === '') return '待补充';
-            return value;
-        }
-
-        function inferUsageLimits(ds) {
-            const notes = (ds.downloadLinks || []).map(function(link) { return link.note || ''; }).filter(Boolean).join('；');
-            if (notes) return notes + '；请遵守原始许可证、EULA、访问限制与引用要求；本平台仅作非商用研究展示。';
-            return '请遵守原始许可证、EULA、访问限制与引用要求；本平台仅作非商用研究展示，不授予第三方资源商业使用权。';
-        }
-
-        function renderLinks(ds) {
-            const links = ds.downloadLinks || [];
-            if (!links.length) return '待补充';
-            return links.map(function(link) {
-                return '<a href="' + link.url + '" target="_blank" rel="noopener">' + escapeHtml(link.label) + ' <i class="fa-solid fa-arrow-up-right-from-square"></i></a><span class="info-note">' + escapeHtml(link.note || '') + '</span>';
-            }).join('<br>');
-        }
-
-        function datasetDetail(ds) {
+        function ds(title, category, subtitle, description, modality, task, publisher, year, source, benchmark, link, usage) {
             return {
-                source: pending(ds.source),
-                links: renderLinks(ds),
-                publishTime: pending(ds.publishTime || ds.releaseDate || ds.year),
-                publisher: pending(ds.publisher || ds.source),
-                modality: pending(ds.modality || ds.type),
-                task: pending(ds.task || ds.paradigm),
-                collectionAnnotation: pending(ds.collectionAnnotation || ds.method),
-                processingBenchmark: pending(ds.processingBenchmark || ds.paradigm),
-                liveRanking: pending(ds.liveRanking || '待补充 / 暂未接入实时打榜'),
-                starsCites: pending(ds.starsCites),
-                usageLimits: pending(ds.usageLimits || inferUsageLimits(ds))
+                id: title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+                title, category, subtitle, description, modality, task, publisher, year, source, benchmark, link, usage,
+                collection: inferCollection(category),
+                leaderboard: benchmark && benchmark.includes('榜') ? benchmark : '暂无官方持续实时榜单；可展示论文或官方静态结果。',
+                stars: '待补充 / 以原始仓库、论文页或榜单页面为准'
             };
         }
 
-        function renderRequiredInfo(ds) {
-            const info = datasetDetail(ds);
-            const grid = document.getElementById('modal-required-info');
-            grid.innerHTML = detailRows.map(function(row) {
-                return '<div class="info-item"><div>' + row[0] + '</div><p>' + info[row[1]] + '</p></div>';
+        function inferCollection(category) {
+            const map = {
+                multimodal: '多模态视频、音频、文本或人脸特征采集，结合人工标注、挑战赛标注或模型辅助标注。',
+                visual: '图像/视频采集后进行表情、AU、关键点、属性或事件级人工标注。',
+                text: '公开文本、评论、新闻、对话或社交媒体样本，经人工标注、远程监督或任务数据整合得到。',
+                audio: '演员录制、自然语音采集或播客采样，配套情绪类别、VAD 或听感标注。',
+                generation: '专业录音或表达式语音采集，按文本、情绪、风格和说话人条件整理。',
+                empathy: '人工构造或众包情绪情境，评估模型对情绪、处境和支持性回应的理解。',
+                social: '社会角色、属性、公平性、关系或高阶情绪智能场景采集与标注。'
+            };
+            return map[category] || '详见原始文档。';
+        }
+
+        function categoryInfo(id) {
+            return categories.find(c => c.id === id) || categories[0];
+        }
+
+        function escapeHtml(value) {
+            return String(value || '待补充').replace(/[&<>"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));
+        }
+
+        function renderCategoryTabs() {
+            const tabs = document.getElementById('category-tabs');
+            tabs.innerHTML = categories.map(cat => {
+                const count = cat.id === 'all' ? datasets.length : datasets.filter(d => d.category === cat.id).length;
+                return `<button onclick="filterByCategory('${cat.id}')" class="category-tab ${cat.id === 'all' ? 'active' : ''} px-4 py-2 rounded-2xl text-sm border border-zinc-700 hover:bg-zinc-900 flex items-center gap-x-2"><i class="fa-solid ${cat.icon}"></i><span>${cat.label}</span><span class="text-xs opacity-70">${count}</span></button>`;
             }).join('');
         }
 
         function renderDatasets(list) {
             const grid = document.getElementById('datasets-grid');
             grid.innerHTML = '';
-            list.forEach(ds => {
-                const card = document.createElement('div');
+            list.forEach(item => {
+                const cat = categoryInfo(item.category);
+                const card = document.createElement('article');
                 card.className = 'dataset-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6 cursor-pointer';
                 card.innerHTML = `
-                    <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-start justify-between mb-4 gap-4">
                         <div>
-                            <span class="px-3 py-1 text-xs rounded-full bg-${ds.color}-900/60 text-${ds.color}-400">${ds.type}</span>
-                            <h3 class="font-semibold text-xl mt-3">${ds.title}</h3>
-                            <p class="text-xs text-zinc-400">${ds.subtitle}</p>
+                            <span class="px-3 py-1 text-xs rounded-full bg-violet-900/50 text-violet-200">${cat.label}</span>
+                            <h3 class="font-semibold text-xl mt-3">${item.title}</h3>
+                            <p class="text-xs text-zinc-400 mt-1">${item.subtitle}</p>
                         </div>
-                        <i class="fa-solid ${ds.icon} text-3xl text-${ds.color}-400"></i>
+                        <i class="fa-solid ${cat.icon} text-3xl text-violet-300"></i>
                     </div>
-                    <p class="text-sm text-zinc-400 line-clamp-3 mb-4">${ds.shortDesc}</p>
-                    <div class="pt-4 border-t border-zinc-700 flex justify-between items-center text-xs">
-                        <span class="text-zinc-500">${ds.source}</span>
-                        <button onclick="event.stopImmediatePropagation(); showDatasetDetail('${ds.id}')" class="px-4 py-1.5 text-xs bg-violet-600 hover:bg-violet-500 text-white rounded-xl font-medium flex items-center gap-x-1.5 transition">
+                    <p class="text-sm text-zinc-400 line-clamp-3 mb-4">${item.description}</p>
+                    <div class="pt-4 border-t border-zinc-700 flex justify-between items-center gap-3 text-xs">
+                        <span class="text-zinc-500">${item.modality}</span>
+                        <button onclick="event.stopImmediatePropagation(); showDatasetDetail('${item.id}')" class="px-4 py-1.5 text-xs bg-violet-600 hover:bg-violet-500 text-white rounded-xl font-medium flex items-center gap-x-1.5 transition">
                             <i class="fa-solid fa-info-circle"></i> <span>查看详情</span>
                         </button>
                     </div>
                 `;
-                card.onclick = () => showDatasetDetail(ds.id);
+                card.onclick = () => showDatasetDetail(item.id);
                 grid.appendChild(card);
             });
             document.getElementById('dataset-count').innerText = list.length;
         }
 
         function filterByCategory(category) {
-            const tabs = document.querySelectorAll('#category-tabs button');
-            tabs.forEach(t => t.classList.remove('active', 'bg-violet-600', 'border-violet-600'));
-            let activeTab = Array.from(tabs).find(t => t.getAttribute('onclick') === `filterByCategory('${category}')`);
-            if (activeTab) activeTab.classList.add('active', 'bg-violet-600', 'border-violet-600');
-
-            const filtered = category === 'all' ? allDatasets : allDatasets.filter(d => d.category === category);
-            renderDatasets(filtered);
+            document.querySelectorAll('#category-tabs button').forEach(tab => tab.classList.remove('active'));
+            const active = Array.from(document.querySelectorAll('#category-tabs button')).find(tab => tab.getAttribute('onclick') === `filterByCategory('${category}')`);
+            if (active) active.classList.add('active');
+            renderDatasets(category === 'all' ? datasets : datasets.filter(item => item.category === category));
         }
-
-        let currentDataset = null;
 
         function showDatasetDetail(id) {
-            currentDataset = allDatasets.find(d => d.id === id);
+            currentDataset = datasets.find(item => item.id === id);
             if (!currentDataset) return;
-
+            const cat = categoryInfo(currentDataset.category);
+            document.getElementById('modal-category').innerHTML = `<i class="fa-solid ${cat.icon} mr-2"></i>${cat.label}`;
             document.getElementById('modal-title').innerText = currentDataset.title;
             document.getElementById('modal-subtitle').innerText = currentDataset.subtitle;
-
-            const badge = document.getElementById('modal-type-badge');
-            badge.innerHTML = `<span class="px-3 py-1 text-xs rounded-full bg-${currentDataset.color}-900/60 text-${currentDataset.color}-400">${currentDataset.type}</span>`;
-
-            document.getElementById('modal-description').innerHTML = currentDataset.description || currentDataset.shortDesc;
-            document.getElementById('modal-paradigm').innerHTML = currentDataset.paradigm || currentDataset.task || '待补充';
-            document.getElementById('modal-benchmark').innerHTML = '<div class="text-xs text-zinc-500 mb-2">数据处理流程和 benchmark</div>' + escapeHtml(datasetDetail(currentDataset).processingBenchmark);
-            document.getElementById('modal-volume').innerHTML = currentDataset.volume || '详见官网';
-            document.getElementById('modal-method').innerHTML = currentDataset.method || currentDataset.collectionAnnotation || '待补充';
-            renderRequiredInfo(currentDataset);
-
-            const dlDiv = document.getElementById('modal-download-links');
-            dlDiv.innerHTML = '';
-            (currentDataset.downloadLinks || []).forEach(link => {
-                const a = document.createElement('a');
-                a.href = link.url; a.target = '_blank';
-                a.className = 'block px-5 py-3.5 bg-zinc-950 border border-zinc-700 hover:border-emerald-500 rounded-2xl transition flex justify-between items-center text-sm';
-                a.innerHTML = `<span class="font-medium">${link.label}</span><span class="text-emerald-400 text-xs flex items-center gap-x-1">${link.note || ''} <i class="fa-solid fa-external-link-alt"></i></span>`;
-                dlDiv.appendChild(a);
-            });
-
+            document.getElementById('modal-description').innerText = currentDataset.description;
+            document.getElementById('modal-required-info').innerHTML = detailRows.map(([label, key]) => {
+                let value = currentDataset[key] || '待补充';
+                if (key === 'link' && value !== '待补充') value = `<a href="${escapeHtml(value)}" target="_blank" rel="noopener">${escapeHtml(value)} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
+                return `<div class="info-item"><div>${label}</div><p>${value}</p></div>`;
+            }).join('');
             document.getElementById('dataset-modal').classList.remove('hidden');
             document.getElementById('dataset-modal').classList.add('flex');
-            switchTab(0);
-        }
-
-        function switchTab(tabIndex) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('[id^="tab-"]').forEach(el => el.classList.remove('active', 'border-violet-500', 'text-white'));
-            const activeContent = document.getElementById('tab-content-' + tabIndex);
-            if (activeContent) activeContent.classList.remove('hidden');
-            const activeBtn = document.getElementById('tab-' + tabIndex);
-            if (activeBtn) activeBtn.classList.add('active', 'border-violet-500', 'text-white');
         }
 
         function closeModal() {
@@ -360,23 +280,16 @@
 
         function copyDatasetInfo() {
             if (!currentDataset) return;
-            const detail = datasetDetail(currentDataset);
-            const text = currentDataset.title + ' (' + currentDataset.subtitle + ')\n\n' + currentDataset.description + '\n\n' + detailRows.map(function(row) { return row[0] + ': ' + stripHtml(detail[row[1]]); }).join('\n') + '\n\n下载链接:\n' + (currentDataset.downloadLinks || []).map(function(l) { return '- ' + l.label + ': ' + l.url + ' (' + (l.note || '待补充') + ')'; }).join('\n');
+            const text = `${currentDataset.title}\n${currentDataset.subtitle}\n\n${currentDataset.description}\n\n` + detailRows.map(([label, key]) => `${label}: ${currentDataset[key] || '待补充'}`).join('\n');
             navigator.clipboard.writeText(text).then(() => alert('已复制到剪贴板'));
         }
 
-        window.onload = function() {
-            renderDatasets(allDatasets);
-            const firstTab = document.querySelector('#category-tabs button');
-            if (firstTab) firstTab.classList.add('active', 'bg-violet-600', 'border-violet-600');
-        };
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const modal = document.getElementById('dataset-modal');
-                if (!modal.classList.contains('hidden')) closeModal();
-            }
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') closeModal();
         });
+
+        renderCategoryTabs();
+        renderDatasets(datasets);
     </script>
 </body>
 </html>
